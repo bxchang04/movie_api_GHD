@@ -1,81 +1,26 @@
-const express = require('express');
-  morgan = require('morgan');
+console.log('My first Node test server is running on Port 8080.');
 
-const app = express();
+const http = require('http'),
+  fs = require('fs'),
+  url = require('url');
 
-let topMovies = [ {
-    title : 'Pokemon the Movie', //placeholders as I don't have 10 favorite movies
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 2',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 3',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 4',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 5',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 6',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 7',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 8',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 9',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 10',
-    author : 'Nintendo'
-}
-]
+http.createServer((request, response) => {
+  var addr = request.url,
+    q = url.parse(addr, true),
+    filePath = '';
 
-//morgan logger
-app.use(morgan('common'));
+  if (q.pathname.includes('documentation')) {
+    filePath = (__dirname + '/documentation.html');
+  } else {
+    filePath = 'index.html';
+  }
 
-// GET requests
-app.get('/', function(req, res) {
-  res.send('Welcome to my top movies list!')
-});
-app.use(express.static('public'));
-app.get('/movies', function(req, res) {
-  res.json(topMovies)
-});
-
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
-//optional?
-// const bodyParser = require('body-parser'),
-//   methodOverride = require('method-override');
-//
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }));
-// app.use(bodyParser.json());
-// app.use(methodOverride());
-// app.use(function (err, req, res, next) {
-//   // logic
-// });
-
-// listen for requests
-app.listen(8080, () =>
-  console.log('Your app is listening on port 8080.')
-);
+  fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', function(err) {
+    if (err) {
+      console.log(err);
+    }
+      else {
+    console.log('Added to log.');
+    }
+  });
+}).listen(8080);
