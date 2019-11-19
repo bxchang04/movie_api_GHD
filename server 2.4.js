@@ -43,7 +43,7 @@ let topMovies = [ {
     title : 'Pokemon the Movie 10',
     author : 'Nintendo'
 }
-]
+];
 
 //morgan logger
 app.use(morgan('common'));
