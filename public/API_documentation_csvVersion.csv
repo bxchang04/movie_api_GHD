@@ -1,10 +1,74 @@
 Business Logic,URL,HTTP Method,Request body data format,Response body data format
-Return a list of ALL movies to the user,/movies,GET,None,
-"Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user",/movies,GET,None,
-Return data about a genre (description) by name/title,/movies,GET,None,
-"Return data about a director (bio, birth year, death year) by name",/movies,GET,None,
-Allow new users to register,/users,POST,,
-"Allow users to update their user info (username, password, email, date of birth)",/users,POST,,
-Allow users to add a movie to their list of favorites,/movies,POST,,
-Allow users to remove a movie from their list of favorites,/users,DELETE,None,
-Allow existing users to deregister,/users,DELETE,None,
+Return a list of ALL movies to the user,/movies,GET,None,A JSON object holding data about all the movies
+"Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user",/movies,GET,None,"A JSON object holding data about a single movie, containing an ID, title, and classes property. Example:
+{    
+    id: 1,
+    title: 'Pokemon the Movie',
+    clases: {
+      description: 'An animated movie',
+      genre: 'Animated',
+      director: 'Nintendo',
+      image_URL: 'http://www.test.com',
+      featured: 'true/false'
+      }
+    },
+"
+Return data about a genre (description) by name/title,/movies,GET,None,"A JSON object holding data about the movie's genre, containing an ID, title, and classes property. Example:
+{    
+    id: 1,
+    title: 'Pokemon the Movie',
+    clases: {
+      description: 'An animated movie',
+      genre: 'Animated',
+      director: 'Nintendo',
+      image_URL: 'http://www.test.com',
+      featured: 'true/false'
+      }
+    },
+"
+"Return data about a director (bio, birth year, death year) by name",/movies,GET,None,"A JSON object holding data about the movie's director, containing an ID, title, and classes property. Example:
+{    
+    id: 1,
+    title: 'Pokemon the Movie',
+    clases: {
+      description: 'An animated movie',
+      genre: 'Animated',
+      director: 'Nintendo',
+      image_URL: 'http://www.test.com',
+      featured: 'true/false'
+      }
+    },
+"
+Allow new users to register,/users,POST,"A JSON object holding data about the user to add, including an ID:
+{
+ id: 1,
+ name: 'Anne'
+}
+","A JSON object holding data about the user added, including an ID:
+{
+ id: 1,
+ name: 'Anne'
+}
+"
+"Allow users to update their user info (username, password, email, date of birth)",/users,POST,None,A text message indicating whether the user was successfully updated.
+Allow users to add a movie to their list of favorites,/favorites,POST,"A JSON object holding data about the movie to add, including an ID:
+{
+ id: 1,
+ title: 'Pokemon 1',
+ genre: 'Action/Adventure',
+ director: 'Nintendo'
+}","A JSON object holding data about the movie that was added, containing an ID, title, and classes property. Example:
+{    
+    id: 1,
+    title: 'Pokemon the Movie',
+    clases: {
+      description: 'An animated movie',
+      genre: 'Animated',
+      director: 'Nintendo',
+      image_URL: 'http://www.test.com',
+      featured: 'true/false'
+      }
+    },
+"
+Allow users to remove a movie from their list of favorites,/favorites,DELETE,None,A text message indicating whether the user was successfully removed.
+Allow existing users to deregister,/users,DELETE,None,A text message indicating whether the user was successfully deregistered.

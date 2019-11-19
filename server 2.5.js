@@ -7,45 +7,38 @@ const app = express();
 app.use(bodyParser.json());
 
 let topMovies = [ {
-    title : 'Pokemon the Movie', //placeholders as I don't have 10 favorite movies
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 2',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 3',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 4',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 5',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 6',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 7',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 8',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 9',
-    author : 'Nintendo'
-},
-{
-    title : 'Pokemon the Movie 10',
-    author : 'Nintendo'
-}
+    id: 1,
+    title: 'Pokemon the Movie', //placeholders as I don't have 10 favorite movies
+    clases: {
+      description: 'An animated movie',
+      genre: 'Animated',
+      director: 'Nintendo',
+      image_URL: 'http://www.test.com',
+      featured: 'true/false'
+      }
+    },
+    {
+      id: 2,
+      title: 'Pokemon the Movie', //placeholders as I don't have 10 favorite movies
+      clases: {
+        description: 'An animated movie',
+        genre: 'Animated',
+        director: 'Nintendo',
+        image_URL: 'http://www.test.com',
+        featured: 'true/false'
+        }
+      },
+    {
+      id: 3,
+      title: 'Pokemon the Movie', //placeholders as I don't have 10 favorite movies
+      clases: {
+        description: 'An animated movie',
+        genre: 'Animated',
+        director: 'Nintendo',
+        image_URL: 'http://www.test.com',
+        featured: 'true/false'
+        }
+    }
 ];
 
 let Users = [ {
