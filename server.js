@@ -1,3 +1,6 @@
+const express = require('express');
+const app = express();
+
 console.log('My first Node test server is running on Port 8080.');
 
 const http = require('http'),
