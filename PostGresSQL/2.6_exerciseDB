@@ -1,0 +1,6 @@
+delete from movies
+	where movieid = 7;
+
+select * from movies;
+
+	
