@@ -31,8 +31,8 @@ Update your “index.js” file either by adding "http://localhost:1234" to the 
 Add your changes by typing git add index.js in your terminal.
 Commit your changes by typing git commit -m "enable cors for local react app/all domains" in your terminal.
 Push your changes to Heroku by typing git push heroku master in your terminal.
-
 */
+
 
 //3.3 where is index.js???
 
@@ -59,5 +59,37 @@ const container = document.getElementsByClassName('app-container')[0];
 ReactDOM.render(React.createElement(MyFlixApplication), container);
 
 
+
 //3.5 Not sure where this goes: (index.js of your API)
 // passport.authenticate('jwt', { session: false })
+
+//3.6
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import MainView from './components/main-view/main-view';
+import moviesApp from './reducers/reducers';
+
+// Import statement to indicate that we need to bundle `./index.scss`
+import './index.scss';
+
+const store = createStore(moviesApp);
+
+// Main component (will eventually use all the others)
+class MyFlixApplication extends React.Component {
+  render() {
+    return(
+    <Provider store={store}>
+        <MainView />
+    </Provider>
+    );
+  }
+}
+
+// Find the root of our app
+const container = document.getElementsByClassName('app-container')[0];
+
+// Tell React to render our app in the root DOM element
+ReactDOM.render(React.createElement(MyFlixApplication), container);

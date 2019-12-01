@@ -48,3 +48,43 @@ Make sure to assign a valid path to each movie's ImagePath in the database. One 
 https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi_0Ienv4nmAhWOct8KHQ_xA3oQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt0190641%2F&psig=AOvVaw2p0Un5xfl5SaSdoPF-Bytn&ust=1574913278114790
 
 */
+
+//3.5
+/*
+// movie-view.jsx
+// is the order correct for these links?
+<Link to={`/directors/${movie.Director.Name}`}>
+  <Button variant="link">Director</Button>
+</Link>
+<Link to={`/genres/${movie.Genre.Name}`}>
+  <Button variant="link">Genre</Button>
+</Link>
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
+import { Link } from "react-router-dom";
+
+export class MovieCard extends React.Component {
+  render() {
+    const { movie } = this.props;
+
+    return (
+      <Card style={{ width: '16rem' }}>
+        <Card.Img variant="top" src={movie.ImagePath} />
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
+          <Card.Text>{movie.Description}</Card.Text>
+          <Link to={`/movies/${movie._id}`}>
+            <Button variant="link">Open</Button>
+          </Link>
+        </Card.Body>
+      </Card>
+    );
+  }
+}
+
+
+*/
