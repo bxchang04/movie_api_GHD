@@ -13,9 +13,11 @@ http.createServer((request, response) => {
     filePath = 'index.html';
   }
 
-  fs.readFile(filePath, function(err, data) {
+  fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', function(err) {
     if (err) {
-      throw err;
+      console.log(err);
+    } else {
+      console.log('Added to log.');
     }
 
     response.writeHead(200, { 'Content-Type': 'text/html' });
