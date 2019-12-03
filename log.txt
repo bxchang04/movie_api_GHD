@@ -19,3 +19,9 @@ Timestamp: Mon Nov 18 2019 23:53:03 GMT-0500 (EST)
 URL: /documentation.html
 Timestamp: Mon Nov 18 2019 23:53:23 GMT-0500 (EST)
 
+URL: /
+Timestamp: Mon Dec 02 2019 20:42:33 GMT-0500 (EST)
+
+URL: /favicon.ico
+Timestamp: Mon Dec 02 2019 20:42:33 GMT-0500 (EST)
+
