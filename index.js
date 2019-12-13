@@ -96,7 +96,7 @@ let FavoriteMovies = [ {
 // Return a list of ALL movies to the user
 app.get("/movies", (req, res) => {
   res.json(TopMovies);
-  res.send("Successful GET request returning data on all the students");
+  res.send("Successful GET request returning data on all the movies");
 });
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get("/movies/:title", (req, res) => {
@@ -116,7 +116,7 @@ app.get("/movies/:director", (req, res) => {
   res.json(TopMovies.find( (movie) =>
     { return movie.director === req.params.director   }));
   res.send("Successful GET request returning data on a director of a single movie");
-});
+
 // Allow new users to register
   let newUser = req.body;
 
@@ -149,7 +149,7 @@ app.post("/favorites", (req, res) => {
   }
 });
 // Deletes a movie from our list by ID
-app.delete("/students/:id", (req, res) => {
+app.delete("/movies/:id", (req, res) => {
   let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });
 
   if (movie_to_delete) {
