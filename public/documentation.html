@@ -1,14 +1,3 @@
-Tables Generator
-LaTeX Tables
-HTML Tables
-Text Tables
-Markdown Tables
-MediaWiki Tables
-Contact
-HTML Tables Generator96
-      Arial  10px          Theme
- GenerateDo not generate CSSCompact mode
-Result (click "Generate" to refresh) Copy to clipboard
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
@@ -52,6 +41,13 @@ Result (click "Generate" to refresh) Copy to clipboard
     <td class="tg-0lax">A JSON object holding data about the movie's director, containing an ID, title, and classes property. Example:{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: 1,&nbsp;&nbsp;&nbsp;&nbsp;title: 'Pokemon the Movie',&nbsp;&nbsp;&nbsp;&nbsp;clases: {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description: 'An animated movie',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genre: 'Animated',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;director: 'Nintendo',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_URL: 'http://www.test.com',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;featured: 'true/false'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;},</td>
   </tr>
   <tr>
+    <td class="tg-0lax">Return documentation</td>
+    <td class="tg-0lax">/documentation</td>
+    <td class="tg-0lax">GET</td>
+    <td class="tg-0lax">None</td>
+    <td class="tg-0lax">A HTML table</td>
+  </tr>
+  <tr>
     <td class="tg-0lax">Allow new users to register</td>
     <td class="tg-0lax">/users</td>
     <td class="tg-0lax">POST</td>
@@ -87,22 +83,3 @@ Result (click "Generate" to refresh) Copy to clipboard
     <td class="tg-0lax">A text message indicating whether the user was successfully deregistered.</td>
   </tr>
 </table>
-First row is a table header   Preview
-How to use it?
-Using the Table menu set the desired size of the table.
-Enter the table data into the table:
-select and copy (Ctrl+C) a table from the spreadsheet (e.g. Google Docs, LibreOffice Calc, webpage) and paste it into our editor -- click a cell and press Ctrl+V
-or just double click any cell to start editing it's contents -- Tab and Arrow keys can be used to navigate table cells
-Adjust text alignment and table borders using the options from the menu and using the toolbar buttons -- formatting is applied to all the selected cells.
-Click "Generate" button to see the generated table's HTML source code -- select it and then Copy & Paste to your website's source.
-We hope that this tool will prove useful for people who are not very familiar with the HTML and CSS. So if you need a table for your website or blog (Wordpress, Drupal or any platform which allows putting HTML code inside posts) it should work just fine. Our HTML table generator could also be useful for developers who just want to quickly create the HTML table. Please, note that newlines are preserved in the generated table's code.
-
-Remarks
-To insert the table into your website just copy & paste the generated code into your website's source. It should display fine in all modern browsers both desktop and mobile. But if you want your page to remain consistent with HTML standard, please, read the next paragraph.
-
-The generated code consists of two parts: <style> tag and <table> tag. The first one should be copied and put just before the </head> tag of your website, while the latter (i.e. table code) should be placed in the desired location.
-
-Table themes
-As you probably noticed there is a select box "--Table theme--" in the toolbar which allows selecting a table theme from the predefined set. The generated CSS contains all the necessary colors etc. so that the table should look similar when you paste it to your website.
-
-© TablesGenerator.comAboutChangelog

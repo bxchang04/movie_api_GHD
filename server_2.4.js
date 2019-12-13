@@ -52,7 +52,13 @@ app.use(morgan('common'));
 app.get('/', function(req, res) {
   res.send('Welcome to my top movies list!')
 });
+
+//is this the proper way to GET documentation?
 app.use(express.static('public'));
+app.get('/documentation', function(req, res) {
+  res.sendFile('public/documentation.html', { root : __dirname });
+});
+
 app.get('/movies', function(req, res) {
   res.json(topMovies)
 });
