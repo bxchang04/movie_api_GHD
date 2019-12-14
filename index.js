@@ -117,6 +117,12 @@ app.get("/movies/:director", (req, res) => {
     { return movie.director === req.params.director   }));
   res.send("Successful GET request returning data on a director of a single movie");
 
+  // Return documentation
+  app.use(express.static('public'));
+  app.get('/documentation', function(req, res) {
+    res.sendFile('public/documentation.html', { root : __dirname });
+  });
+
 // Allow new users to register
   let newUser = req.body;
 

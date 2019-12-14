@@ -41,6 +41,13 @@
     <td class="tg-0lax">A JSON object holding data about the movie's director, containing an ID, title, and classes property. Example:{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: 1,&nbsp;&nbsp;&nbsp;&nbsp;title: 'Pokemon the Movie',&nbsp;&nbsp;&nbsp;&nbsp;clases: {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description: 'An animated movie',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genre: 'Animated',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;director: 'Nintendo',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image_URL: 'http://www.test.com',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;featured: 'true/false'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;},</td>
   </tr>
   <tr>
+    <td class="tg-0lax">Return documentation</td>
+    <td class="tg-0lax">/documentation</td>
+    <td class="tg-0lax">GET</td>
+    <td class="tg-0lax">None</td>
+    <td class="tg-0lax">A HTML table</td>
+  </tr>
+  <tr>
     <td class="tg-0lax">Allow new users to register</td>
     <td class="tg-0lax">/users</td>
     <td class="tg-0lax">POST</td>
@@ -50,8 +57,8 @@
   <tr>
     <td class="tg-0lax">Allow users to update their user info (username, password, email, date of birth)</td>
     <td class="tg-0lax">/users</td>
-    <td class="tg-0lax">POST</td>
-    <td class="tg-0lax">None</td>
+    <td class="tg-0lax">PUT</td>
+    <td class="tg-0lax">A JSON object holding data about the user's info to be modified.</td>
     <td class="tg-0lax">A text message indicating whether the user was successfully updated.</td>
   </tr>
   <tr>
