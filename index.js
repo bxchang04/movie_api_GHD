@@ -138,42 +138,20 @@ app.put("/users", (req, res) => {
 });
 
 //Allow users to add a movie to their list of favorites
-app.post("/favorites/:username/movies/:movieID", (req, res) => {
-  let movie_favorited = req.body;
-
-  if (!movie_favorited.name) {
-    const message = "Missing name in request body";
-    res.status(400).send(message);
-  } else {
-    FavoriteMovies.id = uuid.v4();
-    FavoriteMovies.push(movie_favorited);
-    res.status(201).send(movie_favorited);
+app.post("/favorites", (req, res) => {
     res.send("Successful POST request creating a favorite movie");
   }
-});
+);
 
 // Deletes a movie from our favorite list by ID
-app.delete("/favorites/:username/movies/:movieID", (req, res) => {
-  let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });
-
-  if (movie_to_delete) {
-    FavoriteMovies.filter(function(obj) { return obj.id !== req.params.id });
-    res.status(201).send("Movie " + req.params.id + " was deleted from your favorites list.")
-    res.send("Successful DELETE request deleting a favorite movie");
-  }
+app.delete("/favorites", (req, res) => {
+  res.send("Successful DELETE request deleting a favorite movie");
 });
 
 //Allow existing users to deregister
 app.delete("/users", (req, res) => {
-  let user_to_delete = Users.find((user_to_delete) => { return user_to_delete.id === req.params.id }); //add a && .name here as well? Check this!
-
-  if (user_to_delete) {
-    Users.filter(function(obj) { return obj.id !== req.params.id });
-    res.status(201).send("Movie " + req.params.id + " was deleted from your favorites list.")
-    res.send("Successful DELETE request unregistering a user");
-  }
+  res.send("Successful DELETE request deleting a user");
 });
-
 
 app.listen(8080, () => {
   console.log(`Your app is listening on port 8080`);
