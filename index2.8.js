@@ -17,7 +17,7 @@ const app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-// let TopMovies = [ {
+// let Movies = [ {
 //   id: 1,
 //   title: 'Pokemon the Movie', //placeholder for testing
 //   clases: {
@@ -104,7 +104,7 @@ app.use(bodyParser.json());
 
 // Return a list of ALL movies to the user
 app.get("/movies", function(req, res) {
-  TopMovies.find()
+  Movies.find()
     .then(function(movies) {
       res.status(201).json(movies);
     }).catch(function(error) {
@@ -115,21 +115,21 @@ app.get("/movies", function(req, res) {
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get("/movies/:title", (req, res) => {
-  res.json(TopMovies.find( (movie) =>
+  res.json(Movies.find( (movie) =>
     { return movie.title === req.params.title   }));
     res.send("Successful GET request returning data on a single movie");
 });
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
-app.get("/genre/:name", (req, res) => {
-  res.json(TopMovies.find( (genre) =>
+app.get("/movies/genre/:name", (req, res) => {
+  res.json(Movies.find( (genre) =>
     { return genre.name === req.params.name
     }));
   res.send("Successful GET request returning data on a genre of a single movie");
 });
 // Return data about a director (bio, birth year, death year) by name
-app.get("/director/:director", (req, res) => {
-  res.json(TopMovies.find( (director) =>
+app.get("/movies/director/:director", (req, res) => {
+  res.json(Movies.find( (director) =>
     { return director.name === req.params.name   }));
   res.send("Successful GET request returning data on a director of a single movie");
 });
