@@ -114,24 +114,39 @@ app.get("/movies", function(req, res) {
 });
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
-app.get("/movies/:title", (req, res) => {
-  res.json(Movies.find( (movie) =>
-    { return movie.title === req.params.title   }));
-    res.send("Successful GET request returning data on a single movie");
+app.get('/movies/:Title', function(req , res){
+    Movies.find({Title : req.params.Title})
+     .then(function(movies){
+        res.status(201).json(movies)   /*Returns One By Title*/
+    })
+     .catch(function(error){
+        console.error(error);
+        res.status(500).send("Error" + err);
+    });
 });
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
-app.get("/movies/genre/:name", (req, res) => {
-  res.json(Movies.find( (genre) =>
-    { return genre.name === req.params.name
-    }));
-  res.send("Successful GET request returning data on a genre of a single movie");
+app.get('/movies/genres/:Title', function(req , res){
+    Movies.find({Title : req.params.Title})
+     .then(function(movies){
+        res.status(201).json(movies)   /*Returns One By Title*/
+    })
+     .catch(function(error){
+        console.error(error);
+        res.status(500).send("Error" + err);
+    });
 });
+
 // Return data about a director (bio, birth year, death year) by name
-app.get("/movies/director/:director", (req, res) => {
-  res.json(Movies.find( (director) =>
-    { return director.name === req.params.name   }));
-  res.send("Successful GET request returning data on a director of a single movie");
+app.get('/movies/director/:Name', function(req , res){
+    Movies.find({"Director.Name" : req.params.Name})
+     .then(function(movies){
+        res.status(201).json(movies)   /*Returns One By Title*/
+    })
+     .catch(function(error){
+        console.error(error);
+        res.status(500).send("Error" + err);
+    });
 });
 
 // Allow new users to register
