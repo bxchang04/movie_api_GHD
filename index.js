@@ -134,10 +134,12 @@ app.get("/director/:director", (req, res) => {
     res.send("Successful POST request creating a new user");
   }
 });
+
 // Allow users to update their user info (username, password, email, date of birth) -- not implemented yet!
 app.put("/users", (req, res) => {
  res.send("Successful PUT updating a user's information");
 });
+
 //Allow users to add a movie to their list of favorites --BC: probably don't need to duplicate name
 app.post("/favorites", (req, res) => {
   let movie_favorited = req.body;
@@ -152,6 +154,7 @@ app.post("/favorites", (req, res) => {
     res.send("Successful POST request creating a favorite movie");
   }
 });
+
 // Deletes a movie from our list by ID
 app.delete("/movies/:id", (req, res) => {
   let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });
@@ -162,6 +165,7 @@ app.delete("/movies/:id", (req, res) => {
     res.send("Successful DELETE request deleting a favorite movie");
   }
 });
+
 //Allow existing users to deregister
 app.delete("/users", (req, res) => {
   let user_to_delete = Users.find((user_to_delete) => { return user_to_delete.id === req.params.id }); //add a && .name here as well? Check this!

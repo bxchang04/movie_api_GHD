@@ -5,7 +5,8 @@ const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://kay:bwater@cluster0.mongodb.net/myFlixDB?retryWrites=true', { useNewUrlParser: true });
+//mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
 const express = require("express"),
   bodyParser = require("body-parser"),
