@@ -1,6 +1,4 @@
-app.use(express.static('public'));
-
-const mongoose = require('mongoose');
+ mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
@@ -16,6 +14,7 @@ var auth = require('./auth')(app);
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 let TopMovies = [ {

@@ -1,11 +1,10 @@
-app.use(express.static('public'));
-
 const express = require("express"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 let TopMovies = [ {
@@ -139,7 +138,7 @@ app.put("/users", (req, res) => {
 });
 
 //Allow users to add a movie to their list of favorites --BC: probably don't need to duplicate name
-app.post("/favorites", (req, res) => {
+app.post("/favorites/:username/movies/:movieID", (req, res) => {
   let movie_favorited = req.body;
 
   if (!movie_favorited.name) {
@@ -153,8 +152,8 @@ app.post("/favorites", (req, res) => {
   }
 });
 
-// Deletes a movie from our list by ID
-app.delete("/movies/:id", (req, res) => {
+// Deletes a movie from our favorite list by ID
+app.delete("/favorites/:username/movies/:movieID", (req, res) => {
   let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });
 
   if (movie_to_delete) {

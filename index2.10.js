@@ -1,5 +1,3 @@
-app.use(express.static('public'));
-
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const { check, validationResult } = require('express-validator');
@@ -18,6 +16,7 @@ var auth = require('./auth')(app);
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 let TopMovies = [ {
