@@ -73,7 +73,7 @@ app.use(bodyParser.json());
 //     }
 //   }
 // ];
-
+//
 // let Users = [ {
 //     id : 1,
 //     name : 'Anne', //placeholders as I don't have 10 favorite movies
@@ -208,7 +208,7 @@ app.put('/users/:Username', function(req, res) {
 });
 
 // Add a movie to a user's list of favorites
-app.post('/favorites/:username/movies/:movieID', function(req, res) {
+app.post('/users/:Username/Movies/:MovieID', function(req, res) {
   Users.findOneAndUpdate({ Username : req.params.Username }, {
     $push : { FavoriteMovies : req.params.MovieID }
   },
@@ -222,9 +222,8 @@ app.post('/favorites/:username/movies/:movieID', function(req, res) {
     }
   })
 });
-
 // Deletes a movie from our favorite list by ID
-app.delete("/favorites/:username/movies/:movieID", (req, res) => {
+app.delete("/users/:Username/Movies/:MovieID", (req, res) => {
   let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });
 
   if (movie_to_delete) {
