@@ -1,4 +1,4 @@
- mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
@@ -17,90 +17,90 @@ const app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-let TopMovies = [ {
-  id: 1,
-  title: 'Pokemon the Movie', //placeholder for testing
-  clases: {
-    description: 'An animated movie',
-    genre: 'Animation',
-    director: 'Nintendo',
-    image_URL: 'http://www.test.com',
-    featured: 'true/false'
-    }
-  },
-  {
-  id: 2,
-  title: 'Pokemon the Movie 2', //placeholder for testing
-  clases: {
-    description: 'An animated movie',
-    genre: 'Animation',
-    director: 'Nintendo',
-    image_URL: 'http://www.test.com',
-    featured: 'true/false'
-    }
-  },
-  {
-  id: 2,
-  title: 'Pokemon the Movie 3', //placeholder for testing
-  clases: {
-    description: 'An animated movie',
-    genre: 'Animation',
-    director: 'Nintendo',
-    image_URL: 'http://www.test.com',
-    featured: 'true/false'
-    }
-  },
-  {
-    id: 2,
-    title: 'Pokemon the Movie 4', //placeholder for testing
-    clases: {
-      description: 'An animated movie',
-      genre: 'Animation',
-      director: 'Nintendo',
-      image_URL: 'http://www.test.com',
-      featured: 'true/false'
-      }
-    },
-  {
-    id: 3,
-    title: 'Pokemon the Movie 5', //placeholder for testing
-    clases: {
-      description: 'An animated movie',
-      genre: 'Animation',
-      director: 'Nintendo',
-      image_URL: 'http://www.test.com',
-      featured: 'true/false'
-    }
-  }
-];
+// let TopMovies = [ {
+//   id: 1,
+//   title: 'Pokemon the Movie', //placeholder for testing
+//   clases: {
+//     description: 'An animated movie',
+//     genre: 'Animation',
+//     director: 'Nintendo',
+//     image_URL: 'http://www.test.com',
+//     featured: 'true/false'
+//     }
+//   },
+//   {
+//   id: 2,
+//   title: 'Pokemon the Movie 2', //placeholder for testing
+//   clases: {
+//     description: 'An animated movie',
+//     genre: 'Animation',
+//     director: 'Nintendo',
+//     image_URL: 'http://www.test.com',
+//     featured: 'true/false'
+//     }
+//   },
+//   {
+//   id: 2,
+//   title: 'Pokemon the Movie 3', //placeholder for testing
+//   clases: {
+//     description: 'An animated movie',
+//     genre: 'Animation',
+//     director: 'Nintendo',
+//     image_URL: 'http://www.test.com',
+//     featured: 'true/false'
+//     }
+//   },
+//   {
+//     id: 2,
+//     title: 'Pokemon the Movie 4', //placeholder for testing
+//     clases: {
+//       description: 'An animated movie',
+//       genre: 'Animation',
+//       director: 'Nintendo',
+//       image_URL: 'http://www.test.com',
+//       featured: 'true/false'
+//       }
+//     },
+//   {
+//     id: 3,
+//     title: 'Pokemon the Movie 5', //placeholder for testing
+//     clases: {
+//       description: 'An animated movie',
+//       genre: 'Animation',
+//       director: 'Nintendo',
+//       image_URL: 'http://www.test.com',
+//       featured: 'true/false'
+//     }
+//   }
+// ];
 
-let Users = [ {
-    id : 1,
-    name : 'Anne', //placeholders as I don't have 10 favorite movies
-  },
-  {
-    id : 2,
-    title : 'Bill',
-  },
-  {
-    id : 3,
-    title : 'Charles',
-  }
-];
-
-let FavoriteMovies = [ {
-    id : 1,
-    name : 'Anne' //placeholders as I don't have 10 favorite movies
-  },
-  {
-      id : 2,
-      title : 'Bill'
-  },
-  {
-      id : 3,
-      title : 'Charles'
-  }
-];
+// let Users = [ {
+//     id : 1,
+//     name : 'Anne', //placeholders as I don't have 10 favorite movies
+//   },
+//   {
+//     id : 2,
+//     title : 'Bill',
+//   },
+//   {
+//     id : 3,
+//     title : 'Charles',
+//   }
+// ];
+//
+// let FavoriteMovies = [ {
+//     id : 1,
+//     name : 'Anne' //placeholders as I don't have 10 favorite movies
+//   },
+//   {
+//       id : 2,
+//       title : 'Bill'
+//   },
+//   {
+//       id : 3,
+//       title : 'Charles'
+//   }
+// ];
 
 // Return a list of ALL movies to the user
 app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
@@ -207,19 +207,20 @@ app.put('/users/:Username', function(req, res) {
   })
 });
 
-//Allow users to add a movie to their list of favorites
-app.post("/favorites/:username/movies/:movieID", (req, res) => {
-  let movie_favorited = req.body;
-
-  if (!movie_favorited.name) {
-    const message = "Missing name in request body";
-    res.status(400).send(message);
-  } else {
-    FavoriteMovies.id = uuid.v4();
-    FavoriteMovies.push(movie_favorited);
-    res.status(201).send(movie_favorited);
-    res.send("Successful POST request creating a favorite movie");
-  }
+// Add a movie to a user's list of favorites
+app.post('/favorites/:username/movies/:movieID', function(req, res) {
+  Users.findOneAndUpdate({ Username : req.params.Username }, {
+    $push : { FavoriteMovies : req.params.MovieID }
+  },
+  { new : true }, // This line makes sure that the updated document is returned
+  function(err, updatedUser) {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    } else {
+      res.json(updatedUser)
+    }
+  })
 });
 
 // Deletes a movie from our favorite list by ID
