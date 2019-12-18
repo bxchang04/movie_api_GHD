@@ -207,8 +207,23 @@ app.put('/users/:Username', function(req, res) {
   })
 });
 
-// Deletes a movie from our list by ID
-app.delete("/movies/:id", (req, res) => {
+//Allow users to add a movie to their list of favorites
+app.post("/favorites/:username/movies/:movieID", (req, res) => {
+  let movie_favorited = req.body;
+
+  if (!movie_favorited.name) {
+    const message = "Missing name in request body";
+    res.status(400).send(message);
+  } else {
+    FavoriteMovies.id = uuid.v4();
+    FavoriteMovies.push(movie_favorited);
+    res.status(201).send(movie_favorited);
+    res.send("Successful POST request creating a favorite movie");
+  }
+});
+
+// Deletes a movie from our favorite list by ID
+app.delete("/favorites/:username/movies/:movieID", (req, res) => {
   let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });
 
   if (movie_to_delete) {
@@ -217,6 +232,7 @@ app.delete("/movies/:id", (req, res) => {
     res.send("Successful DELETE request deleting a favorite movie");
   }
 });
+
 //Allow existing users to deregister
 // Delete a user by username 2.8
 app.delete('/users/:Username', function(req, res) {

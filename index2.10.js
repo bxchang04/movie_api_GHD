@@ -257,6 +257,21 @@ app.put('/users/:Username', passport.authenticate("jwt", { session: false }), fu
   })
 });
 
+//Allow users to add a movie to their list of favorites
+app.post("/favorites/:username/movies/:movieID", passport.authenticate('jwt', { session: false }), (req, res) => {
+  let movie_favorited = req.body;
+
+  if (!movie_favorited.name) {
+    const message = "Missing name in request body";
+    res.status(400).send(message);
+  } else {
+    FavoriteMovies.id = uuid.v4();
+    FavoriteMovies.push(movie_favorited);
+    res.status(201).send(movie_favorited);
+    res.send("Successful POST request creating a favorite movie");
+  }
+});
+
 // Deletes a movie from our list by ID
 app.delete("/movies/:id", passport.authenticate('jwt', { session: false }), (req, res) => {
   let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });

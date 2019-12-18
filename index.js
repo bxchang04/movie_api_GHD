@@ -137,7 +137,7 @@ app.put("/users", (req, res) => {
  res.send("Successful PUT updating a user's information");
 });
 
-//Allow users to add a movie to their list of favorites --BC: probably don't need to duplicate name
+//Allow users to add a movie to their list of favorites
 app.post("/favorites/:username/movies/:movieID", (req, res) => {
   let movie_favorited = req.body;
 
