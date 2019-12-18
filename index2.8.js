@@ -10,7 +10,7 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
 
-var auth = require('./auth')(app);
+// var auth = require('./auth')(app);
 
 const app = express();
 
@@ -103,7 +103,7 @@ app.use(bodyParser.json());
 // ];
 
 // Return a list of ALL movies to the user
-app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
+app.get("/movies", function(req, res) {
   TopMovies.find()
     .then(function(movies) {
       res.status(201).json(movies);
