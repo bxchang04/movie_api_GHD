@@ -1,3 +1,5 @@
+app.use(express.static('public'));
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const { check, validationResult } = require('express-validator');
@@ -163,12 +165,6 @@ app.get("/directors/:name", passport.authenticate("jwt", { session: false }),
       });
   }
 );
-
-  // Return documentation
-  app.use(express.static('public'));
-  app.get('/documentation', passport.authenticate('jwt', { session: false }), function(req, res) {
-    res.sendFile('public/documentation.html', { root : __dirname });
-  });
 
 // Allow new users to register
 //Add a user 2.10 -- why is the jwt removed from 2.8/2.9?

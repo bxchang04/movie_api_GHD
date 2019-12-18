@@ -1,3 +1,5 @@
+app.use(express.static('public'));
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -161,12 +163,6 @@ app.get("/directors/:name", passport.authenticate("jwt", { session: false }),
       });
   }
 );
-
-  // Return documentation
-  app.use(express.static('public'));
-  app.get('/documentation', passport.authenticate('jwt', { session: false }), function(req, res) {
-    res.sendFile('public/documentation.html', { root : __dirname });
-  });
 
 // Allow new users to register
 //Add a user 2.8

@@ -1,6 +1,20 @@
+app.use(express.static('public'));
+
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+const { check, validationResult } = require('express-validator');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb+srv://kay:bwater@cluster0.mongodb.net/myFlixDB?retryWrites=true', { useNewUrlParser: true });
+//mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+
 const express = require("express"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
+
+var auth = require('./auth')(app);
 
 const app = express();
 
@@ -92,71 +106,160 @@ let FavoriteMovies = [ {
 ];
 
 // Return a list of ALL movies to the user
-app.get("/movies", (req, res) => {
-  res.json(TopMovies);
-  res.send("Successful GET request returning data on all the movies");
+app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
+  TopMovies.find()
+    .then(function(movies) {
+      res.status(201).json(movies);
+    }).catch(function(error) {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
 });
+
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
-app.get("/movies/:title", (req, res) => {
-  res.json(TopMovies.find( (movie) =>
-    { return movie.title === req.params.title   }));
-    res.send("Successful GET request returning data on a single movie");
-});
-// Return data about a genre (description) by movie name/title (e.g., “Thriller”)
-app.get("/genre/:genre", (req, res) => {
-  res.json(TopMovies.find( (movie) =>
-    { return movie.genre === req.params.genre
-    }));
-  res.send("Successful GET request returning data on a single genre");
-});
+app.get("/movies/:title", passport.authenticate("jwt", { session: false }),
+  function(req, res) {
+    TopMovies.findOne({ title: req.params.title })
+      .then(function(movie) {
+        res.json(movie);
+      })
+      .catch(function(error) {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
+
+// Return data about a genre (description) by name/title (e.g., “Thriller”)
+app.get("/genre/:name", passport.authenticate("jwt", { session: false }),
+  function(req, res){
+    TopMovies.findOne({
+      "genre.name": req.params.name
+    })
+      .then(function(genre){
+        res.json(genre.name);
+      })
+      .catch(function(error){
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
+
 // Return data about a director (bio, birth year, death year) by name
-app.get("/director/:director", (req, res) => {
-  res.json(TopMovies.find( (movie) =>
-    { return movie.director === req.params.director   }));
+app.get("/director/:director", passport.authenticate('jwt', { session: false }), function(req, res){
+  res.json(TopMovies.find( function(movie){ return movie.director === req.params.director   }));
   res.send("Successful GET request returning data on a director of a single movie");
 
-  // Return documentation
-  app.use(express.static('public'));
-  app.get('/documentation', function(req, res) {
-    res.sendFile('public/documentation.html', { root : __dirname });
-  });
+app.get("/directors/:name", passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    TopMovies.findOne({
+      "director.name": req.params.name
+    })
+      .then((movies) => {
+        res.json(movies.director);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 // Allow new users to register
-  let newUser = req.body;
+//Add a user 2.10 -- why is the jwt removed from 2.8/2.9?
+app.post('/users',
+  // Validation logic here for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
+  [check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()],(req, res) => {
 
-  if (!newUser.name) {
-    const message = "Missing name in request body";
-    res.status(400).send(message);
-  } else {
-    newUser.id = uuid.v4();
-    Users.push(newUser);
-    res.status(201).send(newUser);
-    res.send("Successful POST request creating a new user");
+  // check the validation object for errors
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
   }
+
+  var hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username : req.body.Username }) // Search to see if a user with the requested username already exists
+  .then(function(user) {
+    if (user) {
+      //If the user is found, send a response that it already exists
+        return res.status(400).send(req.body.Username + " already exists");
+    } else {
+      Users
+      .create({
+        Username : req.body.Username,
+        Password: hashedPassword,
+        Email : req.body.Email,
+        Birthday : req.body.Birthday
+      })
+      .then(function(user) { res.status(201).json(user) })
+      .catch(function(error) {
+          console.error(error);
+          res.status(500).send("Error: " + error);
+      });
+    }
+  }).catch(function(error) {
+    console.error(error);
+    res.status(500).send("Error: " + error);
+  });
 });
 
-// Allow users to update their user info (username, password, email, date of birth) -- not implemented yet!
-app.put("/users", (req, res) => {
- res.send("Successful PUT updating a user's information");
+// Get all users 2.8
+app.get('/users', passport.authenticate('jwt', { session: false }), function(req, res) {
+
+  Users.find()
+  .then(function(users) {
+    res.status(201).json(users)
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error: " + err);
+  });
 });
 
-//Allow users to add a movie to their list of favorites --BC: probably don't need to duplicate name
-app.post("/favorites", (req, res) => {
-  let movie_favorited = req.body;
+// Get a user by username 2.8
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), function(req, res) {
+  Users.findOne({ Username : req.params.Username })
+  .then(function(user) {
+    res.json(user)
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error: " + err);
+  });
+});
 
-  if (!movie_favorited.name) {
-    const message = "Missing name in request body";
-    res.status(400).send(message);
-  } else {
-    FavoriteMovies.id = uuid.v4();
-    FavoriteMovies.push(movie_favorited);
-    res.status(201).send(movie_favorited);
-    res.send("Successful POST request creating a favorite movie");
-  }
+// Allow users to update their user info (username, password, email, date of birth)
+// Update a user's info, by username 2.8
+app.put('/users/:Username', passport.authenticate("jwt", { session: false }), function(req, res) {
+  Users.findOneAndUpdate({ Username : req.params.Username }, { $set :
+  {
+    Username : req.body.Username,
+    Password : req.body.Password,
+    Email : req.body.Email,
+    Birthday : req.body.Birthday
+  }},
+  { new : true }, // This line makes sure that the updated document is returned
+  function(err, updatedUser) {
+    if(err) {
+      console.error(err);
+      res.status(500).send("Error: " +err);
+    } else {
+      res.json(updatedUser)
+    }
+  })
 });
 
 // Deletes a movie from our list by ID
-app.delete("/movies/:id", (req, res) => {
+app.delete("/movies/:id", passport.authenticate('jwt', { session: false }), (req, res) => {
   let movie_to_delete = FavoriteMovies.find((movie_to_delete) => { return movie_to_delete.id === req.params.id });
 
   if (movie_to_delete) {
@@ -165,19 +268,24 @@ app.delete("/movies/:id", (req, res) => {
     res.send("Successful DELETE request deleting a favorite movie");
   }
 });
-
 //Allow existing users to deregister
-app.delete("/users", (req, res) => {
-  let user_to_delete = Users.find((user_to_delete) => { return user_to_delete.id === req.params.id }); //add a && .name here as well? Check this!
-
-  if (user_to_delete) {
-    Users.filter(function(obj) { return obj.id !== req.params.id });
-    res.status(201).send("Movie " + req.params.id + " was deleted from your favorites list.")
-    res.send("Successful DELETE request unregistering a user");
-  }
+// Delete a user by username 2.8
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), function(req, res) {
+  Users.findOneAndRemove({ Username: req.params.Username })
+  .then(function(user) {
+    if (!user) {
+      res.status(400).send(req.params.Username + " was not found");
+    } else {
+      res.status(200).send(req.params.Username + " was deleted.");
+    }
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error: " + err);
+  });
 });
 
-
-app.listen(8080, () => {
-  console.log(`Your app is listening on port 8080`);
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", function() {
+console.log("Listening on Port 3000");
 });

@@ -1,3 +1,5 @@
+app.use(express.static('public'));
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -131,12 +133,7 @@ app.get("/director/:director", (req, res) => {
   res.json(TopMovies.find( (director) =>
     { return director.name === req.params.name   }));
   res.send("Successful GET request returning data on a director of a single movie");
-
-  // Return documentation
-  app.use(express.static('public'));
-  app.get('/documentation', function(req, res) {
-    res.sendFile('public/documentation.html', { root : __dirname });
-  });
+});
 
 // Allow new users to register
 //Add a user 2.8
