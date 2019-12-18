@@ -237,6 +237,7 @@ app.post('/users/:Username/Movies/:MovieID', function(req, res) {
     }
   })
 });
+
 // Deletes a movie from our favorite list by ID
 app.delete('/users/:Username/Movies/:MovieID', function(req, res) {
   let movie_to_delete = FavoriteMovies.find(function(movie_to_delete) { return movie_to_delete.id === req.params.id });
