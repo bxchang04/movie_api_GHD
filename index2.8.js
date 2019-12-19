@@ -126,10 +126,10 @@ app.get('/movies/:Title', function(req , res){
 });
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
-app.get('/movies/genres/:Title', function(req , res){
-    Movies.find({Title : req.params.Title})
-     .then(function(movies){
-        res.status(201).json(movies)   /*Returns One By Title*/
+app.get('/movies/genres/:Name', function(req , res){
+    Movies.findOne({'Genre.Name' : req.params.Name})
+     .then(function(movie){
+        res.status(201).json(movie.Genre)   /*Returns One By Title*/
     })
      .catch(function(error){
         console.error(error);
@@ -138,10 +138,10 @@ app.get('/movies/genres/:Title', function(req , res){
 });
 
 // Return data about a director (bio, birth year, death year) by name
-app.get('/movies/director/:Name', function(req , res){
-    Movies.find({"Director.Name" : req.params.Name})
-     .then(function(movies){
-        res.status(201).json(movies)   /*Returns One By Title*/
+app.get('/movies/directors/:Name', function(req , res){
+    Movies.findOne({'Director.Name' : req.params.Name})
+     .then(function(movie){
+        res.status(201).json(movie.Director)   /*Returns One By Title*/
     })
      .catch(function(error){
         console.error(error);
