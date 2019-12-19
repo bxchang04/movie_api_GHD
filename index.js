@@ -1,46 +1,35 @@
-const app = express();
-const morgan = require("morgan");
-const Models = require('./models.js');
-const mongoose = require('mongoose');
+const path = require("path");
+
 const express = require("express"),
   bodyParser = require("body-parser"),
-  uuid = require("uuid");
+  morgan = require("morgan"),
+  mongoose = require("mongoose"),
+  models = require("./models"),
+  User = require("./User"),
+  passport = require("passport"),
+  cors = require("cors"),
+  { check, validationResult } = require("express-validator");
+require("./passport");
 
-const Movies = Models.Movie;
-const Users = Models.User;
-const passport = require('passport');
-require('./passport');
-const cors = require('cors');
-const { check, validationResult } = require('express-validator');
+const Movies = models.Movie;
+const Users = models.User;
 
 mongoose.connect('mongodb+srv://kay:bwater@cluster0.mongodb.net/myFlixDB?retryWrites=true', { useNewUrlParser: true });
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
-app.use(express.static('public'));
-app.use(morgan('common'));
-app.use(bodyParser.json());
+const app = express();
+// middleware functions
 app.use(cors());
+app.use(bodyParser.json());
 
-var auth = require('./auth')(app);
+const auth = require("./auth")(app);
 
-var allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
-
-app.use(cors({
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
-      var message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
-
-//Error handling middleware functions
-
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
+app.use(morgan("common"));
+app.use(express.static("public"));
+app.use('/client', express.static(path.join(__dirname, 'client/dist')));
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.status(500).send("Something went wrong");
   next();
 });
 
