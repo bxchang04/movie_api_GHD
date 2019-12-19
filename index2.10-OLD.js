@@ -1,48 +1,23 @@
-const app = express();
-const morgan = require("morgan");
-const Models = require('./models.js');
 const mongoose = require('mongoose');
-const express = require("express"),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
+const Models = require('./models.js');
+const { check, validationResult } = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const passport = require('passport');
-require('./passport');
-const cors = require('cors');
-const { check, validationResult } = require('express-validator');
 
 mongoose.connect('mongodb+srv://kay:bwater@cluster0.mongodb.net/myFlixDB?retryWrites=true', { useNewUrlParser: true });
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
+const express = require("express"),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid");
+
+const app = express();
+
 app.use(express.static('public'));
-app.use(morgan('common'));
 app.use(bodyParser.json());
-app.use(cors());
 
 var auth = require('./auth')(app);
-
-var allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
-
-app.use(cors({
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
-      var message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
-
-//Error handling middleware functions
-
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
-  next();
-});
 
 // Return a list of ALL movies to the user
 app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
