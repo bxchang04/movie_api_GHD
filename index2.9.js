@@ -1,21 +1,31 @@
-const mongoose = require('mongoose');
+const app = express();
+const morgan = require("morgan");
 const Models = require('./models.js');
-
-const Movies = Models.Movie;
-const Users = Models.User;
-
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
-
+const mongoose = require('mongoose');
 const express = require("express"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
 
-var auth = require('./auth')(app);
+const Movies = Models.Movie;
+const Users = Models.User;
+const passport = require('passport');
+require('./passport');
 
-const app = express();
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
 app.use(express.static('public'));
+app.use(morgan('common'));
 app.use(bodyParser.json());
+
+var auth = require('./auth')(app);
+
+//Error handling middleware functions
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+  next();
+});
 
 // Return a list of ALL movies to the user
 app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
@@ -152,14 +162,19 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 });
 
 // Deletes a movie from our favorite list by ID
-app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), function(req, res) {
-  let movie_to_delete = FavoriteMovies.find(function(movie_to_delete) { return movie_to_delete.id === req.params.id });
-
-  if (movie_to_delete) {
-    FavoriteMovies.filter(function(obj) { return obj.id !== req.params.id });
-    res.status(201).send("Movie " + req.params.id + " was deleted from your favorites list.")
-    res.send("Successful DELETE request deleting a favorite movie");
-  }
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), function(req, res){
+Users.findOneAndUpdate({ Username : req.params.Username }, {
+    $pull : { FavoriteFilms : req.params.MovieID }
+  },
+  { new : true },
+  function(error, updatedUser) {
+    if (error) {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    } else {
+      res.status(201).send("Movie Under ID # " + req.params.MovieID + " Has Been Deleted From Member's Account.");
+    }
+  })
 });
 
 //Allow existing users to deregister

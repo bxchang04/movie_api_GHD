@@ -12,97 +12,12 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
 
-var auth = require('./auth')(app);
-
 const app = express();
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-let TopMovies = [ {
-  id: 1,
-  title: 'Pokemon the Movie', //placeholder for testing
-  clases: {
-    description: 'An animated movie',
-    genre: 'Animation',
-    director: 'Nintendo',
-    image_URL: 'http://www.test.com',
-    featured: 'true/false'
-    }
-  },
-  {
-  id: 2,
-  title: 'Pokemon the Movie 2', //placeholder for testing
-  clases: {
-    description: 'An animated movie',
-    genre: 'Animation',
-    director: 'Nintendo',
-    image_URL: 'http://www.test.com',
-    featured: 'true/false'
-    }
-  },
-  {
-  id: 2,
-  title: 'Pokemon the Movie 3', //placeholder for testing
-  clases: {
-    description: 'An animated movie',
-    genre: 'Animation',
-    director: 'Nintendo',
-    image_URL: 'http://www.test.com',
-    featured: 'true/false'
-    }
-  },
-  {
-    id: 2,
-    title: 'Pokemon the Movie 4', //placeholder for testing
-    clases: {
-      description: 'An animated movie',
-      genre: 'Animation',
-      director: 'Nintendo',
-      image_URL: 'http://www.test.com',
-      featured: 'true/false'
-      }
-    },
-  {
-    id: 3,
-    title: 'Pokemon the Movie 5', //placeholder for testing
-    clases: {
-      description: 'An animated movie',
-      genre: 'Animation',
-      director: 'Nintendo',
-      image_URL: 'http://www.test.com',
-      featured: 'true/false'
-    }
-  }
-];
-
-let Users = [ {
-    id : 1,
-    name : 'Anne', //placeholders as I don't have 10 favorite movies
-  },
-  {
-    id : 2,
-    title : 'Bill',
-  },
-  {
-    id : 3,
-    title : 'Charles',
-  }
-];
-
-let FavoriteMovies = [ {
-    id : 1,
-    name : 'Anne' //placeholders as I don't have 10 favorite movies
-  },
-  {
-      id : 2,
-      title : 'Bill'
-  },
-  {
-      id : 3,
-      title : 'Charles'
-  }
-];
+var auth = require('./auth')(app);
 
 // Return a list of ALL movies to the user
 app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
