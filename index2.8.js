@@ -154,14 +154,19 @@ app.post('/users/:Username/movies/:MovieID', function(req, res) {
 });
 
 // Deletes a movie from our favorite list by ID
-app.delete('/users/:Username/movies/:MovieID', function(req, res) {
-  let movie_to_delete = FavoriteMovies.find(function(movie_to_delete) { return movie_to_delete.id === req.params.id });
-
-  if (movie_to_delete) {
-    FavoriteMovies.filter(function(obj) { return obj.id !== req.params.id });
-    res.status(201).send("Movie " + req.params.id + " was deleted from your favorites list.")
-    res.send("Successful DELETE request deleting a favorite movie");
-  }
+app.delete('/users/:Username/movies/:MovieID', function(req, res){   
+Users.findOneAndUpdate({ Username : req.params.Username }, {
+    $pull : { FavoriteFilms : req.params.MovieID }
+  },
+  { new : true },
+  function(error, updatedUser) {
+    if (error) {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    } else {
+      res.status(201).send("Movie Under ID # " + req.params.MovieID + " Has Been Deleted From Member's Account.");
+    }
+  })
 });
 
 //Allow existing users to deregister
