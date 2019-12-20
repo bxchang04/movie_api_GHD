@@ -1,3 +1,5 @@
 mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-mfewl.mongodb.net:27017,cluster0-shard-00-01-mfewl.mongodb.net:27017,cluster0-shard-00-02-mfewl.mongodb.net:27017 --ssl --username bxchang04 --password bwater --authenticationDatabase admin --db myFlixDB --collection movies --type json --file movies.json
 
+mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-mfewl.mongodb.net:27017,cluster0-shard-00-01-mfewl.mongodb.net:27017,cluster0-shard-00-02-mfewl.mongodb.net:27017 --ssl --username bxchang04 --password bwater --authenticationDatabase admin --db test --collection movies --type json --file movies.json
+
 mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-mfewl.mongodb.net:27017,cluster0-shard-00-01-mfewl.mongodb.net:27017,cluster0-shard-00-02-mfewl.mongodb.net:27017 --ssl --username bxchang04 --password bwater --authenticationDatabase admin --db myFlixDB --collection users --type json --file users.json
