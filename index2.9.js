@@ -75,7 +75,7 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
 });
 
 // Allow new users to register
-app.post('/users', passport.authenticate('jwt', { session: false }), function(req, res) {
+app.post('/users', function(req, res) {
   Users.findOne({ Username : req.body.Username })
   .then(function(user) {
     if (user) {

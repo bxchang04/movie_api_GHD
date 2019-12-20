@@ -80,7 +80,6 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
 });
 
 // Allow new users to register
-//Add a user 2.10 -- why is the jwt removed from 2.8/2.9?
 app.post('/users',
   // Validation logic here for request
   //you can either use a chain of methods like .not().isEmpty()
