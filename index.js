@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 });
 
 // Return a list of ALL movies to the user
-app.get("/movies", passport.authenticate('jwt', { session: false }), function(req, res) {
+app.get("/movies", function(req, res) {
   Movies.find()
     .then(function(movies) {
       res.status(201).json(movies);
@@ -44,7 +44,7 @@ app.get("/movies", passport.authenticate('jwt', { session: false }), function(re
 });
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
-app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), function(req , res){
+app.get('/movies/:Title', function(req , res){
     Movies.find({Title : req.params.Title})
      .then(function(movies){
         res.status(201).json(movies)   /*Returns One By Title*/
@@ -56,7 +56,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), func
 });
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
-app.get('/movies/genres/:Name', passport.authenticate('jwt', { session: false }), function(req , res){
+app.get('/movies/genres/:Name', function(req , res){
     Movies.findOne({'Genre.Name' : req.params.Name})
      .then(function(movie){
         res.status(201).json(movie.Genre)   /*Returns One By Title*/
@@ -68,7 +68,7 @@ app.get('/movies/genres/:Name', passport.authenticate('jwt', { session: false })
 });
 
 // Return data about a director (bio, birth year, death year) by name
-app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false }), function(req , res){
+app.get('/movies/directors/:Name', function(req , res){
     Movies.findOne({'Director.Name' : req.params.Name})
      .then(function(movie){
         res.status(201).json(movie.Director)   /*Returns One By Title*/
@@ -78,51 +78,6 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
         res.status(500).send("Error" + err);
     });
 });
-
-// Allow new users to register
-// app.post('/users',
-//   // Validation logic here for request
-//   //you can either use a chain of methods like .not().isEmpty()
-//   //which means "opposite of isEmpty" in plain english "is not empty"
-//   //or use .isLength({min: 5}) which means
-//   //minimum value of 5 characters are only allowed
-//   [check('Username', 'Username is required').isLength({min: 5}),
-//   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-//   check('Password', 'Password is required').not().isEmpty(),
-//   check('Email', 'Email does not appear to be valid').isEmail()],(req, res) => {
-//
-//   // check the validation object for errors
-//   var errors = validationResult(req);
-//
-//   if (!errors.isEmpty()) {
-//     return res.status(422).json({ errors: errors.array() });
-//   }
-//
-//   var hashedPassword = Users.hashPassword(req.body.Password);
-//   Users.findOne({ Username : req.body.Username }) // Search to see if a user with the requested username already exists
-//   .then(function(user) {
-//     if (user) {
-//       //If the user is found, send a response that it already exists
-//         return res.status(400).send(req.body.Username + " already exists");
-//     } else {
-//       Users
-//       .create({
-//         Username : req.body.Username,
-//         Password: hashedPassword,
-//         Email : req.body.Email,
-//         Birthday : req.body.Birthday
-//       })
-//       .then(function(user) { res.status(201).json(user) })
-//       .catch(function(error) {
-//           console.error(error);
-//           res.status(500).send("Error: " + error);
-//       });
-//     }
-//   }).catch(function(error) {
-//     console.error(error);
-//     res.status(500).send("Error: " + error);
-//   });
-// });
 
 app.post('/users', function (req, res) { // this is for "allowing users to register"
     // validation
