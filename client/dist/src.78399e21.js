@@ -33650,7 +33650,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('https://myFlixDB2.herokuapp.com//movies>') //check this
+      _axios.default.get('https://myFlixDB2.herokuapp.com/movies>') //check this
       .then(function (response) {
         // Assign the result to the state
         _this2.setState({
