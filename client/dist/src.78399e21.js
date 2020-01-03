@@ -33642,12 +33642,23 @@ function (_React$Component) {
       selectedMovie: null
     };
     return _this;
-  }
+  } // One of the "hooks" available in a React Component
+
 
   _createClass(MainView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      /* ... */
+      var _this2 = this;
+
+      _axios.default.get('https://myflixdb2.herokuapp.com/movies/movies>') //check this
+      .then(function (response) {
+        // Assign the result to the state
+        _this2.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }, {
     key: "onMovieClick",
@@ -33659,7 +33670,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
@@ -33677,7 +33688,7 @@ function (_React$Component) {
           key: movie._id,
           movie: movie,
           onClick: function onClick(movie) {
-            return _this2.onMovieClick(movie);
+            return _this3.onMovieClick(movie);
           }
         });
       }));
@@ -33845,7 +33856,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51504" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53440" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
