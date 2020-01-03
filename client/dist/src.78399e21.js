@@ -33650,7 +33650,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('https://myflixdb2.herokuapp.com/movies/movies>') //check this
+      _axios.default.get('https://myFlixDB2.herokuapp.com//movies>') //check this
       .then(function (response) {
         // Assign the result to the state
         _this2.setState({
@@ -33667,30 +33667,45 @@ function (_React$Component) {
         selectedMovie: movie
       });
     }
+    /*
+      render() {
+        const { movies } = this.state;
+        //const { movies, selectedMovie } = this.state;
+    
+        // Before the movies have been loaded
+        if (!movies) return <div className="main-view"/>;
+    
+        return (
+         <div className="main-view">
+          {selectedMovie
+             ? <MovieView movie={selectedMovie}/>
+             : movies.map(movie => (
+               <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+             ))
+          }
+         </div>
+        );
+      }
+    }
+    */
+
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
-      var _this$state = this.state,
-          movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie; // Before the movies have been loaded
+      // If the state isn't initialized, this will throw on runtime
+      // before the data is initially loaded
+      var movies = this.state.movies; // Before the movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
       return _react.default.createElement("div", {
         className: "main-view"
-      }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie
-      }) : movies.map(function (movie) {
-        return _react.default.createElement(_movieCard.MovieCard, {
-          key: movie._id,
-          movie: movie,
-          onClick: function onClick(movie) {
-            return _this3.onMovieClick(movie);
-          }
-        });
+      }, movies.map(function (movie) {
+        return _react.default.createElement("div", {
+          className: "movie-card",
+          key: movie._id
+        }, movie.Title);
       }));
     }
   }]);

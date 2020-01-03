@@ -17,7 +17,7 @@ export class MainView extends React.Component {
 
   // One of the "hooks" available in a React Component
    componentDidMount() {
-     axios.get('https://myflixdb2.herokuapp.com/movies/movies>') //check this
+     axios.get('https://myFlixDB2.herokuapp.com//movies>') //check this
        .then(response => {
          // Assign the result to the state
          this.setState({
@@ -35,9 +35,10 @@ export class MainView extends React.Component {
     });
   }
 
-
+/*
   render() {
-    const { movies, selectedMovie } = this.state;
+    const { movies } = this.state;
+    //const { movies, selectedMovie } = this.state;
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;
@@ -50,6 +51,25 @@ export class MainView extends React.Component {
            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
          ))
       }
+     </div>
+    );
+  }
+}
+*/
+
+  render() {
+    // If the state isn't initialized, this will throw on runtime
+    // before the data is initially loaded
+    const { movies } = this.state;
+
+    // Before the movies have been loaded
+    if (!movies) return <div className="main-view"/>;
+
+    return (
+     <div className="main-view">
+     { movies.map(movie => (
+       <div className="movie-card" key={movie._id}>{movie.Title}</div>
+     ))}
      </div>
     );
   }
