@@ -4,6 +4,8 @@ import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
+import { withRouter } from 'react-router-dom';
+
 export class MainView extends React.Component {
 
   constructor() {

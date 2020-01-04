@@ -1,11 +1,10 @@
-import React from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 export class MovieView extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) { //https://www.youtube.com/watch?v=H_Kz_c2Bkzg - why add props as param?
+    super(props); //same ? as above
 
     this.state = {};
   }
@@ -35,19 +34,14 @@ export class MovieView extends React.Component {
           <span className="label">Director: </span>
           <span className="value">{movie.Director.Name}</span>
         </div>
-        <Link to={'/'}>
-          <Button
-            type='button'
-            as='button'
-            variant='outline-dark'
-            size='sm'
-            className='movie-button'
-          >Back</Button>
-        </Link>
+        <div>
+          <button onClick={this.props.history.goBack}>Back</button>
+        </div>
       </div>
 
 
 
     );
+
   }
 }
