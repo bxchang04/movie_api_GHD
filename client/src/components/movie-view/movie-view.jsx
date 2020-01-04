@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export class MovieView extends React.Component {
 
@@ -9,7 +11,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie } = this.props;
+    const { movie, onClick } = this.props;
 
     if (!movie) return null;
 
@@ -33,7 +35,17 @@ export class MovieView extends React.Component {
           <span className="label">Director: </span>
           <span className="value">{movie.Director.Name}</span>
         </div>
-       </div>
+        <Link to={'/'}>
+          <Button
+            type='button'
+            as='button'
+            variant='outline-dark'
+            size='sm'
+            className='movie-button'
+          >Back</Button>
+        </Link>
+      </div>
+
 
 
     );

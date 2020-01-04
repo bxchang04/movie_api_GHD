@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 export class MovieView extends React.Component {
@@ -11,7 +11,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie } = this.props;
+    const { movie, onClick } = this.props;
 
     if (!movie) return null;
 
@@ -36,9 +36,16 @@ export class MovieView extends React.Component {
           <span className="value">{movie.Director.Name}</span>
         </div>
         <Link to={'/'}>
-          <Button variant='dark'>Back</Button>
+          <Button
+            type='button'
+            as='button'
+            variant='outline-dark'
+            size='sm'
+            className='movie-button'
+          >Back</Button>
         </Link>
-       </div>
+      </div>
+
 
 
     );
