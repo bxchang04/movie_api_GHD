@@ -1,5 +1,5 @@
 import React from 'react';
-//is this the correct way to create a button?
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 export class MovieView extends React.Component {
@@ -35,11 +35,15 @@ export class MovieView extends React.Component {
                     <span className="label">Director: </span>
                     <span className="value">{movie.Director.Name}</span>
                 </div>
-            </div>
-
-            //is the ordering for this button right? How do I implement the rest of this button feature?
-            <div className="my-flix">
-                <Button />
+                <Link to={'/'}>
+                  <Button
+                    type='button'
+                    as='button'
+                    variant='outline-dark'
+                    size='sm'
+                    className='movie-button'
+                  >Back</Button>
+                </Link>
             </div>
         );
     }

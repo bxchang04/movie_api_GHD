@@ -17,9 +17,19 @@ export class MainView extends React.Component {
     };
   }
 
-  componentDidMount() {
-    /* ... */
-  }
+  // One of the "hooks" available in a React Component
+   componentDidMount() {
+     axios.get('https://myFlixDB2.herokuapp.com/movies')
+       .then(response => {
+         // Assign the result to the state
+         this.setState({
+           movies: response.data
+         });
+       })
+       .catch(function (error) {
+         console.log(error);
+       });
+   }
 
   onMovieClick(movie) {
     this.setState({
