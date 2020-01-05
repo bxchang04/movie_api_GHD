@@ -34,8 +34,12 @@ export class MovieView extends React.Component {
           <span className="label">Director: </span>
           <span className="value">{movie.Director.Name}</span>
         </div>
-        <div>
-          <button onClick={this.props.history.goBack}>Back</button>
+        <div
+          className="movie-go-back"
+          onClick={() => onClick()}> {/*how does main-view get affected by this? Does this set onClick in main-view to () or null?*/}
+          <button>
+            Go back to the list of movies
+          </button>
         </div>
       </div>
 

@@ -40010,7 +40010,7 @@ function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           movie = _this$props.movie,
-          onClick = _this$props.onClick;
+          _onClick = _this$props.onClick;
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
@@ -40041,9 +40041,12 @@ function (_React$Component) {
         className: "label"
       }, "Director: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Name)), _react.default.createElement("div", null, _react.default.createElement("button", {
-        onClick: this.props.history.goBack
-      }, "Back")));
+      }, movie.Director.Name)), _react.default.createElement("div", {
+        className: "movie-go-back",
+        onClick: function onClick() {
+          return _onClick();
+        }
+      }, " ", _react.default.createElement("button", null, "Go back to the list of movies")));
     }
   }]);
 
@@ -40051,7 +40054,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieView = MovieView;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40144,8 +40147,13 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: "main-view"
       }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie
-      }) : movies.map(function (movie) {
+        movie: selectedMovie,
+        onClick: function onClick() {
+          return _this3.onMovieClick(null);
+        }
+      })
+      /*in movie-view, is the button's onClick() function the reason this is triggered? Also how come this comment doesn't need to be in {}, but in movie-view I had to wrap my comment in {} to prevent an error? Both are .jsx files */
+      : movies.map(function (movie) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
           movie: movie,
@@ -40161,7 +40169,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MainView = MainView;
-},{"react":"../../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../../../../../../../../../home/bxchang04/.nvm/versions/node/v8.9.4/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../../../../../../../../../home/bxchang04/.nvm/versions/node/v8.9.4/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -40318,7 +40326,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63181" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65265" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
