@@ -33,19 +33,24 @@ export class LoginView extends React.Component {
     /* then call this.props.onLoggedIn(username) */
   }
 
+  //https://react-bootstrap.github.io/components/forms/
   render() {
     return (
-      <form>
-        <label>
-          Username:
-          <input type="text" value={this.state.username} onChange={this.onUsernameChange} />
-        </label>
-        <label>
-          Password:
-          <input type="password" value={this.state.password} onChange={this.onPasswordChange} />
-        </label>
-        <button type="button" onClick={this.handleSubmit}>Submit</button>
-      </form>
+      <Form>
+        <Row>
+          <Col>
+            <Form.Control placeholder="Username" />
+          </Col>
+          <Col>
+            <Form.Control placeholder="Password" />
+          </Col>
+        </Row>
+        <Row>
+          <Button variant="primary" type="submit">
+            Register
+          </Button>
+        </Row>
+      </Form>
     );
   }
 }

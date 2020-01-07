@@ -1,3 +1,4 @@
+//first example in 3.4
 import React from 'react';
 import axios from 'axios';
 
@@ -65,7 +66,8 @@ export class MainView extends React.Component {
   }
 }
 
-/* second example 3.3 -- does not work. Also, why does my block comment not work? (see line 95)
+/* second example in 3.4 -- does not work. Also, why does my block comment not work? (see line 95)
+
 import React, { useState } from 'react';
 
 export function LoginView(props) {
@@ -75,7 +77,7 @@ export function LoginView(props) {
   const handleSubmit = () => {
     console.log(username, password);
     /* Send a request to the server for authentication */
-    /* then call props.onLoggedIn(username) */
+    props.onLoggedIn(username) //uncommented, per exercise instructions
   };
 
   return (
