@@ -35921,13 +35921,13 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MovieCard = void 0;
+exports.LoginView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -35943,58 +35943,83 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var MovieCard =
+var LoginView =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(MovieCard, _React$Component);
+  _inherits(LoginView, _React$Component);
 
-  function MovieCard() {
-    _classCallCheck(this, MovieCard);
+  function LoginView(props) {
+    var _this;
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MovieCard).apply(this, arguments));
+    _classCallCheck(this, LoginView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LoginView).call(this, props));
+    _this.state = {
+      username: '',
+      password: ''
+    };
+    _this.onUsernameChange = _this.onUsernameChange.bind(_assertThisInitialized(_this));
+    _this.onPasswordChange = _this.onPasswordChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
-  _createClass(MovieCard, [{
+  _createClass(LoginView, [{
+    key: "onUsernameChange",
+    value: function onUsernameChange(event) {
+      this.setState({
+        username: event.target.value
+      });
+    }
+  }, {
+    key: "onPasswordChange",
+    value: function onPasswordChange(event) {
+      this.setState({
+        password: event.target.value
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var _this$state = this.state,
+          username = _this$state.username,
+          password = _this$state.password;
+      console.log(username, password);
+      /* Send a request to the server for authentication */
+
+      /* then call this.props.onLoggedIn(username) */
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          movie = _this$props.movie,
-          _onClick = _this$props.onClick;
-      return _react.default.createElement("div", {
-        onClick: function onClick() {
-          return _onClick(movie);
-        },
-        className: "movie-card"
-      }, movie.Title);
+      return _react.default.createElement("form", null, _react.default.createElement("label", null, "Username:", _react.default.createElement("input", {
+        type: "text",
+        value: this.state.username,
+        onChange: this.onUsernameChange
+      })), _react.default.createElement("label", null, "Password:", _react.default.createElement("input", {
+        type: "password",
+        value: this.state.password,
+        onChange: this.onPasswordChange
+      })), _react.default.createElement("button", {
+        type: "button",
+        onClick: this.handleSubmit
+      }, "Submit"));
     }
   }]);
 
-  return MovieCard;
+  return LoginView;
 }(_react.default.Component);
 
-exports.MovieCard = MovieCard;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _inheritsLoose;
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
-}
-},{}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
+exports.LoginView = LoginView;
+},{"react":"../node_modules/react/index.js"}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
 /** @license React v16.12.0
  * react-is.development.js
  *
@@ -36912,7 +36937,91 @@ if ("development" !== 'production') {
   // http://fb.me/prop-types-in-prod
   module.exports = require('./factoryWithThrowingShims')();
 }
-},{"react-is":"../node_modules/react-is/index.js","./factoryWithTypeCheckers":"../node_modules/prop-types/factoryWithTypeCheckers.js"}],"../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
+},{"react-is":"../node_modules/react-is/index.js","./factoryWithTypeCheckers":"../node_modules/prop-types/factoryWithTypeCheckers.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MovieCard = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var MovieCard =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(MovieCard, _React$Component);
+
+  function MovieCard() {
+    _classCallCheck(this, MovieCard);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(MovieCard).apply(this, arguments));
+  }
+
+  _createClass(MovieCard, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          _onClick = _this$props.onClick;
+      return _react.default.createElement("div", {
+        onClick: function onClick() {
+          return _onClick(movie);
+        },
+        className: "movie-card"
+      }, movie.Title);
+    }
+  }]);
+
+  return MovieCard;
+}(_react.default.Component); //double check this
+
+
+exports.MovieCard = MovieCard;
+MovieCard.propTypes = {
+  movie: _propTypes.default.shape({
+    Title: _propTypes.default.string.isRequired,
+    Description: _propTypes.default.string.isRequired,
+    ImagePath: _propTypes.default.string.isRequired
+  }).isRequired,
+  onClick: _propTypes.default.func.isRequired
+};
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _inheritsLoose;
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+},{}],"../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40064,11 +40173,11 @@ var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _loginView = require("../login-view/login-view");
+
 var _movieCard = require("../movie-card/movie-card");
 
 var _movieView = require("../movie-view/movie-view");
-
-var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40103,7 +40212,8 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MainView).call(this));
     _this.state = {
       movies: null,
-      selectedMovie: null
+      selectedMovie: null,
+      user: null
     };
     return _this;
   } // One of the "hooks" available in a React Component
@@ -40131,15 +40241,26 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "onLoggedIn",
+    value: function onLoggedIn(user) {
+      this.setState({
+        user: user
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie;
-      /*if selectedMovie state is falsy, show list of movies. Otherwise show selected movie and set onClick to null.*/
-      // Before the movies have been loaded
+          selectedMovie = _this$state.selectedMovie,
+          user = _this$state.user;
+      if (!user) return _react.default.createElement(_loginView.LoginView, {
+        onLoggedIn: function onLoggedIn(user) {
+          return _this3.onLoggedIn(user);
+        }
+      }); // Before the movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -40147,10 +40268,7 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: "main-view"
       }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie,
-        onClick: function onClick() {
-          return _this3.onMovieClick(null);
-        }
+        movie: selectedMovie
       }) : movies.map(function (movie) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
@@ -40165,9 +40283,13 @@ function (_React$Component) {
 
   return MainView;
 }(_react.default.Component);
+/* second example 3.3
+
+*/
+
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../../../../../../../../../home/bxchang04/.nvm/versions/node/v8.9.4/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../login-view/login-view":"components/login-view/login-view.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"../../../../../../../../../home/bxchang04/.nvm/versions/node/v8.9.4/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
