@@ -19,3 +19,23 @@ export class MovieCard extends React.Component {
     );
   }
 }
+
+//taken from models.js in project project's root folder. Is this section of code needed?
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: String.string.isRequired,
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: String.string.isRequired,
+    }),
+    Actors : [String],
+    ImagePath : String,
+    Featured : Boolean
+  }).isRequired,
+  onClick: PropTypes.func.isRequired
+};
