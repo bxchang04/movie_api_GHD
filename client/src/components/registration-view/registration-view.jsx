@@ -70,7 +70,7 @@ constructor() {
 }
 } />
     <Route path="/register" render={() => <RegistrationView />} />
-{/* you keep the rest routes here */ }
+/* you keep the rest routes here */
 
 /* 3.5
 Similarly, you can use axios to make a GET request to the "/users/:Username" endpoint in order to get profile information for a specific user; a PUT request to the |/users/:Username| endpoint to update a user’s profile information; and a DELETE request to the |/users/:Username| endpoint to deregister the user. You'll be asked to do so later in this Exercise, so make sure to display the correct username somewhere in your main view (which will take you to the profile page); add the new routes; create the respective views (one for viewing profile data and another one for editing); and make axios requests to get/update the profile data or deregister the user.

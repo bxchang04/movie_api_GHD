@@ -1,5 +1,3 @@
-// client/src/components/movie-card/movie-card.jsx
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';

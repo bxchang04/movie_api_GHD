@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 
 export class MovieView extends React.Component {
 
-  constructor(props) { //https://www.youtube.com/watch?v=H_Kz_c2Bkzg - why add props as param?
-    super(props); //same ? as above
+  constructor() {
+    super();
 
     this.state = {};
   }
@@ -36,7 +36,7 @@ export class MovieView extends React.Component {
         </div>
         <div
           className="movie-go-back"
-          onClick={() => onClick()}> {/*how does main-view get affected by this? Does this set onClick in main-view to () or null?*/}
+          onClick={() => onClick()}> {/*how does main-view get affected by this? Does this set onClick in main-view to () or null? Or does this set main-view selectedMovie to null? Not clear.*/}
           <button>
             Go back to the list of movies
           </button>

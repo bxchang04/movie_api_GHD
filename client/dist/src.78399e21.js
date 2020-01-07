@@ -39993,14 +39993,12 @@ var MovieView =
 function (_React$Component) {
   _inherits(MovieView, _React$Component);
 
-  function MovieView(props) {
+  function MovieView() {
     var _this;
 
     _classCallCheck(this, MovieView);
 
-    //https://www.youtube.com/watch?v=H_Kz_c2Bkzg - why add props as param?
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieView).call(this, props)); //same ? as above
-
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieView).call(this));
     _this.state = {};
     return _this;
   }
@@ -40139,7 +40137,9 @@ function (_React$Component) {
 
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie; // Before the movies have been loaded
+          selectedMovie = _this$state.selectedMovie;
+      /*if selectedMovie state is falsy, show list of movies. Otherwise show selected movie and set onClick to null.*/
+      // Before the movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -40151,9 +40151,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this3.onMovieClick(null);
         }
-      })
-      /*in movie-view, is the button's onClick() function the reason this is triggered? Also how come this comment doesn't need to be in {}, but in movie-view I had to wrap my comment in {} to prevent an error? Both are .jsx files */
-      : movies.map(function (movie) {
+      }) : movies.map(function (movie) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
           movie: movie,
@@ -40326,7 +40324,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65265" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58476" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

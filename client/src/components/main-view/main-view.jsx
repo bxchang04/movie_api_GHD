@@ -40,6 +40,7 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie } = this.state;
 
+  /*if selectedMovie state is falsy, show list of movies. Otherwise show selected movie and set onClick to null.*/
     // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;
 
@@ -50,7 +51,6 @@ export class MainView extends React.Component {
               movie={selectedMovie}
               onClick={() => this.onMovieClick(null)}
             />
-            /*in movie-view, is the button's onClick() function the reason this is triggered? Also how come this comment doesn't need to be in {}, but in movie-view I had to wrap my comment in {} to prevent an error? Both are .jsx files */
           : movies.map(movie => (
             <MovieCard
               key={movie._id}
