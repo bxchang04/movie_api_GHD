@@ -18,11 +18,9 @@ export class MainView extends React.Component {
     };
   }
 
-  // One of the "hooks" available in a React Component
    componentDidMount() {
      axios.get('https://myFlixDB2.herokuapp.com/movies')
        .then(response => {
-         // Assign the result to the state
          this.setState({
            movies: response.data
          });
@@ -50,7 +48,6 @@ export class MainView extends React.Component {
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;
 
     return (
@@ -68,7 +65,7 @@ export class MainView extends React.Component {
 
 
 
-/* second example in 3.4 -- does not work. Also, why does my block comment not work? (see line 95)
+{/* second example in 3.4 -- does not work.
 
 import React, { useState } from 'react';
 
@@ -97,4 +94,4 @@ export function LoginView(props) {
     </form>
   );
 }
-*/
+*/}

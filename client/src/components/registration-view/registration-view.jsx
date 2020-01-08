@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+//import axios from 'axios';
 
 class NameForm extends React.Component {
   constructor(props) {
@@ -12,13 +13,29 @@ class NameForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.input.current.value);
-    event.preventDefault();
-  }
+{/* from 3.5
+axios.post('YOUR_API_URL/users', {
+  Username: username,
+  Password: password,
+  Email: email,
+  Birthday: birthday
+})
+.then(response => {
+  const data = response.data;
+  console.log(data);
+  window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+})
+.catch(e => {
+  console.log('error registering the user')
+});
+*/}
+alert('A name was submitted: ' + this.input.current.value);
+event.preventDefault();
+}
 
   render() {
     return (
-      //From https://react-bootstrap.github.io/components/forms/
+      {/*From https://react-bootstrap.github.io/components/forms/*/}
       <Form>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
@@ -40,15 +57,15 @@ class NameForm extends React.Component {
 
         <Form.Group controlId="formBasicBirthdate">
           <Form.Label>Birthday</Form.Label>
-          <Form.Control type="birthday" placeholder="mm-dd-yyyy" /> //not sure if this line will work
+          <Form.Control type="birthday" placeholder="mm-dd-yyyy" />
           <Form.Text className="text-muted">
           We'll never share your birthday with anyone else.
           </Form.Text>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
           Register
-        </Button>
+          </Button>
       </Form>
     );
   }

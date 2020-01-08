@@ -36,7 +36,7 @@ export class MovieView extends React.Component {
         </div>
         <div
           className="movie-go-back"
-          onClick={() => onClick()}> {/*how does main-view get affected by this? Does this set onClick in main-view to () or null? Or does this set main-view selectedMovie to null? Not clear.*/}
+          onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
           <button>
             Go back to the list of movies
           </button>
