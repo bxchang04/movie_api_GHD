@@ -1,8 +1,6 @@
 //bootstrap ver
 
 import React, { useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
@@ -17,6 +15,18 @@ export function LoginView(props) {
     props.onLoggedIn(username)
   };
 
+  //do I need to add a const registration here? Since onClick requires a proptypes function (onClick: PropTypes.func.isRequired)
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log(username, password);
+    //or leave param blank? And why no ;??
+    props.onRegister(registration)
+  };
+
+//limit width of username and password fields
+//why is there no Render function here??? And why can't I reuse Movie-Cards format for a link to register (vs. selectedMovie:movie)
+// const { movie, onClick } = this.props;
+
   return (
     <Form>
       <Form.Group controlId="formBasicUsername">
@@ -30,6 +40,9 @@ export function LoginView(props) {
       </Form.Group>
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
+      </Button>
+        <br/><br/>First time user?<br/>
+        <Button onClick={() => onClick(handleRegister)} variant="link">Click here to register
         </Button>
     </Form>
   )

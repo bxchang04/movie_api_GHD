@@ -12,7 +12,7 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     /* Send a request to the server for authentication */
-    axios.post('YOUR_API_URL/login', {
+    axios.post('https://myFlixDB2.herokuapp.com/login', {
       Username: username,
       Password: password
     })
@@ -24,6 +24,8 @@ export function LoginView(props) {
       console.log('no such user')
     });
   };
+
+//add handleRegister, and button below
 
   return (
     <Form>
@@ -43,7 +45,9 @@ export function LoginView(props) {
   )
 }
 
+/* uncomment this later
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 };
+*/

@@ -1,9 +1,9 @@
-//bootstrap ver
-
 import React, { useState } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import PropTypes from 'prop-types';
+import axios from 'axios';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -11,21 +11,22 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    props.onLoggedIn(username)
+    /* Send a request to the server for authentication */
+    axios.post('https://myFlixDB2.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+    .then(response => {
+      const data = response.data;
+      props.onLoggedIn(data);
+    })
+    .catch(e => {
+      console.log('no such user')
+    });
   };
 
-  //do I need to add a const registration here? Since onClick requires a proptypes function (onClick: PropTypes.func.isRequired)
-  const handleRegister = (e) => {
-    e.preventDefault();
-    console.log(username, password);
-    //or leave param blank? And why no ;??
-    props.onRegister(registration)
-  };
-
-//limit width of username and password fields
-//why is there no Render function here??? And why can't I reuse Movie-Cards format for a link to register (vs. selectedMovie:movie)
-// const { movie, onClick } = this.props;
+//add handleRegister, and button below
+//doesn't allow successful login of Ben5/b5 -- check MongoDB Atlas
 
   return (
     <Form>
@@ -40,15 +41,14 @@ export function LoginView(props) {
       </Form.Group>
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
-      </Button>
-        <br/><br/>First time user?<br/>
-        <Button onClick={() => onClick(handleRegister)} variant="link">Click here to register
         </Button>
     </Form>
   )
 }
 
+/* uncomment this later
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 };
+*/

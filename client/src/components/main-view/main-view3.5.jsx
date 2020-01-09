@@ -2,11 +2,15 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route} from "react-router-dom";
-
 import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 export class MainView extends React.Component {
 
@@ -16,15 +20,14 @@ export class MainView extends React.Component {
     this.state = {
       movies: null,
       selectedMovie: null,
-      user: null
+      user: null,
+      // registration: null
     };
   }
 
-  // One of the "hooks" available in a React Component
    componentDidMount() {
      axios.get('https://myFlixDB2.herokuapp.com/movies')
        .then(response => {
-         // Assign the result to the state
          this.setState({
            movies: response.data
          });
@@ -34,25 +37,12 @@ export class MainView extends React.Component {
        });
    }
 
-/* uncomment this and delete older code above once tested
-   componentDidMount() {
-     let accessToken = localStorage.getItem('token');
-     if (accessToken !== null) {
-       this.setState({
-         user: localStorage.getItem('user')
-       });
-       this.getMovies(accessToken);
-     }
-   }
-*/
-
   onMovieClick(movie) {
     this.setState({
       selectedMovie: movie
     });
   }
 
-  //updated for 3.5
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -64,31 +54,34 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  //3.5 why does only 1 of the 3 student submissions have this in main-view? The 1st had it in App.js, and the 3rd did not have this code at all...
-  onLogout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('movies'); //optional?
+  //button to return back -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+  //ask why back button stopped working
+    onButtonClick() {
+      this.setState({
+      selectedMovie: null
+    });
+    }
+
+  //test this -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+    onRegister(registration) {
     this.setState({
-      user: null
-    })
-    window.open('/', '_self');
+      registration
+    });
   }
 
-  //3.5 does order matter?
   getMovies(token) {
-  axios.get('https://myFlixDB2.herokuapp.com/movies', {
-    headers: { Authorization: `Bearer ${token}`}
-  })
-  .then(response => {
-    // Assign the result to the state
-    this.setState({
-      movies: response.data
+    axios.get('https://myFlixDB2.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
   }
 
   render() {
@@ -96,65 +89,25 @@ export class MainView extends React.Component {
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    // Before the movies have been loaded
     if (!movies) return <div className="main-view"/>;
 
     return (
-     <div className="main-view">
-      {selectedMovie
-         ? <MovieView movie={selectedMovie}/>
-         : movies.map(movie => (
-           <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
-         ))
-      }
-      //Implement Container and Router? See student example #2
-      <Button className="logout" variant="info" onClick={() => this.onLogout()} >
-      Log out
-      </Button>
+      <div className="main-view">
+        <Container>
+          <Row>
+            {selectedMovie
+               ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
+               : movies.map(movie => (
 
-     </div>
+                 <Col key={movie._id} xs={12} sm={6} md={4}>
+                   {/*why is this this.onMovieClick(movie) only for the OPEN link, and not the column's container? Check movie-card.*/}
+                   <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+                 </Col>
+               ))
+            }
+          </Row>
+        </Container>
+      </div>
     );
   }
 }
-
-/* 3.5
-To delete the token and the user from localStorage, you need to use the following commands:
-
-localStorage.removeItem('token');
-
-localStorage.removeItem('user');
-
-Feel free to create a new method that will handle the removing of authenticated data from localStorage using the commands shown above.
-*/
-
-
-/* second example in 3.4 -- does not work. Also, why does my block comment not work? (see line 95)
-
-import React, { useState } from 'react';
-
-export function LoginView(props) {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-
-  const handleSubmit = () => {
-    console.log(username, password);
-    /* Send a request to the server for authentication */
-//    props.onLoggedIn(username) //uncommented, per exercise instructions
-//  };
-
-/*
-  return (
-    <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </form>
-  );
-}
-*/

@@ -21,7 +21,7 @@ export class MainView extends React.Component {
       movies: null,
       selectedMovie: null,
       user: null,
-      registration: null
+      // registration: null
     };
   }
 
