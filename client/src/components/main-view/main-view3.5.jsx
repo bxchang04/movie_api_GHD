@@ -36,6 +36,17 @@ export class MainView extends React.Component {
          console.log(error);
        });
    }
+   //uncomment below and delete above once 3.5 errors are solved.
+   // componentDidMount() {
+   //   let accessToken = localStorage.getItem('token');
+   //   if (accessToken !== null) {
+   //     this.setState({
+   //       user: localStorage.getItem('user')
+   //     });
+   //     this.getMovies(accessToken);
+   //   }
+   // }
+
 
   onMovieClick(movie) {
     this.setState({
