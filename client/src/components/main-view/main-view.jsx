@@ -8,7 +8,6 @@ import { MovieView } from '../movie-view/movie-view';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
@@ -20,7 +19,8 @@ export class MainView extends React.Component {
     this.state = {
       movies: null,
       selectedMovie: null,
-      user: null
+      user: null,
+      registration: null
     };
   }
 
@@ -48,6 +48,20 @@ export class MainView extends React.Component {
     });
   }
 
+  //button to return back -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+  //ask why back button stopped working
+    onButtonClick() {
+      this.setState({
+      selectedMovie: null
+    });
+    }
+
+  //test this -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+    onRegister(registration) {
+    this.setState({
+      registration
+    });
+  }
 
   render() {
     const { movies, selectedMovie, user } = this.state;
@@ -57,20 +71,22 @@ export class MainView extends React.Component {
     if (!movies) return <div className="main-view"/>;
 
     return (
-      <Container>
-        <Row>
-          <Col className="main-view">
-            {/* <div className="main-view"> */}
+      <div className="main-view">
+        <Container>
+          <Row>
             {selectedMovie
-               ? <MovieView movie={selectedMovie}/>
+               ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
                : movies.map(movie => (
-                 <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+
+                 <Col key={movie._id} xs={12} sm={6} md={4}>
+                   {/*why is this this.onMovieClick(movie) only for the OPEN link, and not the column's container? Check movie-card.*/}
+                   <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+                 </Col>
                ))
             }
-            {/* </div> */}
-          </Col>
-         </Row>
-       </Container>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

@@ -1,17 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 
 export class MovieCard extends React.Component {
   render() {
     const { movie, onClick } = this.props;
 
     return (
-      <div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>
+      <Card style={{ width: '16rem' }}>
+        <Card.Img variant="top" src={movie.ImagePath} />
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
+          <Card.Text>{movie.Description}</Card.Text>
+          <Button onClick={() => onClick(movie)} variant="link">Open</Button>
+        </Card.Body>
+      </Card>
     );
   }
 }
 
-//taken from models.js in project project's root folder
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,

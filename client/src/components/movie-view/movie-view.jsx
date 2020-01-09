@@ -45,6 +45,10 @@ export class MovieView extends React.Component {
           <button>
             Back to list of movies
           </button>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <button>
+            Add to favorites
+          </button>
           {/*No longer works now with bootstrap in main-view.*/}
         </div>
       </div>
