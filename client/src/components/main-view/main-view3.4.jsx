@@ -20,7 +20,8 @@ export class MainView extends React.Component {
     this.state = {
       movies: null,
       selectedMovie: null,
-      user: null
+      user: null,
+      registration: null //no idea if this works
     };
   }
 
@@ -48,6 +49,21 @@ export class MainView extends React.Component {
     });
   }
 
+  //button to return back -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+  //ask why back button stopped working
+  onButtonClick() {
+    this.setState({
+    selectedMovie: null
+    });
+  }
+
+  //test this -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+  onRegister(registration) {
+    this.setState({
+      registration
+    });
+  }
+
 
   render() {
     const { movies, selectedMovie, user } = this.state;
@@ -57,53 +73,22 @@ export class MainView extends React.Component {
     if (!movies) return <div className="main-view"/>;
 
     return (
-      <Container>
-        <Row>
-          <Col className="main-view">
-            {/* <div className="main-view"> */}
+      <div className="main-view">
+        <Container>
+          <Row>
             {selectedMovie
-               ? <MovieView movie={selectedMovie}/>
+               ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
                : movies.map(movie => (
-                 <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+
+                 <Col key={movie._id} xs={12} sm={6} md={4}>
+                   {/*why is this this.onMovieClick(movie) only for the OPEN link, and not the column's container? Check movie-card.*/}
+                   <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+                 </Col>
                ))
             }
-            {/* </div> */}
-          </Col>
-         </Row>
-       </Container>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }
-
-
-
-{/* second example in 3.4 -- does not work.
-
-import React, { useState } from 'react';
-
-export function LoginView(props) {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-
-  const handleSubmit = () => {
-    console.log(username, password);
-    /* Send a request to the server for authentication */
-//    props.onLoggedIn(username) //uncommented, per exercise instructions
-//  };
-
-/*
-  return (
-    <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </form>
-  );
-}
-*/}

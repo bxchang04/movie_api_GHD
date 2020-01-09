@@ -3,12 +3,12 @@ import React from 'react';
 import axios from 'axios';
 
 import { LoginView } from '../login-view/login-view';
-import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
@@ -21,7 +21,7 @@ export class MainView extends React.Component {
       movies: null,
       selectedMovie: null,
       user: null,
-      // registration: null
+      registration: null //no idea if this works
     };
   }
 
@@ -63,6 +63,7 @@ export class MainView extends React.Component {
       registration
     });
   }
+
 
   render() {
     const { movies, selectedMovie, user } = this.state;
