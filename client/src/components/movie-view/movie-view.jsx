@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Media from 'react-bootstrap/Media';
 
 export class MovieView extends React.Component {
 
@@ -21,41 +22,39 @@ export class MovieView extends React.Component {
 
     return (
       <div className="movie-view">
-        <img className="movie-poster" src={movie.ImagePath} />
-        <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
-        </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Description}</span>
-        </div>
-
-        <div className="movie-genre">
-          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre.Name}</span>
-        </div>
-        <div className="movie-director">
-          <span className="label">Director: </span>
-          <span className="value">{movie.Director.Name}</span>
-        </div>
-        <div
-          className="movie-go-back"
-          onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
-          <button>
-            Back to list of movies
-          </button>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <button>
-            Add to favorites {/*placeholder. no functionality yet.*/}
-          </button>
-          {/*No longer works now with bootstrap in main-view.*/}
-        </div>
+        <Media className="d-flex flex-column flex-md-row align-items-center">
+          <Media.Body>
+            <div
+              className="movieButtons"
+              onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
+              <button>
+                Back to list of movies
+                {/*No longer worked now in main-view, so added a onButtonClick prop*/}
+              </button>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <button>
+                Add to favorites {/*placeholder. no functiona.*/}
+              </button>
+            </div>
+            <h1>{movie.Title}</h1>
+            <br />
+            <h6>Genre: {movie.Genre.Name}</h6>
+            <h6>Director: {movie.Director.Name}</h6>
+            <br />
+            <h6>Description</h6>
+            <p>
+              {movie.Description}
+            </p>
+          </Media.Body>
+          <img
+            width={220}
+            height={326}
+            className="ml-3"
+            src={movie.ImageUrl}
+            alt="Generic placeholder"
+          />
+        </Media>
       </div>
-
-
-
     );
-
   }
 }

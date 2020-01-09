@@ -41,11 +41,9 @@ export function LoginView(props) {
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Submit
       </Button>
-      <Form.Group controlId="formRegister">
         <br/><br/>First time user?<br/>
         <Button onClick={() => onClick(handleRegister)} variant="link">Click here to register
         </Button>
-      </Form.Group>
     </Form>
   )
 }
