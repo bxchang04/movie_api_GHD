@@ -39415,14 +39415,21 @@ function (_React$Component) {
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
-      }, _react.default.createElement(_Media.default, {
+      }, _react.default.createElement("br", null), _react.default.createElement(_Media.default, {
         className: "d-flex flex-column flex-md-row align-items-center"
-      }, _react.default.createElement(_Media.default.Body, null, _react.default.createElement("div", {
-        className: "movieButtons",
+      }, _react.default.createElement("div", {
+        className: "movie-go-back",
         onClick: function onClick() {
           return _onClick();
         }
-      }, " ", _react.default.createElement("button", null, "Back to list of movies"), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("button", null, "Add to favorites ")), _react.default.createElement("h1", null, movie.Title), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Genre: ", movie.Genre.Name), _react.default.createElement("h6", null, "Director: ", movie.Director.Name), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Description"), _react.default.createElement("p", null, movie.Description)), _react.default.createElement("img", {
+      }, " ", _react.default.createElement("button", null, "Back")), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("h1", null, movie.Title), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("div", {
+        className: "movie-go-back",
+        onClick: function onClick() {
+          return _onClick();
+        }
+      }, " ", _react.default.createElement("button", null, "Add to favorites "))), _react.default.createElement(_Media.default, {
+        className: "d-flex flex-column flex-md-row align-items-center"
+      }, _react.default.createElement(_Media.default.Body, null, _react.default.createElement("br", null), _react.default.createElement("h6", null, "Genre: ", movie.Genre.Name), _react.default.createElement("h6", null, "Director: ", movie.Director.Name), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Description"), _react.default.createElement("p", null, movie.Description)), _react.default.createElement("img", {
         width: 220,
         height: 326,
         className: "ml-3",
