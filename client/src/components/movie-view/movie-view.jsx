@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 export class MovieView extends React.Component {
 
@@ -38,8 +43,9 @@ export class MovieView extends React.Component {
           className="movie-go-back"
           onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
           <button>
-            Go back to the list of movies
+            Back to list of movies
           </button>
+          {/*No longer works now with bootstrap in main-view.*/}
         </div>
       </div>
 
