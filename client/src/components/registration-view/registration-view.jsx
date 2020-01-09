@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 //import axios from 'axios'; //for 3.5
 
-//where did this come from?
+//how did other student(s) know this code is needed? What documentation should I read?
 export function RegistrationView(props) {
   const [username, createUsername] = useState('');
   const [password, createPassword] = useState('');
@@ -49,9 +49,10 @@ event.preventDefault();
 }
 */
 
-//update with createUsername, password, email, dob. See examples.
-/*From https://react-bootstrap.github.io/components/forms/*/
-  render() {
+//update with createUsername, password, email, dob. See examples. Ask tutor how to arrive at this step without "plagiarizing"
+{/*From https://react-bootstrap.github.io/components/forms/*/}
+
+  {/*why no render function?*/}
     return (
       <Container>
         <Form>
@@ -87,10 +88,10 @@ event.preventDefault();
         </Form>
       </Container>
     );
-  }
 }
 
-ReactDOM.render(
-  <NameForm />,
-  document.getElementById('root')
-);
+//is this needed?
+// RegistrationView.propTypes = {
+//   onSignedIn: PropTypes.func.isRequired,
+//   onClick: PropTypes.func.isRequired
+// };
