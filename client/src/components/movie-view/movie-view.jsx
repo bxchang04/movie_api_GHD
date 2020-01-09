@@ -47,7 +47,7 @@ export class MovieView extends React.Component {
           </button>
           <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           <button>
-            Add to favorites
+            Add to favorites {/*placeholder. no functionality yet.*/}
           </button>
           {/*No longer works now with bootstrap in main-view.*/}
         </div>

@@ -39409,7 +39409,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _onClick();
         }
-      }, " ", _react.default.createElement("button", null, "Back to list of movies"), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("button", null, "Add to favorites")));
+      }, " ", _react.default.createElement("button", null, "Back to list of movies"), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("button", null, "Add to favorites ")));
     }
   }]);
 
