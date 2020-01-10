@@ -41,8 +41,16 @@ export class MainView extends React.Component {
   }
 
   onLoggedIn(authData) {
-    ...
-  }
+  console.log(authData);
+  this.setState({
+    user: authData.user.Username
+  });
+  //sample submission had this-- what is it for?
+  //this.props.setLoggedUser(authData.user);
+  localStorage.setItem('token', authData.token);
+  localStorage.setItem('user', authData.user.Username);
+  this.getMovies(authData.token);
+}
 
   render() {
     const { movies, user } = this.state;

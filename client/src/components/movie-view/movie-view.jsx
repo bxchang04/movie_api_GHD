@@ -66,3 +66,5 @@ export class MovieView extends React.Component {
     );
   }
 }
+
+//add movie-view.propTypes?

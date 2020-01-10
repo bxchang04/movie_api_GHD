@@ -1,41 +1,65 @@
-//review with Hugo
+//Still need to implement moviesGrid
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+// import app components
+import { MoviesGrid } from '../movies-grid/movies-grid';
+
+// get bootstrap imports
+import Media from 'react-bootstrap/Media';
+// import Button from 'react-bootstrap/Button';
+
+// imports for files to bundle
 import './genre-view.scss';
 
-import { Link } from "react-router-dom";
 
-export class GenreView extends React.Component {
-
-  constructor() {
-    super();
-
-    this.state = {};
-  }
-
-  render() {
-    const { genre } = this.props;
-
-    if (!genre) return null;
-
-    return (
-      <Card className="genre-info" style={{ width: '18rem' }}>
-        <Card.Body>
-          <Card.Title className="genre-name">{genre.Name}</Card.Title>
-          <Card.Text>
-            Description: <br />
-            {genre.Description}
-            <br />
-            <br />
-          </Card.Text>
-          <Link to={`/`} >
-            <Button className="button-card" variant="info">Back</Button>
-          </Link>
-        </Card.Body>
-      </Card>
-    );
-  }
+export const GenreView = (props) => {
+  const { genre, movies, user, userProfile, onToggleFavourite } = props;
+  if (!genre) return null;
+  return (
+    <div className="genre-view">
+      <h1>{genre.Name}</h1>
+      <br />
+      <Media className="d-flex flex-column flex-md-row align-items-center">
+        <Media.Body>
+          <h5>Description</h5>
+          <p>{genre.Description}</p>
+        </Media.Body>
+      </Media>
+      <br />
+      <MoviesGrid
+        movies={movies}
+        title="Some movies that belong to this Genre"
+        onToggleFavourite={movieId => onToggleFavourite(movieId)}
+        user={user}
+        userProfile={userProfile}
+      />
+    </div>
+  );
 }
+
+//what happens if this is taken out?
+GenreView.propTypes = {
+  genre: PropTypes.exact({
+    _id: PropTypes.string,
+    Name: PropTypes.string,
+    Description: PropTypes.string
+  }).isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string,
+      ImageUrl: PropTypes.string,
+      Description: PropTypes.string,
+      Genre: PropTypes.exact({
+        _id: PropTypes.string,
+        Name: PropTypes.string,
+        Description: PropTypes.string
+      }),
+      Director: PropTypes.shape({
+        Name: PropTypes.string
+      })
+    })
+  ),
+  onToggleFavourite: PropTypes.func.isRequired
+};
