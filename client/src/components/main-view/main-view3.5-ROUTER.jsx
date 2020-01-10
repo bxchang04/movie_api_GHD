@@ -14,6 +14,9 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+// import app components
+import { MoviesGrid } from '../movies-grid/movies-grid';
+
 export class MainView extends React.Component {
 
   constructor() {
@@ -25,9 +28,40 @@ export class MainView extends React.Component {
     };
   }
 
-  getMovies() {
-    /* ... */
+  //check this
+  getMovies(token) {
+    axios.get('https://myFlixDB2.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
+
+  /*
+  Why does his version differ?
+
+  https://github.com/joannamaciolek/my-Flix-movie-app/blob/master/client/src/components/main-view/main-view.jsx
+
+  getMovies(token) {
+    axios.get('https://my-flix-1098.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        this.props.setMovies(response.data);
+        localStorage.setItem('movies', JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  */
 
 
   componentDidMount() {

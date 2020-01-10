@@ -1,4 +1,5 @@
-//first example in 3.4
+//review with Hugo
+
 import React from 'react';
 import axios from 'axios';
 
@@ -11,6 +12,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+
+// import app components
+import { MoviesGrid } from '../movies-grid/movies-grid';
 
 export class MainView extends React.Component {
 

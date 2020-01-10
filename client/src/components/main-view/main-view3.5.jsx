@@ -12,6 +12,9 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+// import app components
+import { MoviesGrid } from '../movies-grid/movies-grid';
+
 export class MainView extends React.Component {
 
   constructor() {
