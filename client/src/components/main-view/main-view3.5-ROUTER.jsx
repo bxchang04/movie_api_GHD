@@ -45,7 +45,7 @@ export class MainView extends React.Component {
   }
 
   /*
-  Why does his version differ?
+  Why does his version of getMovies differ?
 
   https://github.com/joannamaciolek/my-Flix-movie-app/blob/master/client/src/components/main-view/main-view.jsx
 
