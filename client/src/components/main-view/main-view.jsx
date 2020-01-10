@@ -1,5 +1,4 @@
-//review with Hugo
-
+//first example in 3.4
 import React from 'react';
 import axios from 'axios';
 
@@ -13,9 +12,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-// import app components
-import { MoviesGrid } from '../movies-grid/movies-grid';
-
 export class MainView extends React.Component {
 
   constructor() {
@@ -25,21 +21,21 @@ export class MainView extends React.Component {
       movies: null,
       selectedMovie: null,
       user: null,
-      registration: null //no idea if this works
+      register: false //why false and not null?
     };
   }
 
-   componentDidMount() {
-     axios.get('https://myFlixDB2.herokuapp.com/movies')
-       .then(response => {
-         this.setState({
-           movies: response.data
-         });
-       })
-       .catch(function (error) {
-         console.log(error);
+  componentDidMount() {
+   axios.get('https://myFlixDB2.herokuapp.com/movies')
+     .then(response => {
+       this.setState({
+         movies: response.data
        });
-   }
+     })
+     .catch(function (error) {
+       console.log(error);
+     });
+  }
 
   onMovieClick(movie) {
     this.setState({
@@ -53,40 +49,59 @@ export class MainView extends React.Component {
     });
   }
 
-  //button to return back -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
-  //ask why back button stopped working
-    onButtonClick() {
-      this.setState({
-      selectedMovie: null
-    });
-    }
-
-  //test this -- confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
-    onRegister(registration) {
+  onButtonClick() {
     this.setState({
-      registration
+    selectedMovie: null
+  });
+  }
+
+  //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+
+/*  onSignedIn(user) {
+    this.setState({
+      user: user,
+      register: false,
     });
   }
 
+  register() {
+    this.setState({
+      register: true
+    });
+  }
+
+  alreadyMember() {
+    this.setState({
+      register: false
+    })
+  }*/
+
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, selectedMovie, user, register } = this.state;
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    if (!movies) return <div className="main-view"/>;
+    //Understand this before implementing
+    /*if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
+
+    if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
+    */
+
+    if (!movies) return <div className="main-view"/>; //only occurs for a second. Like an initialization.
 
     return (
       <div className="main-view">
         <Container>
           <Row>
+          {/* Make onClick required. Study why or why not this is needed. Practice properties. */}
             {selectedMovie
                ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
                : movies.map(movie => (
 
                  <Col key={movie._id} xs={12} sm={6} md={4}>
-                   {/*why is this this.onMovieClick(movie) only for the OPEN link, and not the column's container? Check movie-card.*/}
-                   <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+                   {/*movie = {movie} is (a property?) only for rendering. top to bottom, not left to right.*/}
+                   <MovieCard key={movie._id} movie={movie} onClick={() => this.onMovieClick(movie)}/>
                  </Col>
                ))
             }

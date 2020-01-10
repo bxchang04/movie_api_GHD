@@ -25,6 +25,7 @@ export class MovieCard extends React.Component {
   }
 }
 
+//For developer only. Gives warnings.
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,

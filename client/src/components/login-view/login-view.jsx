@@ -24,8 +24,6 @@ export function LoginView(props) {
   };
 
 //limit width of username and password fields
-//why is there no Render function here??? And why can't I reuse Movie-Cards format for a link to register (vs. selectedMovie:movie)
-// const { movie, onClick } = this.props;
 
   return (
     <Form>
@@ -42,13 +40,14 @@ export function LoginView(props) {
         Submit
       </Button>
         <br/><br/>First time user?<br/>
-        <Button onClick={() => onClick(handleRegister)} variant="link">Click here to register
+        <Button type="submit" variant="link" onClick={handleRegister}>Click here to register
         </Button>
     </Form>
   )
 }
 
+//doesn't matter about rendering or calling -- these requirements just send an error message if they are violated. Should I require onClick? User can just use return to login.
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
+  //onClick: PropTypes.func.isRequired
 };

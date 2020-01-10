@@ -21,36 +21,9 @@ export function RegistrationView(props) {
     props.onLoggedIn(username);
   };
 
-  /* from 3.5
-  class NameForm extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.input = React.createRef();
-    }
+//confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
 
-  handleSubmit(event) {
-axios.post('https://myFlixDB2.herokuapp.com/movies/users', {
-  Username: username,
-  Password: password,
-  Email: email,
-  Birthday: birthday
-})
-.then(response => {
-  const data = response.data;
-  console.log(data);
-  window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-})
-.catch(e => {
-  console.log('error registering the user')
-});
-alert('A name was submitted: ' + this.input.current.value);
-event.preventDefault();
-}
-*/
-
-//update with createUsername, password, email, dob. See examples. Ask tutor how to arrive at this step without "plagiarizing"
-{/*From https://react-bootstrap.github.io/components/forms/*/}
+//IMPORTANT: His return function (statement) differs slightly from below.
 
   {/*why no render function?*/}
     return (
