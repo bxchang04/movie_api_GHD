@@ -16,6 +16,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
+    //props underneath don't need to be declared in constructor, unlike states.
     const { movie, onClick } = this.props;
 
     if (!movie) return null;
@@ -29,7 +30,7 @@ export class MovieView extends React.Component {
           onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
           <button>
           Back
-          {/*No longer worked now in main-view, so added a onButtonClick prop*/}
+          {/*No longer worked now in main-view, so added a onButtonClick prop to main-view*/}
           </button>
         </div>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>

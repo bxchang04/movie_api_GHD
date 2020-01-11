@@ -14,9 +14,11 @@ import Container from 'react-bootstrap/Container';
 
 export class MainView extends React.Component {
 
+  //executed at the point component is created
   constructor() {
     super();
 
+    //why do these have to be copy/pasted as const in render? seems redundant. Maybe thats why FP or non class based components are the new paradigm?
     this.state = {
       movies: null,
       selectedMovie: null,
@@ -25,6 +27,7 @@ export class MainView extends React.Component {
     };
   }
 
+  //executed after the point component is mounted (rendered). But why is this not included after render, per the diagram?
   componentDidMount() {
    axios.get('https://myFlixDB2.herokuapp.com/movies')
      .then(response => {

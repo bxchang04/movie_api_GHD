@@ -19,7 +19,7 @@ export function LoginView(props) {
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(username, password);
-    //or leave param blank? And why no ;??
+    //or leave param blank? And why no ;?? Also, onRegister is in main-view. onLoggedin is also in main-view. How would I know what is and is not a reference to code outside of this view (.jsx file / component)?
     props.onRegister(registration)
   };
 

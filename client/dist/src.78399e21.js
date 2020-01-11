@@ -35761,7 +35761,7 @@ function LoginView(props) {
 
   var handleRegister = function handleRegister(e) {
     e.preventDefault();
-    console.log(username, password); //or leave param blank? And why no ;??
+    console.log(username, password); //or leave param blank? And why no ;?? Also, onRegister is in main-view. onLoggedin is also in main-view. How would I know what is and is not a reference to code outside of this view (.jsx file / component)?
 
     props.onRegister(registration);
   }; //limit width of username and password fields
@@ -39269,6 +39269,7 @@ function (_React$Component) {
   _createClass(MovieView, [{
     key: "render",
     value: function render() {
+      //props underneath don't need to be declared in constructor, unlike states.
       var _this$props = this.props,
           movie = _this$props.movie,
           _onClick = _this$props.onClick;
@@ -39357,12 +39358,14 @@ var MainView =
 function (_React$Component) {
   _inherits(MainView, _React$Component);
 
+  //executed at the point component is created
   function MainView() {
     var _this;
 
     _classCallCheck(this, MainView);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(MainView).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MainView).call(this)); //why do these have to be copy/pasted as const in render? seems redundant. Maybe thats why FP or non class based components are the new paradigm?
+
     _this.state = {
       movies: null,
       selectedMovie: null,
@@ -39371,7 +39374,8 @@ function (_React$Component) {
 
     };
     return _this;
-  }
+  } //executed after the point component is mounted (rendered). But why is this not included after render, per the diagram?
+
 
   _createClass(MainView, [{
     key: "componentDidMount",
