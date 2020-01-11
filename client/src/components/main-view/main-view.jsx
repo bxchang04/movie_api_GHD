@@ -40,22 +40,24 @@ export class MainView extends React.Component {
      });
   }
 
+  //why is this (movie) but function below ()?
   onMovieClick(movie) {
     this.setState({
       selectedMovie: movie
     });
   }
 
+  //extraneous
+  // onButtonClick() {
+  //   this.setState({
+  //     selectedMovie: null
+  //   });
+  // }
+
   onLoggedIn(user) {
     this.setState({
       user
     });
-  }
-
-  onButtonClick() {
-    this.setState({
-    selectedMovie: null
-  });
   }
 
   //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
@@ -97,13 +99,13 @@ export class MainView extends React.Component {
       <div className="main-view">
         <Container>
           <Row>
-          {/* Make onClick required. Study why or why not this is needed. Practice properties. */}
+          {/* Make onClick required? Study why or why not this is needed. Practice properties. Also, changing onButtonClick to onMovieClick fixed the broken back button for 3.4. Added null as argument.*/}
             {selectedMovie
-               ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
+               ? <MovieView movie={selectedMovie} onClick={() => this.onMovieClick(null)}/>
                : movies.map(movie => (
 
                  <Col key={movie._id} xs={12} sm={6} md={4}>
-                   {/*movie = {movie} is (a property?) only for rendering. top to bottom, not left to right.*/}
+                   {/*what is key=??? and movie = {movie} is (a property?) only for rendering. if I add 'movie' to onClick here it does nothing -- why? */}
                    <MovieCard key={movie._id} movie={movie} onClick={() => this.onMovieClick(movie)}/>
                  </Col>
                ))

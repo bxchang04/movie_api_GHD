@@ -39389,26 +39389,26 @@ function (_React$Component) {
       }).catch(function (error) {
         console.log(error);
       });
-    }
+    } //why is this (movie) but function below ()?
+
   }, {
     key: "onMovieClick",
     value: function onMovieClick(movie) {
       this.setState({
         selectedMovie: movie
       });
-    }
+    } //extraneous
+    // onButtonClick() {
+    //   this.setState({
+    //     selectedMovie: null
+    //   });
+    // }
+
   }, {
     key: "onLoggedIn",
     value: function onLoggedIn(user) {
       this.setState({
         user: user
-      });
-    }
-  }, {
-    key: "onButtonClick",
-    value: function onButtonClick() {
-      this.setState({
-        selectedMovie: null
       });
     } //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
 
@@ -39460,7 +39460,7 @@ function (_React$Component) {
       }, _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
         movie: selectedMovie,
         onClick: function onClick() {
-          return _this3.onButtonClick();
+          return _this3.onMovieClick(null);
         }
       }) : movies.map(function (movie) {
         return _react.default.createElement(_Col.default, {
