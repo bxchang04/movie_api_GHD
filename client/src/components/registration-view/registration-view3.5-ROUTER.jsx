@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 //import axios from 'axios'; //for 3.5
 
-//how did other student(s) know this code is needed? What documentation should I read?
 export function RegistrationView(props) {
   const [username, createUsername] = useState('');
   const [password, createPassword] = useState('');
@@ -21,57 +20,25 @@ export function RegistrationView(props) {
     props.onLoggedIn(username);
   };
 
-  /* from 3.5?
-  class NameForm extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.input = React.createRef();
-    }
-
-  handleRegister(event) {
-axios.post('https://myFlixDB2.herokuapp.com/movies/users', {
-  Username: username,
-  Password: password,
-  Email: email,
-  Birthday: birthday
-})
-.then(response => {
-  const data = response.data;
-  console.log(data);
-  window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-})
-.catch(e => {
-  console.log('error registering the user')
-});
-alert('A name was submitted: ' + this.input.current.value);
-event.preventDefault();
-}
-*/
-
-//update with createUsername, password, email, dob. See examples. Ask tutor how to arrive at this step without "plagiarizing"
-{/*From https://react-bootstrap.github.io/components/forms/*/}
-
-  {/*why no render function?*/}
     return (
       <Container>
         <Form>
+          <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+          </Form.Text>
+          </Form.Group>
+
           <Form.Group controlId="formBasicUsername">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="password" placeholder="Enter desired username" />
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="username" placeholder="Enter desired username" />
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Must be six digits or more" />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-            </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="formBasicBirthdate">
@@ -83,7 +50,12 @@ event.preventDefault();
           </Form.Group>
 
           <Button variant="primary" type="submit"                 onClick={handleSubmit}>
-            Register
+            Register!
+          </Button>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          {/*How does this lead to login-view?*/}
+          <Button variant='primary'onClick={() => props.onClick()}>
+            Already a member?
           </Button>
         </Form>
       </Container>

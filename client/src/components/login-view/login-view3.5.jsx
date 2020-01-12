@@ -45,9 +45,7 @@ export function LoginView(props) {
   )
 }
 
-/* uncomment this later
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 };
-*/

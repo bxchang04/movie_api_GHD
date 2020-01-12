@@ -29,7 +29,6 @@ export class MainView extends React.Component {
     };
   }
 
-  //executed after the point component is mounted (rendered). But why is this not included after render, per the diagram?
   componentDidMount() {
    axios.get('https://myFlixDB2.herokuapp.com/movies')
      .then(response => {
@@ -49,20 +48,11 @@ export class MainView extends React.Component {
     });
   }
 
-  //extraneous
-  // onButtonClick() {
-  //   this.setState({
-  //     selectedMovie: null
-  //   });
-  // }
-
   onLoggedIn(user) {
     this.setState({
       user
     });
   }
-
-  //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
 
   onSignedIn(user) {
     this.setState({

@@ -35899,13 +35899,8 @@ function RegistrationView(props) {
     // workaround for authentication
 
     props.onLoggedIn(username);
-  }; //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
-  //IMPORTANT: His return function (statement) differs slightly from below.
+  };
 
-
-  {
-    /*why no render function?*/
-  }
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicEmail"
   }, _react.default.createElement(_Form.default.Label, null, "Email address"), _react.default.createElement(_Form.default.Control, {
@@ -39477,8 +39472,7 @@ function (_React$Component) {
 
     };
     return _this;
-  } //executed after the point component is mounted (rendered). But why is this not included after render, per the diagram?
-
+  }
 
   _createClass(MainView, [{
     key: "componentDidMount",
@@ -39500,21 +39494,14 @@ function (_React$Component) {
       this.setState({
         selectedMovie: movie
       });
-    } //extraneous
-    // onButtonClick() {
-    //   this.setState({
-    //     selectedMovie: null
-    //   });
-    // }
-
+    }
   }, {
     key: "onLoggedIn",
     value: function onLoggedIn(user) {
       this.setState({
         user: user
       });
-    } //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
-
+    }
   }, {
     key: "onSignedIn",
     value: function onSignedIn(user) {

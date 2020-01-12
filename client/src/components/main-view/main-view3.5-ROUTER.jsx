@@ -22,9 +22,13 @@ export class MainView extends React.Component {
   constructor() {
     super();
 
+    //why do these have to be copy/pasted as const in render? seems redundant. Maybe thats why FP or non class based components are the new paradigm?
     this.state = {
-      movies: [],
-      user: null
+      movies: null,
+      selectedMovie: null,
+      user: null,
+      register: false, //why false and not null?
+      // filterString: null //not sure if this needs to be initialized
     };
   }
 
@@ -63,6 +67,24 @@ export class MainView extends React.Component {
   }
   */
 
+  onSignedIn(user) {
+    this.setState({
+      user: user,
+      register: false,
+    });
+  }
+
+  register() {
+    this.setState({
+      register: true
+    });
+  }
+
+  alreadyMember() {
+    this.setState({
+      register: false
+    })
+  }
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
@@ -84,7 +106,24 @@ export class MainView extends React.Component {
   localStorage.setItem('token', authData.token);
   localStorage.setItem('user', authData.user.Username);
   this.getMovies(authData.token);
-}
+  }
+
+  //add logOut function 3.5
+  // Perhaps you’re wondering how you can log out as a user. To do so, you can add a new button in your application’s MainView and add an onClick handler, where you delete the token and the user from localStorage—as simple as that!
+  //
+  // To delete the token and the user from localStorage, you need to use the following commands:
+  //
+  // localStorage.removeItem('token');
+  //
+  // localStorage.removeItem('user');
+
+
+/*  //filter feature -- test this, and add input field somewhere
+  onFilterChange = (event) => {
+    this.setState({
+      filterString: event.target.value
+    });
+  }*/
 
   render() {
     const { movies, user } = this.state;
