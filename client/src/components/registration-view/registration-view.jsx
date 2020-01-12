@@ -29,22 +29,22 @@ export function RegistrationView(props) {
     return (
       <Container>
         <Form>
+          <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+          </Form.Text>
+          </Form.Group>
+
           <Form.Group controlId="formBasicUsername">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="password" placeholder="Enter desired username" />
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="password" placeholder="Enter desired username" />
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Must be six digits or more" />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-            </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="formBasicBirthdate">
@@ -56,7 +56,11 @@ export function RegistrationView(props) {
           </Form.Group>
 
           <Button variant="primary" type="submit"                 onClick={handleSubmit}>
-            Register
+            Register!
+          </Button>
+          {/*How does this lead to login-view?*/}
+          <Button variant='primary'onClick={() => props.onClick()}>
+            Already a member?
           </Button>
         </Form>
       </Container>

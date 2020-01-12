@@ -35756,14 +35756,6 @@ function LoginView(props) {
     e.preventDefault();
     console.log(username, password);
     props.onLoggedIn(username);
-  }; //do I need to add a const registration here? Since onClick requires a proptypes function (onClick: PropTypes.func.isRequired)
-
-
-  var handleRegister = function handleRegister(e) {
-    e.preventDefault();
-    console.log(username, password); //or leave param blank? And why no ;?? Also, onRegister is in main-view. onLoggedin is also in main-view. How would I know what is and is not a reference to code outside of this view (.jsx file / component)?
-
-    props.onRegister(registration);
   }; //limit width of username and password fields
 
 
@@ -35790,15 +35782,19 @@ function LoginView(props) {
     type: "submit",
     onClick: handleSubmit
   }, "Submit"), _react.default.createElement("br", null), _react.default.createElement("br", null), "First time user?", _react.default.createElement("br", null), _react.default.createElement(_Button.default, {
+    id: "registrationButton",
     type: "submit",
     variant: "link",
-    onClick: handleRegister
+    onClick: function onClick() {
+      return props.onClick();
+    }
   }, "Click here to register"));
 } //doesn't matter about rendering or calling -- these requirements just send an error message if they are violated. Should I require onClick? User can just use return to login.
 
 
 LoginView.propTypes = {
-  onLoggedIn: _propTypes.default.func.isRequired //onClick: PropTypes.func.isRequired
+  onLoggedIn: _propTypes.default.func.isRequired,
+  onClick: _propTypes.default.func.isRequired //is this required??
 
 };
 },{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","prop-types":"../node_modules/prop-types/index.js"}],"../node_modules/react-bootstrap/esm/Row.js":[function(require,module,exports) {
@@ -39413,25 +39409,28 @@ function (_React$Component) {
       });
     } //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
 
-    /*  onSignedIn(user) {
-        this.setState({
-          user: user,
-          register: false,
-        });
-      }
-    
-      register() {
-        this.setState({
-          register: true
-        });
-      }
-    
-      alreadyMember() {
-        this.setState({
-          register: false
-        })
-      }*/
-
+  }, {
+    key: "onSignedIn",
+    value: function onSignedIn(user) {
+      this.setState({
+        user: user,
+        register: false
+      });
+    }
+  }, {
+    key: "register",
+    value: function register() {
+      this.setState({
+        register: true
+      });
+    }
+  }, {
+    key: "alreadyMember",
+    value: function alreadyMember() {
+      this.setState({
+        register: false
+      });
+    }
     /*  //filter feature -- test this, and add input field somewhere
       onFilterChange = (event) => {
         this.setState({
@@ -39449,20 +39448,27 @@ function (_React$Component) {
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
           register = _this$state.register,
-          filterString = _this$state.filterString;
-      if (!user) return _react.default.createElement(_loginView.LoginView, {
+          filterString = _this$state.filterString; // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
+      if (!user && register === false) return _react.default.createElement(_loginView.LoginView, {
+        onClick: function onClick() {
+          return _this3.register();
+        },
         onLoggedIn: function onLoggedIn(user) {
           return _this3.onLoggedIn(user);
         }
       });
+      if (register) return _react.default.createElement(RegistrationView, {
+        onClick: function onClick() {
+          return _this3.alreadyMember();
+        },
+        onSignedIn: function onSignedIn(user) {
+          return _this3.onSignedIn(user);
+        }
+      });
       if (!movies) return _react.default.createElement("div", {
         className: "loader"
-      }, "Loading movies..."); //Understand this before implementing for registration view
-
-      /*if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-        if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
-      */
-
+      }, "Loading movies...");
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       }); //only occurs for a second. Like an initialization.

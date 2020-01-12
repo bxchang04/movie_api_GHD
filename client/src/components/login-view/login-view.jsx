@@ -15,14 +15,6 @@ export function LoginView(props) {
     props.onLoggedIn(username)
   };
 
-  //do I need to add a const registration here? Since onClick requires a proptypes function (onClick: PropTypes.func.isRequired)
-  const handleRegister = (e) => {
-    e.preventDefault();
-    console.log(username, password);
-    //or leave param blank? And why no ;?? Also, onRegister is in main-view. onLoggedin is also in main-view. How would I know what is and is not a reference to code outside of this view (.jsx file / component)?
-    props.onRegister(registration)
-  };
-
 //limit width of username and password fields
 
   return (
@@ -40,7 +32,8 @@ export function LoginView(props) {
         Submit
       </Button>
         <br/><br/>First time user?<br/>
-        <Button type="submit" variant="link" onClick={handleRegister}>Click here to register
+        {/* study this */}
+        <Button id='registrationButton' type="submit" variant="link" onClick={() => props.onClick()}>Click here to register
         </Button>
     </Form>
   )
@@ -49,5 +42,5 @@ export function LoginView(props) {
 //doesn't matter about rendering or calling -- these requirements just send an error message if they are violated. Should I require onClick? User can just use return to login.
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
-  //onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired //is this required??
 };

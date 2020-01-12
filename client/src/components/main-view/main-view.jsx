@@ -63,7 +63,7 @@ export class MainView extends React.Component {
 
   //confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
 
-/*  onSignedIn(user) {
+  onSignedIn(user) {
     this.setState({
       user: user,
       register: false,
@@ -80,7 +80,7 @@ export class MainView extends React.Component {
     this.setState({
       register: false
     })
-  }*/
+  }
 
 /*  //filter feature -- test this, and add input field somewhere
   onFilterChange = (event) => {
@@ -92,15 +92,12 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user, register, filterString } = this.state;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-
-    if (!movies) return <div className="loader">Loading movies...</div>;
-
-    //Understand this before implementing for registration view
-    /*if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
+    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
 
     if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
-    */
+
+    if (!movies) return <div className="loader">Loading movies...</div>;
 
     if (!movies) return <div className="main-view"/>; //only occurs for a second. Like an initialization.
 
