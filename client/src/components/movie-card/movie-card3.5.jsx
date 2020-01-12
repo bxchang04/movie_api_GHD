@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 
 export class MovieCard extends React.Component {
@@ -8,11 +12,12 @@ export class MovieCard extends React.Component {
     const { movie, onClick } = this.props;
 
     return (
-      <Card style={{ width: '16rem' }}>
+      <Card style={{ width: '16rem' }} >
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
+          {/* onClick updates movie-view's prop? */}
           <Button onClick={() => onClick(movie)} variant="link">Open</Button>
         </Card.Body>
       </Card>
@@ -20,7 +25,7 @@ export class MovieCard extends React.Component {
   }
 }
 
-//taken from models.js in project project's root folder
+//For developer only. Gives warnings.
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,
@@ -33,9 +38,7 @@ MovieCard.propTypes = {
       Name: PropTypes.string,
       Bio : PropTypes.string,
     }),
-    Actors : PropTypes.string,
     ImagePath : PropTypes.string,
-    Featured : PropTypes.boolean
   }).isRequired,
   onClick: PropTypes.func.isRequired
 };

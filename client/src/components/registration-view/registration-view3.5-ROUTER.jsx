@@ -12,13 +12,27 @@ export function RegistrationView(props) {
   const [email, createEmail] = useState('');
   const [birthday, createDob] = useState('');
 
+  //check this
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, birthday, email);
-    // send a request to the server for authentication
-    // workaround for authentication
+    axios.post('https://myFlixDB2.herokuapp.com/movies', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
     props.onLoggedIn(username);
   };
+
+
 
     return (
       <Container>

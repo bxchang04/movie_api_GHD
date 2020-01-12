@@ -1,69 +1,43 @@
-//Need to implement MoviesGrid
-
 import React from 'react';
-import PropTypes from 'prop-types';
 
-// import app components
-import { MoviesGrid } from '../movies-grid/movies-grid';
-
-// get bootstrap imports
-import Media from 'react-bootstrap/Media';
-// import Button from 'react-bootstrap/Button';
-
-// imports for files to bundle
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import './director-view.scss';
 
+import { Link } from "react-router-dom";
 
-export const DirectorView = (props) => {
-  const { director, movies, user, userProfile, onToggleFavourite } = props;
-  if (!director) return null;
-  return (
-    <div className="director-view">
-      <h1>{director.Name}</h1>
-      { // render the birth year (4 chars) if present
-        director.Birthyear && <h6 className="text-muted">Born in {director.Birthyear.substring(0,4)}</h6>}
-      <br />
-      <Media className="d-flex flex-column flex-md-row align-items-center">
-        <Media.Body>
-          <h5>Bio</h5>
-          <p>{director.Bio}</p>
-        </Media.Body>
-      </Media>
-      <br />
-      <MoviesGrid
-        movies={movies}
-        title="Some movies from this Director"
-        onToggleFavourite={movieId => onToggleFavourite(movieId)}
-        user={user}
-        userProfile={userProfile}
-      />
-    </div>
-  );
+export class DirectorView extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {};
+  }
+
+  render() {
+    const {director} = this.props;
+
+    if (!director) return null;
+
+    return (
+      <Card className="director-info" style={{ width: '18rem' }}>
+        <Card.Body>
+          <Card.Title className="director-name">{director.Name}</Card.Title>
+          <Card.Text>
+          Biography: <br/>
+          <br/>
+          {director.Bio}
+          <br/>
+          <br/>
+          Birth Year:  {director.BirthYear}
+          </Card.Text>
+          <div className="text-center">
+            <Link to={`/`}>
+              <Button className="button-card" variant="info">Back</Button>
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
+    );
+  }
 }
-
-//what happens if this is taken out?
-DirectorView.propTypes = {
-  director: PropTypes.exact({
-    _id: PropTypes.string,
-    Name: PropTypes.string.isRequired,
-    Bio: PropTypes.string.isRequired,
-    Birthyear: PropTypes.string,
-    Deathyear: PropTypes.string
-  }).isRequired,
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      Title: PropTypes.string,
-      ImagePath: PropTypes.string,
-      Description: PropTypes.string,
-      Genre: PropTypes.exact({
-        _id: PropTypes.string,
-        Name: PropTypes.string,
-        Description: PropTypes.string
-      }),
-      Director: PropTypes.shape({
-        Name: PropTypes.string
-      })
-    })
-  ),
-  onToggleFavourite: PropTypes.func.isRequired
-};
