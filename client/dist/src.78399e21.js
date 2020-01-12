@@ -39294,7 +39294,7 @@ function (_React$Component) {
         width: 220,
         height: 326,
         className: "ml-3",
-        src: movie.ImageUrl,
+        src: movie.ImagePath,
         alt: "Generic placeholder"
       })));
     }
@@ -39371,6 +39371,7 @@ function (_React$Component) {
       selectedMovie: null,
       user: null,
       register: false //why false and not null?
+      // filterString: null //not sure if this needs to be initialized
 
     };
     return _this;
@@ -39431,6 +39432,13 @@ function (_React$Component) {
         })
       }*/
 
+    /*  //filter feature -- test this, and add input field somewhere
+      onFilterChange = (event) => {
+        this.setState({
+          filterString: event.target.value
+        });
+      }*/
+
   }, {
     key: "render",
     value: function render() {
@@ -39440,12 +39448,16 @@ function (_React$Component) {
           movies = _this$state.movies,
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
-          register = _this$state.register;
+          register = _this$state.register,
+          filterString = _this$state.filterString;
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
           return _this3.onLoggedIn(user);
         }
-      }); //Understand this before implementing
+      });
+      if (!movies) return _react.default.createElement("div", {
+        className: "loader"
+      }, "Loading movies..."); //Understand this before implementing for registration view
 
       /*if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
         if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
@@ -39454,6 +39466,10 @@ function (_React$Component) {
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       }); //only occurs for a second. Like an initialization.
+
+      /*    //filter feature - test this
+          const filteredMovies = filterString ? movies.filter(r => r.name.includes(filterString)) : movies;
+      */
 
       return _react.default.createElement("div", {
         className: "main-view"

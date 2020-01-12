@@ -59,7 +59,7 @@ export class MovieView extends React.Component {
             width={220}
             height={326}
             className="ml-3"
-            src={movie.ImageUrl}
+            src={movie.ImagePath}
             alt="Generic placeholder"
           />
         </Media>

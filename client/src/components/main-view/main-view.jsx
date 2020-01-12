@@ -23,7 +23,8 @@ export class MainView extends React.Component {
       movies: null,
       selectedMovie: null,
       user: null,
-      register: false //why false and not null?
+      register: false, //why false and not null?
+      // filterString: null //not sure if this needs to be initialized
     };
   }
 
@@ -81,13 +82,21 @@ export class MainView extends React.Component {
     })
   }*/
 
+/*  //filter feature -- test this, and add input field somewhere
+  onFilterChange = (event) => {
+    this.setState({
+      filterString: event.target.value
+    });
+  }*/
 
   render() {
-    const { movies, selectedMovie, user, register } = this.state;
+    const { movies, selectedMovie, user, register, filterString } = this.state;
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    //Understand this before implementing
+    if (!movies) return <div className="loader">Loading movies...</div>;
+
+    //Understand this before implementing for registration view
     /*if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
 
     if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
@@ -95,17 +104,29 @@ export class MainView extends React.Component {
 
     if (!movies) return <div className="main-view"/>; //only occurs for a second. Like an initialization.
 
+/*    //filter feature - test this
+    const filteredMovies = filterString ? movies.filter(r => r.name.includes(filterString)) : movies;
+*/
+
     return (
       <div className="main-view">
         <Container>
+          {/* filter feature
           <Row>
-          {/* Make onClick required? Study why or why not this is needed. Practice properties. Also, changing onButtonClick to onMovieClick fixed the broken back button for 3.4. Added null as argument.*/}
+            <div className="movie-viewer">
+            <input value={filterString} onChange={this.onFilterChange}/>
+            { filteredMovies.map(movie => <div className="movie" key={movie._id}>{movie.name}</div>)}
+            </div>
+          </Row>
+          */}
+          <Row>
+          {/* Make onClick required? Study why or why not this is needed. Also, changing onButtonClick to onMovieClick fixed the broken back button for 3.4. Added null as argument.*/}
             {selectedMovie
                ? <MovieView movie={selectedMovie} onClick={() => this.onMovieClick(null)}/>
                : movies.map(movie => (
 
                  <Col key={movie._id} xs={12} sm={6} md={4}>
-                   {/*what is key=??? and movie = {movie} is (a property?) only for rendering. if I add 'movie' to onClick here it does nothing -- why? */}
+                   {/*key and map go together? key is called an example of an inline ___ (property?)*/}
                    <MovieCard key={movie._id} movie={movie} onClick={() => this.onMovieClick(movie)}/>
                  </Col>
                ))
