@@ -1,4 +1,7 @@
-//refer to non router ver of 3.5 for registration, back buttons, favorite buttons, bootstrap code
+//refer to https://github.com/evagrean/myFlix-app/blob/master/client/src/components/main-view/main-view.jsx
+
+//refer to https://github.com/lorepirri/soflix/blob/v3.5/client/src/components/header/header.jsx for UI
+
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
