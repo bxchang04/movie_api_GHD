@@ -6,68 +6,64 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 //import axios from 'axios'; //for 3.5
 
-//how did other student(s) know this code is needed? What documentation should I read?
 export function RegistrationView(props) {
   const [username, createUsername] = useState('');
   const [password, createPassword] = useState('');
   const [email, createEmail] = useState('');
-  const [birthday, createDob] = useState('');
+  const [birthday, createBirthday] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, birthday, email);
+    // console.log(username, password, birthday, email);
     // send a request to the server for authentication
     // workaround for authentication
-    props.onLoggedIn(username);
+    props.onLoggedIn(username)
+    // props.onSignedIn(username) //vs. props.onLoggedIn(username)
   };
 
-//confer https://github.com/tdnicola/healthyPotatoes_movieApp/blob/380152513bf00cb09f26feaa0738f04eeaec20d5/client/src/components/registration-view/registration-view.jsx
+  return (
+    <Container className='registrationContainer'>
+      <Form className='registrationForm'>
+        <Form.Group controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Text className="text-muted">
+        We'll never share your email with anyone else.
+        </Form.Text>
+        </Form.Group>
 
-//IMPORTANT: His return function (statement) differs slightly from below.
+        <Form.Group controlId="formBasicUsername">
+        <Form.Label>Username</Form.Label>
+        <Form.Control type="username" placeholder="Enter desired username" />
+        </Form.Group>
 
-  {/*why no render function?*/}
-    return (
-      <Container>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Must be six digits or more" />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicBirthday">
+          <Form.Label>Birthday</Form.Label>
+          <Form.Control type="birthday" placeholder="mm-dd-yyyy" />
           <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
+          We'll never share your birthday with anyone else.
           </Form.Text>
-          </Form.Group>
+        </Form.Group>
 
-          <Form.Group controlId="formBasicUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="password" placeholder="Enter desired username" />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Must be six digits or more" />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicBirthdate">
-            <Form.Label>Birthday</Form.Label>
-            <Form.Control type="birthday" placeholder="mm-dd-yyyy" />
-            <Form.Text className="text-muted">
-            We'll never share your birthday with anyone else.
-            </Form.Text>
-          </Form.Group>
-
-          <Button variant="primary" type="submit"                 onClick={handleSubmit}>
-            Register!
-          </Button>
-          {/*How does this lead to login-view?*/}
-          <Button variant='primary'onClick={() => props.onClick()}>
-            Already a member?
-          </Button>
-        </Form>
-      </Container>
-    );
+        <Button variant="primary" type="submit"                 onClick={handleSubmit}>
+          Register!
+        </Button>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        {/*How does this lead to login-view?*/}
+        <Button variant='primary'onClick={() => props.onClick()}>
+          Already a member?
+        </Button>
+      </Form>
+    </Container>
+  );
 }
 
-//is this needed?
+//Study what this does
 // RegistrationView.propTypes = {
 //   onSignedIn: PropTypes.func.isRequired,
 //   onClick: PropTypes.func.isRequired

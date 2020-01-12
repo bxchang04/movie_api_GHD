@@ -1,8 +1,8 @@
 //bootstrap ver
 
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 
 export function LoginView(props) {
@@ -14,7 +14,6 @@ export function LoginView(props) {
     console.log(username, password);
     props.onLoggedIn(username)
   };
-
 //limit width of username and password fields
 
   return (
