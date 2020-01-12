@@ -35762,7 +35762,7 @@ function LoginView(props) {
   return _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicUsername"
   }, _react.default.createElement(_Form.default.Label, null, "Username:"), _react.default.createElement(_Form.default.Control, {
-    type: "text",
+    type: "username",
     placeholder: "Enter username",
     value: username,
     onChange: function onChange(e) {
@@ -35789,7 +35789,7 @@ function LoginView(props) {
       return props.onClick();
     }
   }, "Click here to register"));
-} //doesn't matter about rendering or calling -- these requirements just send an error message if they are violated. Should I require onClick? User can just use return to login.
+} //doesn't matter about rendering or calling -- these requirements just send an error message if they are violated.
 
 
 LoginView.propTypes = {
@@ -35891,38 +35891,54 @@ function RegistrationView(props) {
   var _useState7 = (0, _react.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
       birthday = _useState8[0],
-      createDob = _useState8[1];
+      createBirthday = _useState8[1];
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     console.log(username, password, birthday, email); // send a request to the server for authentication
     // workaround for authentication
 
-    props.onLoggedIn(username);
+    props.onSignedIn(username); //changed from props.onLoggedIn(username). Not sure why the latter doesn't work.
   };
 
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicEmail"
   }, _react.default.createElement(_Form.default.Label, null, "Email address"), _react.default.createElement(_Form.default.Control, {
     type: "email",
-    placeholder: "Enter email"
+    placeholder: "Enter email",
+    value: email,
+    onChange: function onChange(e) {
+      return createEmail(e.target.value);
+    }
   }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
   }, "We'll never share your email with anyone else.")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicUsername"
-  }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
-    type: "username",
-    placeholder: "Enter desired username"
+  }, _react.default.createElement(_Form.default.Label, null, "Username:"), _react.default.createElement(_Form.default.Control, {
+    type: "text",
+    placeholder: "Enter username",
+    value: username,
+    onChange: function onChange(e) {
+      return createUsername(e.target.value);
+    }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_Form.default.Label, null, "Password"), _react.default.createElement(_Form.default.Control, {
     type: "password",
-    placeholder: "Must be six digits or more"
+    placeholder: "Must be six digits or more",
+    value: password,
+    onChange: function onChange(e) {
+      return createPassword(e.target.value);
+    }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicBirthdate"
   }, _react.default.createElement(_Form.default.Label, null, "Birthday"), _react.default.createElement(_Form.default.Control, {
     type: "birthday",
-    placeholder: "mm-dd-yyyy"
+    placeholder: "mm-dd-yyyy",
+    value: birthday,
+    onChange: function onChange(e) {
+      return createBirthday(e.target.value);
+    }
   }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
   }, "We'll never share your birthday with anyone else.")), _react.default.createElement(_Button.default, {
@@ -35935,11 +35951,11 @@ function RegistrationView(props) {
       return props.onClick();
     }
   }, "Already a member?")));
-} //is this needed?
-// RegistrationView.propTypes = {
-//   onSignedIn: PropTypes.func.isRequired,
-//   onClick: PropTypes.func.isRequired
-// };
+}
+
+RegistrationView.propTypes = {// onLoggedIn: PropTypes.func.isRequired,
+  // onClick: PropTypes.func.isRequired
+};
 },{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js"}],"../node_modules/react-bootstrap/esm/Row.js":[function(require,module,exports) {
 "use strict";
 
@@ -39434,6 +39450,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -39499,16 +39517,18 @@ function (_React$Component) {
     key: "onLoggedIn",
     value: function onLoggedIn(user) {
       this.setState({
-        user: user
+        user: user //how does this differ from user:user?
+
       });
     }
   }, {
     key: "onSignedIn",
     value: function onSignedIn(user) {
-      this.setState({
-        user: user,
-        register: false
-      });
+      var _this$setState;
+
+      this.setState((_this$setState = {
+        user: user
+      }, _defineProperty(_this$setState, "user", user), _defineProperty(_this$setState, "register", false), _this$setState));
     }
   }, {
     key: "register",
@@ -39756,7 +39776,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53050" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54638" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

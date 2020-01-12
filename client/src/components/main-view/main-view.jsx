@@ -50,12 +50,13 @@ export class MainView extends React.Component {
 
   onLoggedIn(user) {
     this.setState({
-      user
+      user //how does this differ from user:user?
     });
   }
 
   onSignedIn(user) {
     this.setState({
+      user,
       user: user,
       register: false,
     });

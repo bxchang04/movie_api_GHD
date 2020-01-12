@@ -21,7 +21,7 @@ export function LoginView(props) {
     <Form>
       <Form.Group controlId="formBasicUsername">
         <Form.Label>Username:</Form.Label>
-        <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+        <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
@@ -33,13 +33,13 @@ export function LoginView(props) {
       </Button>
         <br/><br/>First time user?<br/>
         {/* study this */}
-        <Button id='registrationButton' type="submit" variant="link" onClick={() => props.onClick()}>Click here to register
+        <Button id='registrationButton' type="submit" variant="link"    onClick={() => props.onClick()}>Click here to register
         </Button>
     </Form>
   )
 }
 
-//doesn't matter about rendering or calling -- these requirements just send an error message if they are violated. Should I require onClick? User can just use return to login.
+//doesn't matter about rendering or calling -- these requirements just send an error message if they are violated.
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired //is this required??
