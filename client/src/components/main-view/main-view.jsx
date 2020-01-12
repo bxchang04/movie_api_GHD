@@ -86,14 +86,16 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user, register, filterString } = this.state;
 
-    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />; //original code
     if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
 
     if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
 
+    //Show loading message
     if (!movies) return <div className="loader">Loading movies...</div>;
 
-    if (!movies) return <div className="main-view"/>; //only occurs for a second. Like an initialization.
+    //Return list of movies
+    if (!movies) return <div className="main-view"/>;
 
 /*    //filter feature - test this
     const filteredMovies = filterString ? movies.filter(r => r.name.includes(filterString)) : movies;

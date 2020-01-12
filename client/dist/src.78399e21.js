@@ -35894,8 +35894,8 @@ function RegistrationView(props) {
       createBirthday = _useState8[1];
 
   var handleSubmit = function handleSubmit(e) {
-    e.preventDefault(); // console.log(username, password, birthday, email);
-    // send a request to the server for authentication
+    e.preventDefault();
+    console.log(username, password, birthday, email); // send a request to the server for authentication
     // workaround for authentication
 
     props.onLoggedIn(username); // props.onSignedIn(username) //vs. props.onLoggedIn(username)
@@ -39547,7 +39547,7 @@ function (_React$Component) {
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
           register = _this$state.register,
-          filterString = _this$state.filterString; // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+          filterString = _this$state.filterString; // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />; //original code
 
       if (!user && register === false) return _react.default.createElement(_loginView.LoginView, {
         onClick: function onClick() {
@@ -39564,14 +39564,15 @@ function (_React$Component) {
         onSignedIn: function onSignedIn(user) {
           return _this3.onSignedIn(user);
         }
-      });
+      }); //Show loading message
+
       if (!movies) return _react.default.createElement("div", {
         className: "loader"
-      }, "Loading movies...");
+      }, "Loading movies..."); //Return list of movies
+
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
-      }); //only occurs for a second. Like an initialization.
-
+      });
       /*    //filter feature - test this
           const filteredMovies = filterString ? movies.filter(r => r.name.includes(filterString)) : movies;
       */
