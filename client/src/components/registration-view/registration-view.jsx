@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 //import axios from 'axios'; //for 3.5
 
-//how did other student(s) know this code is needed? What documentation should I read?
 export function RegistrationView(props) {
   const [username, createUsername] = useState('');
   const [password, createPassword] = useState('');
@@ -15,7 +14,7 @@ export function RegistrationView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(username, password, birthday, email);
+    console.log(username, password, birthday, email);
     // send a request to the server for authentication
     // workaround for authentication
     props.onLoggedIn(username);
@@ -39,7 +38,7 @@ export function RegistrationView(props) {
 
           <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
-          <Form.Control type="password" placeholder="Enter desired username" />
+          <Form.Control type="username" placeholder="Enter desired username" />
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
@@ -58,6 +57,7 @@ export function RegistrationView(props) {
           <Button variant="primary" type="submit"                 onClick={handleSubmit}>
             Register!
           </Button>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           {/*How does this lead to login-view?*/}
           <Button variant='primary'onClick={() => props.onClick()}>
             Already a member?
