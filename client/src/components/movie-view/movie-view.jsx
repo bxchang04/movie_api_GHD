@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -24,24 +25,16 @@ export class MovieView extends React.Component {
       <div className="movie-view">
         <br />
         <Media className="d-flex flex-column flex-md-row align-items-center">
-        <div
-          className="movie-go-back"
-          onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
-          <button>
-          Back
-          {/*No longer worked now in main-view, so added a onButtonClick prop*/}
-          </button>
-        </div>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <h1>{movie.Title}</h1>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <div
-          className="movie-go-back"
-          onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
-          <button>
-          Add to favorites {/*placeholder. no function, just goes back for now.*/}
-          </button>
-        </div>
+          <Link to={`/`}>
+            <Button variant="link" className="sign-up-link btn-lg" type="submit">Back</Button>
+          </Link>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <h1>{movie.Title}</h1>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <Link to={`/`}>
+            <Button variant="link" className="sign-up-link btn-lg" type="submit">Add to favorites</Button>
+          </Link>
+
         </Media>
         <Media className="d-flex flex-column flex-md-row align-items-center">
           <Media.Body>
@@ -58,16 +51,18 @@ export class MovieView extends React.Component {
             width={220}
             height={326}
             className="ml-3"
-            src={movie.ImageUrl}
+            src={movie.ImagePath}
             alt="Generic placeholder"
           />
-          <Link to={`/directors/${movie.Director.Name}`}>
+          {/* bug
+            <Link to={`/directors/${movie.Director.Name}`}>
             <Button variant="link">Director</Button>
-          </Link>
+          </Link>*/}
 
-          <Link to={`/genres/${movie.Genre.Name}`}>
+          {/* bug
+            <Link to={`/genres/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
-          </Link>
+          </Link>*/}
         </Media>
       </div>
     );

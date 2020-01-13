@@ -59,27 +59,6 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  //not needed in 3.5?
-  onSignedIn(user) {
-    this.setState({
-      user,
-      user: user,
-      register: false,
-    });
-  }
-
-  register() {
-    this.setState({
-      register: true
-    });
-  }
-
-  alreadyMember() {
-    this.setState({
-      register: false
-    })
-  }
-
   handleLogout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -116,8 +95,6 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user, register, filterString } = this.state;
 
-    // if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
-
     //Show loading message -- works!
     if (!movies) return <div className="loader">Loading movies...</div>;
 
@@ -127,8 +104,6 @@ export class MainView extends React.Component {
 /*    //filter feature - test this
     const filteredMovies = filterString ? movies.filter(r => r.name.includes(filterString)) : movies;
 */
-
-
 
     return (
       <Router>

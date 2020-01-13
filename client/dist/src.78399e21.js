@@ -39317,6 +39317,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var MAX_CHARS_IN_A_DESCRIPTION = 100;
+
 var MovieCard =
 /*#__PURE__*/
 function (_React$Component) {
@@ -39332,23 +39334,60 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var movie = this.props.movie;
+      var movieDescription = movie.Description;
+
+      if (movieDescription.length > MAX_CHARS_IN_A_DESCRIPTION) {
+        movieDescription = "".concat(movieDescription.substring(0, MAX_CHARS_IN_A_DESCRIPTION), "...");
+      }
+
       return _react.default.createElement(_Card.default, {
+        className: "mb-3 mb-sm-4",
         style: {
-          width: '16rem'
+          width: '14rem'
         }
       }, _react.default.createElement(_Card.default.Img, {
         variant: "top",
         src: movie.ImagePath
-      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
+      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Subtitle, {
+        className: "mb-2 text-muted"
+      }, movie.Genre.Name), _react.default.createElement(_Card.default.Text, null, movieDescription), _react.default.createElement(_reactRouterDom.Link, {
         to: "/movies/".concat(movie._id)
       }, _react.default.createElement(_Button.default, {
+        className: "outline-primary",
         variant: "link"
       }, "Open"))));
     }
   }]);
 
   return MovieCard;
-}(_react.default.Component); //is this still required?
+}(_react.default.Component);
+/*
+    return (
+      <Card className="mb-3 mb-sm-4" style={{ minWidth: '12rem' }}>
+        <Card.Img variant="top" src={movie.ImagePath} />
+        <Card.Body>
+          <Card.Title>
+            {movie.Title}
+            {user &&
+              <StarButton
+                movieId={movie._id}
+                isFavorite={isFavorite}
+                onToggleFavourite={movieId => onToggleFavourite(movieId)}
+                className="ml-2" />
+            }
+          </Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{movie.Genre.Name}</Card.Subtitle>
+          <Card.Text>{movieDescription}</Card.Text>
+          <Link to={`/movies/${movie._id}`}>
+            <Button className="outline-primary" variant="link">Open</Button>
+          </Link>
+        </Card.Body>
+      </Card>
+    );
+  }
+}
+*/
+//is this still required?
 
 
 exports.MovieCard = MovieCard;
@@ -39477,39 +39516,33 @@ function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           movie = _this$props.movie,
-          _onClick = _this$props.onClick;
+          onClick = _this$props.onClick;
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("br", null), _react.default.createElement(_Media.default, {
         className: "d-flex flex-column flex-md-row align-items-center"
-      }, _react.default.createElement("div", {
-        className: "movie-go-back",
-        onClick: function onClick() {
-          return _onClick();
-        }
-      }, " ", _react.default.createElement("button", null, "Back")), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("h1", null, movie.Title), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("div", {
-        className: "movie-go-back",
-        onClick: function onClick() {
-          return _onClick();
-        }
-      }, " ", _react.default.createElement("button", null, "Add to favorites "))), _react.default.createElement(_Media.default, {
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "sign-up-link btn-lg",
+        type: "submit"
+      }, "Back")), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("h1", null, movie.Title), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        variant: "link",
+        className: "sign-up-link btn-lg",
+        type: "submit"
+      }, "Add to favorites"))), _react.default.createElement(_Media.default, {
         className: "d-flex flex-column flex-md-row align-items-center"
       }, _react.default.createElement(_Media.default.Body, null, _react.default.createElement("br", null), _react.default.createElement("h6", null, "Genre: ", movie.Genre.Name), _react.default.createElement("h6", null, "Director: ", movie.Director.Name), _react.default.createElement("br", null), _react.default.createElement("h6", null, "Description"), _react.default.createElement("p", null, movie.Description)), _react.default.createElement("img", {
         width: 220,
         height: 326,
         className: "ml-3",
-        src: movie.ImageUrl,
+        src: movie.ImagePath,
         alt: "Generic placeholder"
-      }), _react.default.createElement(Link, {
-        to: "/directors/".concat(movie.Director.Name)
-      }, _react.default.createElement(_Button.default, {
-        variant: "link"
-      }, "Director")), _react.default.createElement(Link, {
-        to: "/genres/".concat(movie.Genre.Name)
-      }, _react.default.createElement(_Button.default, {
-        variant: "link"
-      }, "Genre"))));
+      })));
     }
   }]);
 
@@ -52609,8 +52642,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -52671,30 +52702,6 @@ function (_React$Component) {
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
-    } //not needed in 3.5?
-
-  }, {
-    key: "onSignedIn",
-    value: function onSignedIn(user) {
-      var _this$setState;
-
-      this.setState((_this$setState = {
-        user: user
-      }, _defineProperty(_this$setState, "user", user), _defineProperty(_this$setState, "register", false), _this$setState));
-    }
-  }, {
-    key: "register",
-    value: function register() {
-      this.setState({
-        register: true
-      });
-    }
-  }, {
-    key: "alreadyMember",
-    value: function alreadyMember() {
-      this.setState({
-        register: false
-      });
     }
   }, {
     key: "handleLogout",
@@ -52741,8 +52748,7 @@ function (_React$Component) {
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
           register = _this$state.register,
-          filterString = _this$state.filterString; // if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
-      //Show loading message -- works!
+          filterString = _this$state.filterString; //Show loading message -- works!
 
       if (!movies) return _react.default.createElement("div", {
         className: "loader"
