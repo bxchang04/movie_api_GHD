@@ -39228,27 +39228,25 @@ function (_React$Component) {
   return MovieCard;
 }(_react.default.Component); //is this still required?
 
-/*MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    Title: PropTypes.string,
-    Description: PropTypes.string,
-    Genre: PropTypes.shape({
-      Name: PropTypes.string,
-      Description : PropTypes.string,
-    }),
-    Director: PropTypes.shape({
-      Name: PropTypes.string,
-      Bio : PropTypes.string,
-    }),
-    Actors : PropTypes.string,
-    ImagePath : PropTypes.string,
-    Featured : PropTypes.boolean
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
-};*/
-
 
 exports.MovieCard = MovieCard;
+MovieCard.propTypes = {
+  movie: _propTypes.default.shape({
+    Title: _propTypes.default.string,
+    Description: _propTypes.default.string,
+    Genre: _propTypes.default.shape({
+      Name: _propTypes.default.string,
+      Description: _propTypes.default.string
+    }),
+    Director: _propTypes.default.shape({
+      Name: _propTypes.default.string,
+      Bio: _propTypes.default.string
+    }),
+    ImagePath: _propTypes.default.string,
+    Featured: _propTypes.default.boolean
+  }).isRequired,
+  onClick: _propTypes.default.func.isRequired
+};
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/react-bootstrap/esm/Row.js":[function(require,module,exports) {
 "use strict";
 

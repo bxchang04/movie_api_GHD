@@ -25,7 +25,7 @@ export class MovieCard extends React.Component {
 }
 
 //is this still required?
-/*MovieCard.propTypes = {
+MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,
     Description: PropTypes.string,
@@ -37,9 +37,8 @@ export class MovieCard extends React.Component {
       Name: PropTypes.string,
       Bio : PropTypes.string,
     }),
-    Actors : PropTypes.string,
     ImagePath : PropTypes.string,
     Featured : PropTypes.boolean
   }).isRequired,
   onClick: PropTypes.func.isRequired
-};*/
+};
