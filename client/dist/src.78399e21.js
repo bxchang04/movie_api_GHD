@@ -35752,7 +35752,8 @@ function LoginView(props) {
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
       password = _useState4[0],
-      setPassword = _useState4[1];
+      setPassword = _useState4[1]; //didn't work unless I typed credentials into Chrome console. And any name works, even ' '
+
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
@@ -39508,15 +39509,14 @@ function (_React$Component) {
   _createClass(MainView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
+      var accessToken = localStorage.getItem('token');
 
-      _axios.default.get('https://myFlixDB2.herokuapp.com/movies').then(function (response) {
-        _this2.setState({
-          movies: response.data
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
         });
-      }).catch(function (error) {
-        console.log(error);
-      });
+        this.getMovies(accessToken);
+      }
     } //why is this (movie) but function below ()?
 
   }, {
@@ -39561,9 +39561,19 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "handleLogout",
+    value: function handleLogout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.setState({
+        user: null
+      });
+      window.open('/', '_self');
+    }
+  }, {
     key: "getMovies",
     value: function getMovies(token) {
-      var _this3 = this;
+      var _this2 = this;
 
       _axios.default.get('https://myFlixDB2.herokuapp.com/movies', {
         headers: {
@@ -39571,7 +39581,7 @@ function (_React$Component) {
         }
       }).then(function (response) {
         // Assign the result to the state
-        _this3.setState({
+        _this2.setState({
           movies: response.data
         });
       }).catch(function (error) {
@@ -39588,7 +39598,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
@@ -39599,18 +39609,18 @@ function (_React$Component) {
 
       if (!user && register === false) return _react.default.createElement(_loginView.LoginView, {
         onClick: function onClick() {
-          return _this4.register();
+          return _this3.register();
         },
         onLoggedIn: function onLoggedIn(user) {
-          return _this4.onLoggedIn(user);
+          return _this3.onLoggedIn(user);
         }
       });
       if (register) return _react.default.createElement(_registrationView.RegistrationView, {
         onClick: function onClick() {
-          return _this4.alreadyMember();
+          return _this3.alreadyMember();
         },
         onSignedIn: function onSignedIn(user) {
-          return _this4.onSignedIn(user);
+          return _this3.onSignedIn(user);
         }
       }); //Show loading message
 
@@ -39627,10 +39637,16 @@ function (_React$Component) {
 
       return _react.default.createElement("div", {
         className: "main-view"
-      }, _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
+      }, _react.default.createElement(_Button.default, {
+        className: "logout",
+        variant: "info",
+        onClick: function onClick() {
+          return _this3.handleLogout();
+        }
+      }, "Log out"), _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
         movie: selectedMovie,
         onClick: function onClick() {
-          return _this4.onMovieClick(null);
+          return _this3.onMovieClick(null);
         }
       }) : movies.map(function (movie) {
         return _react.default.createElement(_Col.default, {
@@ -39642,7 +39658,7 @@ function (_React$Component) {
           key: movie._id,
           movie: movie,
           onClick: function onClick() {
-            return _this4.onMovieClick(movie);
+            return _this3.onMovieClick(movie);
           }
         }));
       }))));
@@ -39810,7 +39826,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60098" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60556" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

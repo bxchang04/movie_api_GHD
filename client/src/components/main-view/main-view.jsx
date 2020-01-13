@@ -30,15 +30,13 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
-   axios.get('https://myFlixDB2.herokuapp.com/movies')
-     .then(response => {
-       this.setState({
-         movies: response.data
-       });
-     })
-     .catch(function (error) {
-       console.log(error);
-     });
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      this.getMovies(accessToken);
+    }
   }
 
   //why is this (movie) but function below ()?
@@ -77,6 +75,17 @@ export class MainView extends React.Component {
     this.setState({
       register: false
     })
+  }
+
+  handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    this.setState({
+      user: null
+
+    });
+    window.open('/', '_self');
   }
 
   getMovies(token) {
@@ -121,7 +130,9 @@ export class MainView extends React.Component {
 
     return (
       <div className="main-view">
-        <Container>
+        <Button className="logout" variant="info" onClick={() => this.handleLogout()} >
+          Log out
+        </Button><Container>
           {/* filter feature
           <Row>
             <div className="movie-viewer">

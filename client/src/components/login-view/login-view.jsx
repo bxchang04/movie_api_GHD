@@ -10,6 +10,7 @@ export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
+  //didn't work unless I typed credentials into Chrome console. And any name works, even ' '
   const handleSubmit = (e) => {
     e.preventDefault();
     /* Send a request to the server for authentication */
