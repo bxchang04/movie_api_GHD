@@ -39228,26 +39228,27 @@ function (_React$Component) {
   return MovieCard;
 }(_react.default.Component); //is this still required?
 
+/*MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string,
+    Description: PropTypes.string,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string,
+      Description : PropTypes.string,
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string,
+      Bio : PropTypes.string,
+    }),
+    Actors : PropTypes.string,
+    ImagePath : PropTypes.string,
+    Featured : PropTypes.boolean
+  }).isRequired,
+  onClick: PropTypes.func.isRequired
+};*/
+
 
 exports.MovieCard = MovieCard;
-MovieCard.propTypes = {
-  movie: _propTypes.default.shape({
-    Title: _propTypes.default.string,
-    Description: _propTypes.default.string,
-    Genre: _propTypes.default.shape({
-      Name: _propTypes.default.string,
-      Description: _propTypes.default.string
-    }),
-    Director: _propTypes.default.shape({
-      Name: _propTypes.default.string,
-      Bio: _propTypes.default.string
-    }),
-    Actors: _propTypes.default.string,
-    ImagePath: _propTypes.default.string,
-    Featured: _propTypes.default.boolean
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
-};
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/react-bootstrap/esm/Row.js":[function(require,module,exports) {
 "use strict";
 
@@ -52730,8 +52731,7 @@ function (_React$Component) {
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
           register = _this$state.register,
-          filterString = _this$state.filterString; //!!!move to below
-
+          filterString = _this$state.filterString;
       if (register) return _react.default.createElement(_registrationView.RegistrationView, {
         onClick: function onClick() {
           return _this3.alreadyMember();
@@ -52739,7 +52739,7 @@ function (_React$Component) {
         onSignedIn: function onSignedIn(user) {
           return _this3.onSignedIn(user);
         }
-      }); //Show loading message
+      }); //Show loading message -- works!
 
       if (!movies) return _react.default.createElement("div", {
         className: "loader"
@@ -52785,14 +52785,14 @@ function (_React$Component) {
         exact: true,
         path: "/",
         render: function render() {
-          {
-            /* refer to above*/
-          }
-          {
-            /*if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            return movies.map(m => <MovieCard key={m._id} movie={m}/>)
-            }}/>*/
-          }
+          if (!user) return _react.default.createElement(_loginView.LoginView, {
+            onClick: function onClick() {
+              return _this3.register();
+            },
+            onLoggedIn: function onLoggedIn(user) {
+              return _this3.onLoggedIn(user);
+            }
+          });
           if (!user && register === false) return _react.default.createElement(_loginView.LoginView, {
             onClick: function onClick() {
               return _this3.register();
@@ -52800,6 +52800,20 @@ function (_React$Component) {
             onLoggedIn: function onLoggedIn(user) {
               return _this3.onLoggedIn(user);
             }
+          });
+          movies.map(function (movie) {
+            return _react.default.createElement(_Col.default, {
+              key: movie._id,
+              xs: 12,
+              sm: 6,
+              md: 4
+            }, _react.default.createElement(_movieCard.MovieCard, {
+              key: movie._id,
+              movie: movie,
+              onClick: function onClick() {
+                return _this3.onMovieClick(movie);
+              }
+            }));
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -53028,7 +53042,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64294" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65376" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
