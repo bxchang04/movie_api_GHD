@@ -1,4 +1,4 @@
-//Official docs -- https://reactjs.org/docs/uncontrolled-components.html
+//Doesn't work if user already exists
 
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';

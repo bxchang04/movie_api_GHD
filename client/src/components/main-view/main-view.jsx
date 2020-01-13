@@ -93,7 +93,7 @@ export class MainView extends React.Component {
   }*/
 
   render() {
-    const { movies, selectedMovie, user, register, filterString } = this.state;
+    const { movies, user, filterString } = this.state;
 
     //Show loading message -- works!
     if (!movies) return <div className="loader">Loading movies...</div>;
@@ -108,23 +108,27 @@ export class MainView extends React.Component {
     return (
       <Router>
         <div className="main-view">
-          {/*Test this*/}
-            <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
-            <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">myFlix</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-            <Link component={RouterLink} to={`/users/${user}`} >
-            <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
-            </Link>
-            <Button variant="primary ml-1" size="lg" className="logout-button" onClick={() => this.handleLogout()}>Log out</Button>
-            </Navbar.Collapse>
+        <Container className="container-fluid">
+          <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
+              <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">myFlix</Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
+              <Link component={RouterLink} to={`/users/${user}`} >
+              <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
+              </Link>
+              <Button variant="primary ml-1" size="lg" className="logout-button" onClick={() => this.handleLogout()}>Log out</Button>
+              </Navbar.Collapse>
             </Navbar>
 
-          <Route exact path="/" render={() => {
-            if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            return movies.map(m => <MovieCard key={m._id} movie={m}/>)
-            }
-          }/>
+          <Row>
+            {/*<Col key={movies._id} xs={12} sm={6} md={4}>*/} {/*movies._id does not work */}
+              <Route exact path="/" render={() => {
+              if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+              return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+              }
+              }/>
+            {/*</Col>*/}
+          </Row>
           <Route path="/register" render={() => <RegistrationView />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
           <Route path="/directors/:name" render={({ match }) => {
@@ -141,6 +145,7 @@ export class MainView extends React.Component {
             }}
             />
             <Route exact path="/update/:Username" render={() => <UpdateView user={user} />} />*/}
+          </Container>
         </div>
       </Router>
     );

@@ -39341,11 +39341,11 @@ function (_React$Component) {
       }
 
       return _react.default.createElement(_Card.default, {
-        className: "mb-3 mb-sm-4",
+        className: "mr-3 mr-sm-3 mb-3 mb-sm-4",
         style: {
           width: '14rem'
         }
-      }, _react.default.createElement(_Card.default.Img, {
+      }, " ", _react.default.createElement(_Card.default.Img, {
         variant: "top",
         src: movie.ImagePath
       }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Subtitle, {
@@ -39387,7 +39387,6 @@ function (_React$Component) {
   }
 }
 */
-//is this still required?
 
 
 exports.MovieCard = MovieCard;
@@ -39405,8 +39404,7 @@ MovieCard.propTypes = {
     }),
     ImagePath: _propTypes.default.string,
     Featured: _propTypes.default.boolean
-  }).isRequired // onClick: PropTypes.func.isRequired //not sure why this causes an error
-
+  }).isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/react-bootstrap/esm/Media.js":[function(require,module,exports) {
 "use strict";
@@ -52745,9 +52743,7 @@ function (_React$Component) {
 
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
-          register = _this$state.register,
           filterString = _this$state.filterString; //Show loading message -- works!
 
       if (!movies) return _react.default.createElement("div", {
@@ -52763,6 +52759,8 @@ function (_React$Component) {
 
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
+      }, _react.default.createElement(_Container.default, {
+        className: "container-fluid"
       }, _react.default.createElement(_Navbar.default, {
         sticky: "top",
         bg: "light",
@@ -52790,7 +52788,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this3.handleLogout();
         }
-      }, "Log out"))), _react.default.createElement(_reactRouterDom.Route, {
+      }, "Log out"))), _react.default.createElement(_Row.default, null, " ", _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
@@ -52806,7 +52804,7 @@ function (_React$Component) {
             });
           });
         }
-      }), _react.default.createElement(_reactRouterDom.Route, {
+      })), _react.default.createElement(_reactRouterDom.Route, {
         path: "/register",
         render: function render() {
           return _react.default.createElement(_registrationView.RegistrationView, null);
@@ -52847,7 +52845,7 @@ function (_React$Component) {
             }).Genre
           });
         }
-      })));
+      }))));
     }
   }]);
 

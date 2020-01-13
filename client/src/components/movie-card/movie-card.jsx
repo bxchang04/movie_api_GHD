@@ -1,3 +1,5 @@
+//Need to make this into grid
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
@@ -16,7 +18,7 @@ export class MovieCard extends React.Component {
     }
 
     return (
-      <Card className="mb-3 mb-sm-4" style={{ width: '14rem' }} >
+      <Card className="mr-3 mr-sm-3 mb-3 mb-sm-4" style={{ width: '14rem' }} > {/*added mr*/}
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
@@ -59,7 +61,6 @@ export class MovieCard extends React.Component {
 }
 */
 
-//is this still required?
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,
@@ -75,5 +76,4 @@ MovieCard.propTypes = {
     ImagePath : PropTypes.string,
     Featured : PropTypes.boolean
   }).isRequired,
-  // onClick: PropTypes.func.isRequired //not sure why this causes an error
 };
