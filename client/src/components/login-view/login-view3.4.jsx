@@ -15,23 +15,13 @@ export function LoginView(props) {
     props.onLoggedIn(username)
   };
 
-  //do I need to add a const registration here? Since onClick requires a proptypes function (onClick: PropTypes.func.isRequired)
-  const handleRegister = (e) => {
-    e.preventDefault();
-    console.log(username, password);
-    //or leave param blank? And why no ;??
-    props.onRegister(registration)
-  };
-
 //limit width of username and password fields
-//why is there no Render function here??? And why can't I reuse Movie-Cards format for a link to register (vs. selectedMovie:movie)
-// const { movie, onClick } = this.props;
 
   return (
     <Form>
       <Form.Group controlId="formBasicUsername">
         <Form.Label>Username:</Form.Label>
-        <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+        <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
@@ -42,13 +32,15 @@ export function LoginView(props) {
         Submit
       </Button>
         <br/><br/>First time user?<br/>
-        <Button onClick={() => onClick(handleRegister)} variant="link">Click here to register
+        {/* study this */}
+        <Button id='registrationButton' type="submit" variant="link"    onClick={() => props.onClick()}>Click here to register
         </Button>
     </Form>
   )
 }
 
+//doesn't matter about rendering or calling -- these requirements just send an error message if they are violated.
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired //is this required??
 };

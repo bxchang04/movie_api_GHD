@@ -48,10 +48,15 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user //how does this differ from user:user?
+      user: authData.user.Username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
   }
 
   onSignedIn(user) {
@@ -72,6 +77,21 @@ export class MainView extends React.Component {
     this.setState({
       register: false
     })
+  }
+
+  getMovies(token) {
+    axios.get('https://myFlixDB2.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
 /*  //filter feature -- test this, and add input field somewhere

@@ -62,7 +62,9 @@ export function RegistrationView(props) {
   );
 }
 
+//not sure why this doesn't work for me, but works for healthy potatoes
 RegistrationView.propTypes = {
-  // onLoggedIn: PropTypes.func.isRequired,
-  // onClick: PropTypes.func.isRequired
+  // onSignedIn: PropTypes.func.isRequired, //commented out to avoid an error
+  // onLoggedIn: PropTypes.func.isRequired, //alternative to above. Also commented out to avoid error
+  // onClick: PropTypes.func.isRequired //also commented out to avoid error
 };
