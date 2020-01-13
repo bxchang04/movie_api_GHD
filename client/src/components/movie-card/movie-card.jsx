@@ -1,31 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+
+import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onClick } = this.props;
+    const { movie } = this.props;
 
     return (
-      <Card style={{ width: '16rem' }} >
+      <Card style={{ width: '16rem' }}>
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
-          {/* onClick updates movie-view's prop? */}
-          <Button onClick={() => onClick(movie)} variant="link">Open</Button>
+          <Link to={`/movies/${movie._id}`}>
+            <Button variant="link">Open</Button>
+          </Link>
         </Card.Body>
       </Card>
     );
   }
 }
 
-//For developer only. Gives warnings.
+//is this still required?
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,
@@ -38,7 +37,9 @@ MovieCard.propTypes = {
       Name: PropTypes.string,
       Bio : PropTypes.string,
     }),
+    Actors : PropTypes.string,
     ImagePath : PropTypes.string,
+    Featured : PropTypes.boolean
   }).isRequired,
   onClick: PropTypes.func.isRequired
 };

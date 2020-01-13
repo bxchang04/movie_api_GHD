@@ -16,7 +16,6 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    //props underneath don't need to be declared in constructor, unlike states.
     const { movie, onClick } = this.props;
 
     if (!movie) return null;
@@ -30,7 +29,7 @@ export class MovieView extends React.Component {
           onClick={() => onClick()}> {/*What is the relationship of this and main-view? Not clear.*/}
           <button>
           Back
-          {/*No longer worked now in main-view, so added a onButtonClick prop to main-view*/}
+          {/*No longer worked now in main-view, so added a onButtonClick prop*/}
           </button>
         </div>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -59,13 +58,18 @@ export class MovieView extends React.Component {
             width={220}
             height={326}
             className="ml-3"
-            src={movie.ImagePath}
+            src={movie.ImageUrl}
             alt="Generic placeholder"
           />
+          <Link to={`/directors/${movie.Director.Name}`}>
+            <Button variant="link">Director</Button>
+          </Link>
+
+          <Link to={`/genres/${movie.Genre.Name}`}>
+            <Button variant="link">Genre</Button>
+          </Link>
         </Media>
       </div>
     );
   }
 }
-
-//add movie-view.propTypes?

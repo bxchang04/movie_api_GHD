@@ -1,17 +1,27 @@
 //first example in 3.4
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+
+import { BrowserRouter as Router, Route} from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { RouterLink } from 'react-router-dom';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
+// import { UpdateView } from '../profile-view/update-view';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
 export class MainView extends React.Component {
 
@@ -21,7 +31,7 @@ export class MainView extends React.Component {
 
     //why do these have to be copy/pasted as const in render? seems redundant. Maybe thats why FP or non class based components are the new paradigm?
     this.state = {
-      movies: null,
+      movies: [],
       selectedMovie: null,
       user: null,
       register: false, //why false and not null?
@@ -37,13 +47,6 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
     }
-  }
-
-  //why is this (movie) but function below ()?
-  onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
   }
 
   onLoggedIn(authData) {
@@ -113,8 +116,7 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user, register, filterString } = this.state;
 
-    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />; //original code
-    if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
+    //!!!move to below
 
     if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
 
@@ -129,25 +131,52 @@ export class MainView extends React.Component {
 */
 
     return (
+      <Router>
+        <div className="main-view">
+          {/*Test this*/}
+          <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
+            <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">myFlix</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
+            <Link component={RouterLink} to={`/users/${user}`} >
+              <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
+            </Link>
+            <Button variant="primary ml-1" size="lg" className="logout-button" onClick={() => this.handleLogout()}>Log out</Button>
+          </Navbar.Collapse>
+          </Navbar>
+           <Route exact path="/" render={() => {
+              {/* refer to above*/}
+              {/*if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+              return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+            }}/>*/}
+              if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
+            }} />
+            <Route path="/register" render={() => <RegistrationView />} />
+            <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+            <Route path="/directors/:name" render={({ match }) => {
+                if (!movies) return <div className="main-view"/>;
+                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}/>}
+              } />
+            <Route path="/genres/:name" render={({ match }) => {
+                if (!movies) return <div className="main-view"/>;
+                return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre}/>}
+              } />
+        </div>
+      </Router>
+    );
+  }
+}
+/*
       <div className="main-view">
         <Button className="logout" variant="info" onClick={() => this.handleLogout()} >
           Log out
         </Button><Container>
-          {/* filter feature
-          <Row>
-            <div className="movie-viewer">
-            <input value={filterString} onChange={this.onFilterChange}/>
-            { filteredMovies.map(movie => <div className="movie" key={movie._id}>{movie.name}</div>)}
-            </div>
-          </Row>
-          */}
           <Row>
             {selectedMovie
                ? <MovieView movie={selectedMovie} onClick={() => this.onMovieClick(null)}/>
                : movies.map(movie => (
 
                  <Col key={movie._id} xs={12} sm={6} md={4}>
-                   {/*key and map go together? key is called an example of an inline ___ (property?)*/}
                    <MovieCard key={movie._id} movie={movie} onClick={() => this.onMovieClick(movie)}/>
                  </Col>
                ))
@@ -155,6 +184,4 @@ export class MainView extends React.Component {
           </Row>
         </Container>
       </div>
-    );
-  }
-}
+*/

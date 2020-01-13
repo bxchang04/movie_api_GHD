@@ -61,14 +61,14 @@ export class MovieView extends React.Component {
             src={movie.ImageUrl}
             alt="Generic placeholder"
           />
-        </Media>
-        <Link to={`/directors/${movie.Director.Name}`}>
-          <Button variant="link">Director</Button>
-        </Link>
+          <Link to={`/directors/${movie.Director.Name}`}>
+            <Button variant="link">Director</Button>
+          </Link>
 
-        <Link to={`/genres/${movie.Genre.Name}`}>
-          <Button variant="link">Genre</Button>
-        </Link>
+          <Link to={`/genres/${movie.Genre.Name}`}>
+            <Button variant="link">Genre</Button>
+          </Link>
+        </Media>
       </div>
     );
   }

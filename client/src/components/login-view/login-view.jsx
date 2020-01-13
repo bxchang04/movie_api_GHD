@@ -52,7 +52,7 @@ export function LoginView(props) {
 }
 
 //doesn't matter about rendering or calling -- these requirements just send an error message if they are violated.
-LoginView.propTypes = {
-  onLoggedIn: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired //is this required??
-};
+// LoginView.propTypes = {
+//   onLoggedIn: PropTypes.func.isRequired,
+//   onClick: PropTypes.func.isRequired //is this required??
+// };

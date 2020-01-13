@@ -18,7 +18,6 @@ export function UpdateView(props) {
   const { user } = props
   console.log(props);
 
-
   const [username, updateUsername] = useState('');
   const [password, updatePassword] = useState('');
   const [email, updateEmail] = useState('');

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-//import axios from 'axios'; //for 3.5
+import axios from 'axios';
 
 export function RegistrationView(props) {
   const [username, createUsername] = useState('');
@@ -14,10 +14,21 @@ export function RegistrationView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, birthday, email);
-    // send a request to the server for authentication
-    // workaround for authentication
-    props.onSignedIn(username) //changed from props.onLoggedIn(username). Not sure why the latter doesn't work.
+    axios.post('https://myFlixDB2.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
+    props.onSignedIn(username); //instead of props.onLoggedIn(username) //test this
   };
 
   return (
