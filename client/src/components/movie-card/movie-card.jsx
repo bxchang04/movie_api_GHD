@@ -40,5 +40,5 @@ MovieCard.propTypes = {
     ImagePath : PropTypes.string,
     Featured : PropTypes.boolean
   }).isRequired,
-  onClick: PropTypes.func.isRequired
+  // onClick: PropTypes.func.isRequired //not sure why this causes an error
 };

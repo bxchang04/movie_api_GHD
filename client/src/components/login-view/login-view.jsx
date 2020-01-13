@@ -1,10 +1,15 @@
 //bootstrap ver
 
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import './login-view.scss';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -45,8 +50,9 @@ export function LoginView(props) {
       </Button>
         <br/><br/>First time user?<br/>
         {/* study this */}
-        <Button id='registrationButton' type="submit" variant="link"    onClick={() => props.onClick()}>Click here to register
-        </Button>
+        <Link to={`/register`}>
+          <Button variant="link" className="sign-up-link btn-lg" type="submit">Register</Button>
+        </Link>
     </Form>
   )
 }

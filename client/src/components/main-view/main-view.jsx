@@ -34,7 +34,6 @@ export class MainView extends React.Component {
       movies: [],
       selectedMovie: null,
       user: null,
-      register: false, //why false and not null?
       // filterString: null //not sure if this needs to be initialized
     };
   }
@@ -60,6 +59,7 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  //not needed in 3.5?
   onSignedIn(user) {
     this.setState({
       user,
@@ -116,7 +116,7 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user, register, filterString } = this.state;
 
-    if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
+    // if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
 
     //Show loading message -- works!
     if (!movies) return <div className="loader">Loading movies...</div>;
@@ -128,31 +128,28 @@ export class MainView extends React.Component {
     const filteredMovies = filterString ? movies.filter(r => r.name.includes(filterString)) : movies;
 */
 
+
+
     return (
       <Router>
         <div className="main-view">
           {/*Test this*/}
-          <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
+            <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
             <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">myFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
             <Link component={RouterLink} to={`/users/${user}`} >
-              <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
+            <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
             </Link>
             <Button variant="primary ml-1" size="lg" className="logout-button" onClick={() => this.handleLogout()}>Log out</Button>
-          </Navbar.Collapse>
-          </Navbar>
-          <Route exact path="/" render={() => {
-            if (!user) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-            if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-            movies.map(movie => (
+            </Navbar.Collapse>
+            </Navbar>
 
-              <Col key={movie._id} xs={12} sm={6} md={4}>
-                <MovieCard key={movie._id} movie={movie} onClick={() => this.onMovieClick(movie)}/>
-              </Col>
-            ))
-          }
-          } />
+          <Route exact path="/" render={() => {
+            if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+            return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+            }
+          }/>
           <Route path="/register" render={() => <RegistrationView />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
           <Route path="/directors/:name" render={({ match }) => {
@@ -163,6 +160,12 @@ export class MainView extends React.Component {
               if (!movies) return <div className="main-view"/>;
               return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre}/>}
             } />
+            {/*<Route exact path="/users/:Username" render={() => {
+              if (!userProfile) return <div className="main-view" />
+              return <ProfileView userProfile={userProfile} user={user} movies={movies} />
+            }}
+            />
+            <Route exact path="/update/:Username" render={() => <UpdateView user={user} />} />*/}
         </div>
       </Router>
     );

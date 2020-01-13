@@ -28,7 +28,7 @@ export function RegistrationView(props) {
     .catch(e => {
       console.log('error registering the user')
     });
-    props.onSignedIn(username); //instead of props.onLoggedIn(username) //test this
+    // props.onLoggedIn(data); //props.onSignedOn(username) or data //not needed in 3.5?
   };
 
   return (
