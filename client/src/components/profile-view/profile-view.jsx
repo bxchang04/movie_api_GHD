@@ -43,7 +43,7 @@ export class ProfileView extends React.Component {
           password: response.data.Password,
           email: response.data.Email,
           birthday: response.data.Birthday,
-          favoriteMovies: response.data.Favorites
+          favoriteMovies: response.data.FavoriteMovies
         });
       })
       .catch(function (error) {
@@ -54,7 +54,7 @@ export class ProfileView extends React.Component {
   deleteMovieFromFavs(event, favoriteMovie) {
     event.preventDefault();
     console.log(favoriteMovie);
-    axios.delete(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/Favorites/${favoriteMovie}`, {
+    axios.delete(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${favoriteMovie}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -82,7 +82,7 @@ export class ProfileView extends React.Component {
             <ListGroup.Item>Password:******* </ListGroup.Item>
             <ListGroup.Item>Email: {email}</ListGroup.Item>
             <ListGroup.Item>Birthday: {birthday && birthday.slice(0, 10)}</ListGroup.Item>
-            {/*<ListGroup.Item>Favorite Movies:
+            <ListGroup.Item>Favorite Movies:
              <div>
                 {favoriteMovies.length === 0 &&
                   <div className="value">No Favorite Movies have been added</div>
@@ -105,7 +105,7 @@ export class ProfileView extends React.Component {
                   </ul>
                 }
               </div>
-            </ListGroup.Item>*/}
+            </ListGroup.Item>
           </ListGroup>
           <div className="text-center">
             <Link to={`/`}>
