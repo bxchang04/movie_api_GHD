@@ -40914,7 +40914,7 @@ function (_React$Component) {
       event.preventDefault();
       console.log(favoriteMovie);
 
-      _axios.default.delete("https://myFlixDB2.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(favoriteMovie), {
+      _axios.default.delete("https://myFlixDB2.herokuapp.com/users/".concat(localStorage.getItem('user'), "/movies/").concat(favoriteMovie), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
