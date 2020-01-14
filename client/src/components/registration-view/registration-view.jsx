@@ -1,77 +1,81 @@
-// registration-view.jsx
+//Doesn't work if user already exists
 
-/* 3.5
-Take the example of registering a new user. The idea is simple: when clicking on your form's "register" button (on your RegistrationView), all you need to do is create a new handleRegister method where you make a POST request to the “/users” endpoint with axios, just as you used it to make a POST request to the “/login” endpoint. You can open your console and log the data entered and the response from your API. If you don’t remember how to add a click handler to your registration form, you can refer to your login form for a reminder:
-*/
-
-//Begin copy from login-view
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import axios from 'axios';
 
-export function LoginView(props) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+export function RegistrationView(props) {
+  const [username, createUsername] = useState('');
+  const [password, createPassword] = useState('');
+  const [email, createEmail] = useState('');
+  const [birthday, createBirthday] = useState('');
 
-    const handleSubmit = () => {
-        console.log(username, password);
-        /* Send a request to the server for authentication */
-        /* then call props.onLoggedIn(username) */
-    };
-
-    return (
-        <form>
-            <label>
-                Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-            </label>
-            <label>
-                Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </label>
-            <button type="button" onClick={handleSubmit}>Submit</button>
-        </form>
-    );
-}
-
-const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    // Send a request to the server for authentication then call props.onLoggedIn(username)
-    props.onLoggedIn(username);
-};
-//End copy from login-view
-
-axios.post('YOUR_API_URL/users', {
-    Username: username,
-    Password: password,
-    Email: email,
-    Birthday: birthday
-})
+    axios.post('https://myFlixDB2.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
     .then(response => {
-        const data = response.data;
-        console.log(data);
-        window.open('/client', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab //3.6 replaced / with /client
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
     })
     .catch(e => {
-        console.log('error registering the user')
+      console.log('error registering the user')
     });
+    // props.onLoggedIn(data); //props.onSignedOn(username) or data //not needed in 3.5?
+  };
 
-constructor() {
-    super();
+  return (
+    <Container>
+      <Form>
+        <Form.Group controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => createEmail(e.target.value)} />
+        <Form.Text className="text-muted">
+        We'll never share your email with anyone else.
+        </Form.Text>
+        </Form.Group>
 
-    this.state = {
-        movies: [],
-        user: null
-    };
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => createUsername(e.target.value)} />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Must be six digits or more" value={password} onChange={e => createPassword(e.target.value)} />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicBirthdate">
+          <Form.Label>Birthday</Form.Label>
+          <Form.Control type="birthday" placeholder="mm-dd-yyyy" value={birthday} onChange={e => createBirthday(e.target.value)} />
+          <Form.Text className="text-muted">
+          We'll never share your birthday with anyone else.
+          </Form.Text>
+        </Form.Group>
+
+        <Button variant="primary" type="submit"                     onClick={handleSubmit}>
+          Register!
+        </Button>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        {/*How does this lead to login-view?*/}
+        <Button variant='primary'onClick={() => props.onClick()}>
+          Already a member?
+        </Button>
+      </Form>
+    </Container>
+  );
 }
 
-<Route exact path="/" render={() => {
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-    return movies.map(m => <MovieCard key={m._id} movie={m} />)
-}
-} />
-    <Route path="/register" render={() => <RegistrationView />} />
-{/* you keep the rest routes here */ }
-
-/* 3.5
-Similarly, you can use axios to make a GET request to the "/users/:Username" endpoint in order to get profile information for a specific user; a PUT request to the |/users/:Username| endpoint to update a user’s profile information; and a DELETE request to the |/users/:Username| endpoint to deregister the user. You'll be asked to do so later in this Exercise, so make sure to display the correct username somewhere in your main view (which will take you to the profile page); add the new routes; create the respective views (one for viewing profile data and another one for editing); and make axios requests to get/update the profile data or deregister the user.
-*/
+//not sure why this doesn't work for me, but works for healthy potatoes
+RegistrationView.propTypes = {
+  // onSignedIn: PropTypes.func.isRequired, //commented out to avoid an error
+  // onLoggedIn: PropTypes.func.isRequired, //alternative to above. Also commented out to avoid error
+  // onClick: PropTypes.func.isRequired //also commented out to avoid error
+};

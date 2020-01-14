@@ -1,306 +1,45 @@
-class MainView extends React.Component {
-    constructor() {
-        // Call the superclass constructor
-        // so React can initialize it
-        super();
-
-        // Initialize the state to an empty object so we can destructure it later
-        this.state = {};
-    }
-
-    // This overrides the render() method of the superclass
-    // No need to call super() though, as it does nothing by default
-    render() {
-        return (
-            <div className="main-view"></div>
-        );
-    }
-}
-
-//3.3 update
-// One of the "hooks" available in a React Component
-componentDidMount() {
-    axios.get('<my-api-endpoint/movies>')
-        .then(response => {
-            // Assign the result to the state
-            this.setState({
-                movies: response.data
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
-
-render() {
-    // If the state isn't initialized, this will throw on runtime
-    // before the data is initially loaded
-    const { movies } = this.state;
-
-    // Before the movies have been loaded
-    if (!movies) return <div className="main-view" />;
-
-    return (
-        <div className="main-view">
-            {movies.map(movie => (
-                <div className="movie-card" key={movie._id}>{movie.Title}</div>
-            ))}
-        </div>
-    );
-}
-
-import { MovieCard } from '../movie-card/movie-card';
-
+//first example in 3.4
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import { BrowserRouter as Router, Route} from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { RouterLink } from 'react-router-dom';
 
-export class MainView extends React.Component {
-
-    constructor() {
-        super();
-
-        this.state = {
-            movies: null,
-            selectedMovie: null
-        };
-    }
-
-    componentDidMount() {
-        /* ... */
-    }
-
-    onMovieClick(movie) {
-        this.setState({
-            selectedMovie: movie
-        });
-    }
-
-
-    render() {
-        const { movies, selectedMovie } = this.state;
-
-        // Before the movies have been loaded
-        if (!movies) return <div className="main-view" />;
-
-        return (
-            <div className="main-view">
-                {selectedMovie
-                    ? <MovieView movie={selectedMovie} />
-                    : movies.map(movie => (
-                        <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-                    ))
-                }
-            </div>
-        );
-    }
-}
-
-//3.4
-// client/src/main-view/main-view.jsx
-import React from 'react';
-import axios from 'axios';
-
-import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-
-export class MainView extends React.Component {
-
-    constructor() {
-        super();
-
-        this.state = {
-            movies: null,
-            selectedMovie: null,
-            user: null
-        };
-    }
-
-    //3.4
-    // componentDidMount() {
-    //     /* ... */
-    // }
-
-    //3.5
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
-            this.getMovies(accessToken);
-        }
-    }
-
-    onMovieClick(movie) {
-        this.setState({
-            selectedMovie: movie
-        });
-    }
-
-    onLoggedIn(user) {
-        this.setState({
-            user
-        });
-    }
-
-
-    render() {
-        const { movies, selectedMovie, user } = this.state;
-
-        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-
-        // Before the movies have been loaded
-        if (!movies) return <div className="main-view" />;
-
-        return (
-            <div className="main-view">
-                {selectedMovie
-                    ? <MovieView movie={selectedMovie} />
-                    : movies.map(movie => (
-                        <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-                    ))
-                }
-            </div>
-        );
-    }
-}
-
-//for 3.5. Is the ordering right?
-getMovies(token) {
-    axios.get('YOUR_API_URL/movies', {
-        headers: { Authorization: `Bearer ${token}` }
-    })
-        .then(response => {
-            // Assign the result to the state
-            this.setState({
-                movies: response.data
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
-
-//3.5
-/*
-Perhaps you’re wondering how you can log out as a user. To do so, you can add a new button in your application’s MainView and add an onClick handler, where you delete the token and the user from localStorage—as simple as that!
-
-To delete the token and the user from localStorage, you need to use the following commands:
-
-localStorage.removeItem('token');
-
-localStorage.removeItem('user');
-
-You’ve seen how to access the localStorage in your browser using code, but it’s also useful to know how to access the localStorage and delete any key you want manually. Open your browser and navigate to your application. Right-click on the page and open the console, switch to the “Application” tab, expand local storage on the left, and click on the address under which your application is running ("http://localhost:1234"). To the right-hand side of the page, you’ll see the user and token keys saved in the localStorage. Select the keys one-by-one and click on the delete icon. Now, if you refresh or restart your browser, you will be logged out!
-
-To clear your localStorage even faster, open the console with your website open and type: localStorage.clear(). This command will clear both the token and the user! To check that your localStorage is empty, switch to the “Application” tab and see if the keys have been deleted.
-
-*/
-
-
-//3.5 state-based router
-// main-view.jsx
-import React from 'react';
-import axios from 'axios';
-
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
+import { ProfileUpdate } from '../profile-view/profile-update';
+
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
 export class MainView extends React.Component {
 
-    constructor() {
-        super();
-
-        this.state = {
-            movies: null,
-            user: null
-        };
-    }
-
-    getMovies() {
-        /* ... */
-    }
-
-
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
-            this.getMovies(accessToken);
-        }
-    }
-
-    onLoggedIn(authData) {
-    ...
-    }
-
-    render() {
-        const { movies, user } = this.state;
-
-
-        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-        if (!movies) return <div className="main-view" />;
-
-        return (
-            <Router>
-                <div className="main-view">
-                    <Route exact path="/" render={/* welcome */} />
-                    <Route exact path="/movies/:movieId" render={/* movie view */} />
-                    <Route exact path="/genres/:name" render={/* genre view*/} />
-                    <Route exact path="/directors/:name" render={/* director view */} />
-                </div>
-            </Router>
-
-            //3.5 delete above?
-            <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-
-            <Route path="/directors/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view" />;
-                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
-            }
-            } />
-        );
-    }
-}
-
-//3.6
-import React from 'react';
-import axios from 'axios';
-
-import { connect } from 'react-redux';
-
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-// #0
-import { setMovies } from '../../actions/actions';
-
-     // we haven't written this one yet
-import MoviesList from '../movies-list/movies-list';
-import { MovieView } from '../movie-view/movie-view';
-import { LoginView } from '../login-view/login-view';
-import { RegistrationView } from '../registration-view/registration-view';
-
-class MainView extends React.Component {
-
+  //executed at the point component is created
   constructor() {
     super();
 
+    //why do these have to be copy/pasted as const in render? seems redundant. Maybe thats why FP or non class based components are the new paradigm?
     this.state = {
-      user: null
+      movies: [],
+      user: null,
+      email: '',
+      birthday: '',
+      userInfo: {}
     };
   }
 
-componentDidMount() {
+  componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.setState({
@@ -308,22 +47,10 @@ componentDidMount() {
       });
       this.getMovies(accessToken);
     }
-}
-
- getMovies(token) {
-    axios.get('YOUR_API_URL/movies', {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(response => {
-      // #1
-      this.props.setMovies(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
       user: authData.user.Username
     });
@@ -333,31 +60,123 @@ componentDidMount() {
     this.getMovies(authData.token);
   }
 
-  render() {
+  handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
 
-    // #2
-    let { movies } = this.props;
-    let { user } = this.state;
+    this.setState({
+      user: null
+
+    });
+    window.open('/', '_self');
+  }
+
+  getMovies(token) {
+    axios.get('https://myFlixDB2.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  getUser(token) {
+    axios
+      .get('https://myFlixDB2.herokuapp.com/users/', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(response => {
+        this.props.setLoggedUser(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  updateUser(data) {
+    this.setState({
+      userInfo: data
+    });
+    localStorage.setItem('user', data.Username);
+  }
+
+  render() {
+    //wnat are reasons for having movies as state vs. prop, and vice versa?
+    const { movies, user, userInfo, token } = this.state;
+
+    //Show loading message
+    if (!movies) return <div className="loader">Loading movies...</div>;
+
+    //Return list of movies
+    if (!movies) return <div className="main-view"/>;
 
     return (
-      <Router basename="/client"> //3.6 added basename="/client"
-         <div className="main-view">
-           <Route exact path="/" render={() => {
-             if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-             return <MoviesList movies={movies}/>;
-         }} />
-           <Route path="/register" render={() => <RegistrationView />} />
-           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-         </div>
+      <Router>
+        <div className="main-view">
+        <Container className="container-fluid">
+          <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
+              <Button> {/* placeholder until I get a logo */}
+                <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">&nbsp;&nbsp;&nbsp;myFlix</Navbar.Brand>
+              </Button>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
+              <Link component={RouterLink} to={`/users/${user}`} >
+                <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
+              </Link>
+              <Button variant="primary ml-1" size="lg" className="logout-button" onClick={() => this.handleLogout()}>Log out</Button>
+              </Navbar.Collapse>
+            </Navbar>
+
+          <Row>
+            {/*<Col key={movies._id} xs={12} sm={6} md={4}>*/} {/*movies._id does not work */}
+              <Route exact path="/" render={() => {
+              if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+              return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+              }
+              }/>
+            {/*</Col>*/}
+          </Row>
+          <Route path="/register" render={() => <RegistrationView />} />
+          <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+          <Route path="/directors/:name" render={({ match }) => {
+              if (!movies) return <div className="main-view"/>;
+              return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}/>}
+            } />
+          <Route path="/genres/:name" render={({ match }) => {
+              if (!movies) return <div className="main-view"/>;
+              return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre}/>}
+            } />
+            <Route path="/users/:Username" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
+            <Route path="/update/:Username" render={() => <ProfileUpdate userInfo={userInfo} user={user} token={token} updateUser={data => this.updateUser(data)} />}
+            />
+          </Container>
+        </div>
       </Router>
     );
   }
 }
+/*
+      <div className="main-view">
+        <Button className="logout" variant="info" onClick={() => this.handleLogout()} >
+          Log out
+        </Button><Container>
+          <Row>
+            {selectedMovie
+               ? <MovieView movie={selectedMovie} onClick={() => this.onMovieClick(null)}/>
+               : movies.map(movie => (
 
-// #3
-let mapStateToProps = state => {
-  return { movies: state.movies }
-}
-
-// #4
-export default connect(mapStateToProps, { setMovies } )(MainView);
+                 <Col key={movie._id} xs={12} sm={6} md={4}>
+                   <MovieCard key={movie._id} movie={movie} onClick={() => this.onMovieClick(movie)}/>
+                 </Col>
+               ))
+            }
+          </Row>
+        </Container>
+      </div>
+*/

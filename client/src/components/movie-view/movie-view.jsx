@@ -1,46 +1,77 @@
-import React from 'react';
-//is this the correct way to create a button?
+import React, { Component } from 'react';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Media from 'react-bootstrap/Media';
 
-export class MovieView extends React.Component {
+export function MovieView(props) {
 
-    constructor() {
-        super();
+  const { movie } = props;
+  if (!movie) return null;
 
-        this.state = {};
-    }
+  function handleSubmit(event) {
+    event.preventDefault();
+    axios.post(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movie._id}`, {
+      Username: localStorage.getItem('user')
+    }, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+      .then(response => {
+        console.log(response);
+        alert('Movie has been added to your Favorites List!');
+      })
+      .catch(event => {
+        console.log('error adding movie to list');
+        alert('Ooooops... Something went wrong!');
+      });
+  };
 
-    render() {
-        const { movie } = this.props;
+  return (
+    <div className="movie-view">
+      <br />
+      <Media className="d-flex flex-column flex-md-row align-items-center">
+        <Link to={`/`}>
+          <Button variant="link" className="sign-up-link btn-lg" type="submit">Back</Button>
+        </Link>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <h1>{movie.Title}</h1>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <Button variant="outline-secondary" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
 
-        if (!movie) return null;
-
-        return (
-            <div className="movie-view">
-                <img className="movie-poster" src={movie.ImagePath} />
-                <div className="movie-title">
-                    <span className="label">Title: </span>
-                    <span className="value">{movie.Title}</span>
-                </div>
-                <div className="movie-description">
-                    <span className="label">Description: </span>
-                    <span className="value">{movie.Description}</span>
-                </div>
-
-                <div className="movie-genre">
-                    <span className="label">Genre: </span>
-                    <span className="value">{movie.Genre.Name}</span>
-                </div>
-                <div className="movie-director">
-                    <span className="label">Director: </span>
-                    <span className="value">{movie.Director.Name}</span>
-                </div>
-            </div>
-
-            //is the ordering for this button right? How do I implement the rest of this button feature?
-            <div className="my-flix">
-                <Button />
-            </div>
-        );
-    }
+      </Media>
+      <Media className="d-flex flex-column flex-md-row align-items-center">
+        <Media.Body>
+          <br />
+            {/*add All movies button*/}
+          <h6>Genre:
+            <Link to={`/genres/${movie.Genre.Name}`}>
+            <Button variant="link">{movie.Genre.Name}</Button>
+            </Link>
+          </h6>
+          <h6>Director:
+            <Link to={`/directors/${movie.Director.Name}`}>
+            <Button variant="link">{movie.Director.Name}</Button>
+            </Link>
+          </h6>
+          <br />
+          <h6>Description</h6>
+          <p>
+            {movie.Description}
+          </p>
+        </Media.Body>
+        <img
+          width={220}
+          height={326}
+          className="ml-3"
+          src={movie.ImagePath}
+          alt="Generic placeholder"
+        />
+      </Media>
+    </div>
+  );
 }

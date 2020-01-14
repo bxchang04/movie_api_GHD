@@ -1,64 +1,4 @@
-import React from 'react';
-
-/* redundant code from earlier example?
-export class MovieCard extends React.Component {
-    render() {
-        // This is given to the <MovieCard/> component by the outer world
-        // which, in this case, is `MainView`, as `MainView` is what’s
-        // connected to your database via the movies endpoint of your API
-        const { movie } = this.props;
-
-        return (
-            <div className="movie-card">{movie.Title}</div>
-        );
-    }
-}
-*/
-
-import React from 'react';
-import PropTypes from 'prop-types';
-
-export class MovieCard extends React.Component {
-    render() {
-        const { movie, onClick } = this.props;
-
-        return (
-            <div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>
-        );
-    }
-}
-
-MovieCard.propTypes = {
-    movie: PropTypes.shape({
-        Title: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
-        ImagePath: PropTypes.string.isRequired
-    }).isRequired,
-    onClick: PropTypes.func.isRequired
-};
-
-/*
-
-3.3
-
-Make sure to assign a valid path to each movie's ImagePath in the database. One option is to use the image's URL from the web. To do so in Chrome, right-click on the image you want to use, then select “Copy Image Address” and paste it into the corresponding ImagePath in the database. Just make sure you have permission to use the image!
- --> where should I update this "database"?
-
- sample image for Pokemon the Movie link:
-https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi_0Ienv4nmAhWOct8KHQ_xA3oQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt0190641%2F&psig=AOvVaw2p0Un5xfl5SaSdoPF-Bytn&ust=1574913278114790
-
-*/
-
-//3.5
-/*
-// movie-view.jsx
-// is the order correct for these links?
-<Link to={`/directors/${movie.Director.Name}`}>
-  <Button variant="link">Director</Button>
-</Link>
-<Link to={`/genres/${movie.Genre.Name}`}>
-  <Button variant="link">Genre</Button>
-</Link>
+//Need to make this into grid
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -67,18 +7,25 @@ import Card from 'react-bootstrap/Card';
 
 import { Link } from "react-router-dom";
 
+const MAX_CHARS_IN_A_DESCRIPTION = 100;
+
 export class MovieCard extends React.Component {
   render() {
     const { movie } = this.props;
+    let movieDescription = movie.Description;
+    if (movieDescription.length > MAX_CHARS_IN_A_DESCRIPTION) {
+      movieDescription = `${movieDescription.substring(0, MAX_CHARS_IN_A_DESCRIPTION)}...`;
+    }
 
     return (
-      <Card style={{ width: '16rem' }}>
+      <Card className="ml-2 ml-sm-2 mr-2 mr-sm-2 mb-3 mb-sm-4" style={{ width: '14rem' }} > {/*added mr*/}
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
+          <Card.Subtitle className="mb-2 text-muted">{movie.Genre.Name}</Card.Subtitle>
+          <Card.Text>{movieDescription}</Card.Text>
           <Link to={`/movies/${movie._id}`}>
-            <Button variant="link">Open</Button>
+            <Button className="outline-primary" variant="link">Open</Button>
           </Link>
         </Card.Body>
       </Card>
@@ -87,4 +34,46 @@ export class MovieCard extends React.Component {
 }
 
 
+/*
+    return (
+      <Card className="mb-3 mb-sm-4" style={{ minWidth: '12rem' }}>
+        <Card.Img variant="top" src={movie.ImagePath} />
+        <Card.Body>
+          <Card.Title>
+            {movie.Title}
+            {user &&
+              <StarButton
+                movieId={movie._id}
+                isFavorite={isFavorite}
+                onToggleFavourite={movieId => onToggleFavourite(movieId)}
+                className="ml-2" />
+            }
+          </Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{movie.Genre.Name}</Card.Subtitle>
+          <Card.Text>{movieDescription}</Card.Text>
+          <Link to={`/movies/${movie._id}`}>
+            <Button className="outline-primary" variant="link">Open</Button>
+          </Link>
+        </Card.Body>
+      </Card>
+    );
+  }
+}
 */
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string,
+    Description: PropTypes.string,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string,
+      Description : PropTypes.string,
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string,
+      Bio : PropTypes.string,
+    }),
+    ImagePath : PropTypes.string,
+    Featured : PropTypes.boolean
+  }).isRequired,
+};

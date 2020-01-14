@@ -1,3 +1,4 @@
+// src/components/movies-list/movies-list.jsx
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -23,6 +24,6 @@ function MoviesList(props) {
       <VisibilityFilterInput visibilityFilter={visibilityFilter} />
       {filteredMovies.map(m => <MovieCard key={m._id} movie={m}/>)}
     </div>;
-  }
+}
 
-  export default connect(mapStateToProps)(MoviesList);
+export default connect(mapStateToProps)(MoviesList);
