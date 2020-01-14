@@ -39,8 +39,17 @@ export class MovieView extends React.Component {
         <Media className="d-flex flex-column flex-md-row align-items-center">
           <Media.Body>
             <br />
-            <h6>Genre: {movie.Genre.Name}</h6>
-            <h6>Director: {movie.Director.Name}</h6>
+              {/*add All movies button*/}
+            <h6>Genre:
+              <Link to={`/genres/${movie.Genre.Name}`}>
+              <Button variant="link">{movie.Genre.Name}</Button>
+              </Link>
+            </h6>
+            <h6>Director:
+              <Link to={`/directors/${movie.Director.Name}`}>
+              <Button variant="link">{movie.Director.Name}</Button>
+              </Link>
+            </h6>
             <br />
             <h6>Description</h6>
             <p>
@@ -54,15 +63,6 @@ export class MovieView extends React.Component {
             src={movie.ImagePath}
             alt="Generic placeholder"
           />
-          {/* bug
-            <Link to={`/directors/${movie.Director.Name}`}>
-            <Button variant="link">Director</Button>
-          </Link>*/}
-
-          {/* bug
-            <Link to={`/genres/${movie.Genre.Name}`}>
-            <Button variant="link">Genre</Button>
-          </Link>*/}
         </Media>
       </div>
     );

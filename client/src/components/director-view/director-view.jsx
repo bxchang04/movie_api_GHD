@@ -28,10 +28,12 @@ export class DirectorView extends React.Component {
           <br/>
           {director.Bio}
           <br/>
-          <br/>
-          Birth Year:  {director.BirthYear}
+          {/*<br/>
+          Birth Year:  {director.BirthYear}*/}
           </Card.Text>
           <div className="text-center">
+            {/*add History back button*/}
+            {/*all movies button*/}
             <Link to={`/`}>
               <Button className="button-card" variant="info">Back</Button>
             </Link>

@@ -32,7 +32,6 @@ export class MainView extends React.Component {
     //why do these have to be copy/pasted as const in render? seems redundant. Maybe thats why FP or non class based components are the new paradigm?
     this.state = {
       movies: [],
-      selectedMovie: null,
       user: null,
       // filterString: null //not sure if this needs to be initialized
     };
