@@ -14,7 +14,7 @@ import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
-// import { UpdateView } from '../profile-view/update-view';
+import { ProfileUpdate } from '../profile-view/profile-update';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -33,7 +33,9 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
-      // filterString: null //not sure if this needs to be initialized
+      email: '',
+      birthday: '',
+      userInfo: {}
     };
   }
 
@@ -84,36 +86,48 @@ export class MainView extends React.Component {
     });
   }
 
-/*  //filter feature -- test this, and add input field somewhere
-  onFilterChange = (event) => {
+  getUser(token) {
+    axios
+      .get('https://myFlixDB2.herokuapp.com/users/', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(response => {
+        this.props.setLoggedUser(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  updateUser(data) {
     this.setState({
-      filterString: event.target.value
+      userInfo: data
     });
-  }*/
+    localStorage.setItem('user', data.Username);
+  }
 
   render() {
-    const { movies, user, filterString } = this.state;
+    //wnat are reasons for having movies as state vs. prop, and vice versa?
+    const { movies, user, userInfo, token } = this.state;
 
-    //Show loading message -- works!
+    //Show loading message
     if (!movies) return <div className="loader">Loading movies...</div>;
 
     //Return list of movies
     if (!movies) return <div className="main-view"/>;
-
-/*    //filter feature - test this
-    const filteredMovies = filterString ? movies.filter(r => r.name.includes(filterString)) : movies;
-*/
 
     return (
       <Router>
         <div className="main-view">
         <Container className="container-fluid">
           <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
-              <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">myFlix</Navbar.Brand>
+              <Button> {/* placeholder until I get a logo */}
+                <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">&nbsp;&nbsp;&nbsp;myFlix</Navbar.Brand>
+              </Button>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
               <Link component={RouterLink} to={`/users/${user}`} >
-              <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
+                <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
               </Link>
               <Button variant="primary ml-1" size="lg" className="logout-button" onClick={() => this.handleLogout()}>Log out</Button>
               </Navbar.Collapse>
@@ -138,12 +152,9 @@ export class MainView extends React.Component {
               if (!movies) return <div className="main-view"/>;
               return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre}/>}
             } />
-            {/*<Route exact path="/users/:Username" render={() => {
-              if (!userProfile) return <div className="main-view" />
-              return <ProfileView userProfile={userProfile} user={user} movies={movies} />
-            }}
+            <Route path="/users/:Username" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
+            <Route path="/update/:Username" render={() => <ProfileUpdate userInfo={userInfo} user={user} token={token} updateUser={data => this.updateUser(data)} />}
             />
-            <Route exact path="/update/:Username" render={() => <UpdateView user={user} />} />*/}
           </Container>
         </div>
       </Router>
