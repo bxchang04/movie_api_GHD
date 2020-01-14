@@ -161,22 +161,3 @@ export class MainView extends React.Component {
     );
   }
 }
-/*
-      <div className="main-view">
-        <Button className="logout" variant="info" onClick={() => this.handleLogout()} >
-          Log out
-        </Button><Container>
-          <Row>
-            {selectedMovie
-               ? <MovieView movie={selectedMovie} onClick={() => this.onMovieClick(null)}/>
-               : movies.map(movie => (
-
-                 <Col key={movie._id} xs={12} sm={6} md={4}>
-                   <MovieCard key={movie._id} movie={movie} onClick={() => this.onMovieClick(movie)}/>
-                 </Col>
-               ))
-            }
-          </Row>
-        </Container>
-      </div>
-*/
