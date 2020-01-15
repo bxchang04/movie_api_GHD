@@ -1,12 +1,17 @@
-import React from "react";
+import React from 'react';
+import axios from 'axios';
+
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import ListGroup from 'react-bootstrap/ListGroup';
+import './profile-view.scss'
+// import profileLogo from '/images/user_icon.svg';
+
 import { Link } from "react-router-dom";
-import axios from "axios";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import ListGroup from "react-bootstrap/ListGroup";
-import "./profile-view.scss";
 
 export class ProfileView extends React.Component {
+
   constructor() {
     super();
     this.state = {
@@ -15,23 +20,23 @@ export class ProfileView extends React.Component {
       email: null,
       birthday: null,
       userData: null,
-      favorites: []
+      favoriteMovies: []
     };
   }
 
   componentDidMount() {
-    let accessToken = localStorage.getItem("token");
+    //authentication
+    let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.getUser(accessToken);
     }
   }
 
   getUser(token) {
-    let username = localStorage.getItem("user");
-    axios
-      .get(`https://myFlixDB2.herokuapp.com/users/${username}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+    let username = localStorage.getItem('user');
+    axios.get(`https://myFlixDB2.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(response => {
         this.setState({
           userData: response.data,
@@ -39,92 +44,111 @@ export class ProfileView extends React.Component {
           password: response.data.Password,
           email: response.data.Email,
           birthday: response.data.Birthday,
-          favorites: response.data.FavoriteMovies
+          favoriteMovies: response.data.FavoriteMovies
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
 
-  deleteMovieFromFavs(event, favoriteMovie) {
+  deleteFavorite(event, movieID) {
     event.preventDefault();
-    console.log(favoriteMovie);
-    axios
-      .delete(
-        `https://myFlixDB2.herokuapp.com/users/${localStorage.getItem(
-          "user"
-        )}/movies/${favoriteMovie}`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-        }
-      )
-      .then(response => {
-        this.getUser(localStorage.getItem("token"));
+    axios.delete(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/movies/${movieID}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+      .then(res => {
+        document.location.reload(true);
       })
-      .catch(event => {
-        alert("something went wrong.");
+      .then(res => {
+        alert('Movie successfully deleted from favorites');
+      })
+
+      .catch(e => {
+        alert('Movie could not be deleted from favorites ' + e)
       });
   }
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  deleteProfile() {
+    axios.delete(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      })
+      .then(res => {
+        alert('Do you really want to delete your account?')
+      })
+      .then(res => {
+        alert('Account was successfully deleted')
+      })
+      .then(res => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+
+        this.setState({
+          user: null
+
+        });
+        window.open('/', '_self');
+      })
+      .catch(e => {
+        alert('Account could not be deleted ' + e)
+      });
   }
 
+
+
   render() {
-    const { userData, username, email, birthday, favorites } = this.state;
+    const { username, userProfile, email, birthday, favoriteMovies } = this.state;
 
     return (
-      <Card className="profile-view" style={{ width: "32rem" }}>
-        <Card.Body>
-          <Card.Title className="profile-title">Profile</Card.Title>
-          <ListGroup className="user-name">
-            <ListGroup.Item>Username: {username}</ListGroup.Item>
-            <ListGroup.Item>E-Mail: {email}</ListGroup.Item>
-            <ListGroup.Item>Birthday: {birthday}</ListGroup.Item>
-            <ListGroup.Item>
-              Favorites:
-              <div>
-                {favorites.length === 0 && (
-                  <div className="value">No favorites added</div>
-                )}
-                {favorites.length > 0 && (
-                  <ul>
-                    {favorites.map(favoriteMovie => (
-                      <li key={favoriteMovie}>
-                        <p className="favorites">
-                          {
-                            JSON.parse(localStorage.getItem("movies")).find(
-                              movie => movie._id === favoriteMovie
-                            ).Title
-                          }
-                        </p>
-                        <Button
-                          className="submitButton"
-                          size="sm"
-                          onClick={event =>
-                            this.deleteMovieFromFavs(event, favoriteMovie)
-                          }>
-                          Delete
-                        </Button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </ListGroup.Item>
-          </ListGroup>
-        </Card.Body>
+      <div className="profile-view">
+        <Container>
+          <Card style={{ minwidth: '20rem' }} className="border-0 pl-0">
+            <Card.Body>
+              <span className="d-flex align-items-center mb-4">
+              <Link to={`/`}>
+                <Button variant="link" className="sign-up-link btn-lg" type="submit">Back</Button>
+              </Link>
+              <h1 className="display-4">Profile</h1>
+              </span>
+              <Card.Text className="mb-4 lead">
+                <span className="font-weight-bold">Username: </span>{username} <br />
+                <span className="font-weight-bold">Email: </span>{email} <br />
+                <span className="font-weight-bold">Birthday: </span>{birthday} <br />
+              </Card.Text>
+              <Link to={`/update/${username}`}>
+                <Button variant="primary" className="update-button">Update my profile</Button>
+              </Link>
 
-        <div>
-          <Link to={`/`}>
-            <Button className="submitButton">Back to Movies</Button>
-          </Link>
-          <Link to={`/update/:Username`}>
-            <Button className="submitButton">Update profile</Button>
-          </Link>
-        </div>
-      </Card>
+              <Button variant="primary" className="delete-button ml-2" onClick={() => this.deleteProfile()}>Delete my profile</Button>
+            </Card.Body>
+          </Card>
+          <Container>
+
+            <h4 className="mt-4 mb-4">My favorite movies: </h4>
+            {favoriteMovies.length === 0 &&
+              <div>You have no favorite movies</div>}
+            {favoriteMovies.length > 0 &&
+              <ul className="ml-0 pl-0">
+                {favoriteMovies.map(movie =>
+                  (
+                    <li key={movie._id} className="mb-2 ">
+                      <span className="d-flex align-items-center">
+                        <Button variant="primary" size="sm" className="delete-movie mr-2" onClick={e => this.deleteFavorite(event, movie._id)}>
+                          <i className="material-icons bin">delete</i>
+                        </Button>
+                        <Link to={`/movies/${movie}`}>
+                          <h5 className="movie-link link">{movie.Title}</h5>
+                        </Link>
+
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            }
+          </Container>
+        </Container>
+      </div >
     );
   }
 }
