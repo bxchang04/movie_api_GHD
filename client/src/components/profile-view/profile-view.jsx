@@ -98,7 +98,7 @@ export class ProfileView extends React.Component {
 
 
   render() {
-    const { username, userProfile, email, birthday, favoriteMovies } = this.state;
+    const { username, email, birthday, favoriteMovies } = this.state;
 
     return (
       <div className="profile-view">
@@ -137,13 +137,23 @@ export class ProfileView extends React.Component {
                         <Button variant="primary" size="sm" className="delete-movie mr-2" onClick={e => this.deleteFavorite(event, movie._id)}>
                           <i className="material-icons bin">delete</i>
                         </Button>
-                        <Link to={`/movies/${movie}`}>
+                        <Link to={`/movies/${movie._id}`}>
                           <h5 className="movie-link link">{movie.Title}</h5>
                         </Link>
 
                       </span>
                     </li>
                   ))}
+                  {/*{favoriteMovies.map(favoriteMovie =>
+                    (<li key={favoriteMovie}>
+                      <p className="favoriteMovies">
+                        {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
+                      </p>
+                      <Button variant="secondary" size="sm" onClick={(event) => this.deleteFavorite(event, favoriteMovie)}>
+                        Delete
+                      </Button>
+                    </li>)
+                  )}*/}
               </ul>
             }
           </Container>

@@ -40920,7 +40920,6 @@ function (_React$Component) {
 
       var _this$state = this.state,
           username = _this$state.username,
-          userProfile = _this$state.userProfile,
           email = _this$state.email,
           birthday = _this$state.birthday,
           favoriteMovies = _this$state.favoriteMovies;
@@ -40980,7 +40979,7 @@ function (_React$Component) {
         }, _react.default.createElement("i", {
           className: "material-icons bin"
         }, "delete")), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/movies/".concat(movie)
+          to: "/movies/".concat(movie._id)
         }, _react.default.createElement("h5", {
           className: "movie-link link"
         }, movie.Title))));
