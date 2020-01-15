@@ -80,6 +80,7 @@ export class MainView extends React.Component {
       this.setState({
         movies: response.data
       });
+      localStorage.setItem("movies", JSON.stringify(response.data));
     })
     .catch(function (error) {
       console.log(error);
