@@ -16,7 +16,7 @@ export function MovieView(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    axios.post(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movie._id}`, {
+    axios.post(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/movies/${movie._id}`, {
       Username: localStorage.getItem('user')
     }, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

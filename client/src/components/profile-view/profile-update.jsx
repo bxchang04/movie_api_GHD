@@ -95,7 +95,7 @@ export function ProfileUpdate(props) {
       </Form.Group>
       <Form.Group controlId='formBirthday'>
         <Form.Label>Birthday</Form.Label>
-        <Form.Control type='date' placeholder='MM/DD/YYYY' value={birthday} onChange={e => setBirthday(e.target.value)} />
+        <Form.Control type="date" placeholder="MM/DD/YYYY" value={birthday} onChange={e => setBirthday(e.target.value)} />
       </Form.Group>
       <div className="text-center">
         <Button className="btn-register" variant="secondary" type="submit" onClick={handleUpdate} >

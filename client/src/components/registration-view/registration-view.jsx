@@ -54,13 +54,13 @@ export function RegistrationView(props) {
 
         <Form.Group controlId="formBasicBirthdate">
           <Form.Label>Birthday</Form.Label>
-          <Form.Control type="birthday" placeholder="mm-dd-yyyy" value={birthday} onChange={e => createBirthday(e.target.value)} />
+          <Form.Control type="date" placeholder="mm-dd-yyyy" value={birthday} onChange={e => createBirthday(e.target.value)} />
           <Form.Text className="text-muted">
           We'll never share your birthday with anyone else.
           </Form.Text>
         </Form.Group>
 
-        <Button variant="primary" type="submit"                     onClick={handleSubmit}>
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
           Register!
         </Button>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
