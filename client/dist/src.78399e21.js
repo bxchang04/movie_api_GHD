@@ -40872,8 +40872,10 @@ function (_React$Component) {
     }
   }, {
     key: "deleteFavorite",
-    value: function deleteFavorite(movieId) {
-      _axios.default.delete("https://myFlixDB2.herokuapp.com/users/".concat(localStorage.getItem('user'), "/movies/").concat(movie._id), {
+    value: function deleteFavorite(event, movieID) {
+      event.preventDefault();
+
+      _axios.default.delete("https://myFlixDB2.herokuapp.com/users/".concat(localStorage.getItem('user'), "/movies/").concat(movieID), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -40973,7 +40975,7 @@ function (_React$Component) {
           size: "sm",
           className: "delete-movie mr-2",
           onClick: function onClick(e) {
-            return _this4.deleteFavorite(movie._id);
+            return _this4.deleteFavorite(event, movie._id);
           }
         }, _react.default.createElement("i", {
           className: "material-icons bin"
@@ -42972,7 +42974,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54036" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58021" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
