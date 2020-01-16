@@ -1,3 +1,6 @@
+//deleting favs works
+//displaying fav titles, deleting users does not
+
 import React from "react";
 import axios from "axios";
 
