@@ -39,7 +39,7 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
-      userInfo: {} //not needed?
+      // userInfo: {} //not needed?
     };
   }
 
@@ -115,13 +115,13 @@ export class MainView extends React.Component {
     // const { movies, user, userInfo, token } = this.state; // not in exercise
 
     let { movies } = this.props;
-    let { user } = this.state;
+    let { user, userInfo } = this.state;
 
     //Show loading message
     if (!movies) return <div className="loader">Loading movies...</div>;
 
     //Return list of movies
-    if (!movies) return <div className="main-view"/>;
+    // if (!movies) return <div className="main-view"/>;
 
     return (
       <Router>
