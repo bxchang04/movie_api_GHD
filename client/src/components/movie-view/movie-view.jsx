@@ -12,9 +12,11 @@ import Media from 'react-bootstrap/Media';
 export function MovieView(props) {
 
   const { movie } = props;
+  let favorited = [];
   if (!movie) return null;
 
   function handleSubmit(event) {
+    favorited.push = movie;
     event.preventDefault();
     axios.post(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/movies/${movie._id}`, {
       Username: localStorage.getItem('user')
@@ -41,7 +43,12 @@ export function MovieView(props) {
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <h1>{movie.Title}</h1>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        {/*{favorited.filter(movie._id) === movie._id*/}
+        {/* or */}
+        {/*{favorited.find(m => m._id === match.params.movieId)*/}
+        {/*? "" : */}
         <Button variant="outline-secondary" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
+        {/*}*/}
 
       </Media>
       <Media className="d-flex flex-column flex-md-row align-items-center">

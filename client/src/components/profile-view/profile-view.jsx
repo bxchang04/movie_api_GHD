@@ -130,7 +130,7 @@ export class ProfileView extends React.Component {
               <div>You have no favorite movies</div>}
             {favoriteMovies.length > 0 &&
               <ul className="ml-0 pl-0">
-                {favoriteMovies.map(movie =>
+                {/*{favoriteMovies.map(movie =>
                   (
                     <li key={movie._id} className="mb-2 ">
                       <span className="d-flex align-items-center">
@@ -143,8 +143,8 @@ export class ProfileView extends React.Component {
 
                       </span>
                     </li>
-                  ))}
-                  {/*{favoriteMovies.map(favoriteMovie =>
+                  ))}*/}
+                  {favoriteMovies.map(favoriteMovie =>
                     (<li key={favoriteMovie}>
                       <p className="favoriteMovies">
                         {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
@@ -153,7 +153,7 @@ export class ProfileView extends React.Component {
                         Delete
                       </Button>
                     </li>)
-                  )}*/}
+                  )}
               </ul>
             }
           </Container>
