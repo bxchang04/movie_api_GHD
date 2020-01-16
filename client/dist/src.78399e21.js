@@ -39444,9 +39444,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function MovieView(props) {
   var movie = props.movie;
+  var favorited = [];
   if (!movie) return null;
 
   function handleSubmit(event) {
+    favorited.push = movie;
     event.preventDefault();
 
     _axios.default.post("https://myFlixDB2.herokuapp.com/users/".concat(localStorage.getItem('user'), "/movies/").concat(movie._id), {
@@ -40963,26 +40965,20 @@ function (_React$Component) {
         className: "mt-4 mb-4"
       }, "My favorite movies: "), favoriteMovies.length === 0 && _react.default.createElement("div", null, "You have no favorite movies"), favoriteMovies.length > 0 && _react.default.createElement("ul", {
         className: "ml-0 pl-0"
-      }, favoriteMovies.map(function (movie) {
+      }, favoriteMovies.map(function (favoriteMovie) {
         return _react.default.createElement("li", {
-          key: movie._id,
-          className: "mb-2 "
-        }, _react.default.createElement("span", {
-          className: "d-flex align-items-center"
-        }, _react.default.createElement(_Button.default, {
-          variant: "primary",
+          key: favoriteMovie
+        }, _react.default.createElement("p", {
+          className: "favoriteMovies"
+        }, JSON.parse(localStorage.getItem('movies')).find(function (movie) {
+          return movie._id === favoriteMovie;
+        }).Title), _react.default.createElement(_Button.default, {
+          variant: "secondary",
           size: "sm",
-          className: "delete-movie mr-2",
-          onClick: function onClick(e) {
-            return _this4.deleteFavorite(event, movie._id);
+          onClick: function onClick(event) {
+            return _this4.deleteFavorite(event, favoriteMovie);
           }
-        }, _react.default.createElement("i", {
-          className: "material-icons bin"
-        }, "delete")), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/movies/".concat(movie._id)
-        }, _react.default.createElement("h5", {
-          className: "movie-link link"
-        }, movie.Title))));
+        }, "Delete"));
       })))));
     }
   }]);
@@ -42721,6 +42717,8 @@ function (_React$Component) {
         _this2.setState({
           movies: response.data
         });
+
+        localStorage.setItem("movies", JSON.stringify(response.data));
       }).catch(function (error) {
         console.log(error);
       });
@@ -42973,7 +42971,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64143" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57018" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
