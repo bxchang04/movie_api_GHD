@@ -53,7 +53,7 @@ JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteM
       <br />
       <Media className="d-flex flex-column flex-md-row align-items-center">
         <Link to={`/`}>
-          <Button variant="link" className="sign-up-link btn-lg" type="submit">Back</Button>
+          <Button variant="outline-primary" className="sign-up-link btn-lg" type="submit">{'<'}</Button>
         </Link>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <h1>{movie.Title}</h1>
@@ -61,7 +61,7 @@ JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteM
         {(JSON.parse(localStorage.getItem('movies')).find(m => m._id === movie))
         ? ""
         :
-        <Button variant="outline-secondary" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
+        <Button variant="outline-secondary" className="sign-up-link btn-lg" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
         }
 
       </Media>
