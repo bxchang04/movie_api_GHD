@@ -1,4 +1,3 @@
-// src/components/movies-list/movies-list.jsx
 import React from 'react';
 import { connect } from 'react-redux';
 

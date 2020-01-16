@@ -3,12 +3,18 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { RouterLink } from 'react-router-dom';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+
+import { setMovies } from '../../actions/actions';
+
+import MoviesList from '../movies-list/movies-list';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
@@ -33,9 +39,7 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
-      email: '',
-      birthday: '',
-      userInfo: {}
+      userInfo: {} //not needed?
     };
   }
 
@@ -60,6 +64,7 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  //not in exercise
   handleLogout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -76,17 +81,15 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-      // Assign the result to the state
-      this.setState({
-        movies: response.data
-      });
+      this.props.setMovies(response.data);
       localStorage.setItem("movies", JSON.stringify(response.data));
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
-  }
+}
 
+//not in exercise
   getUser(token) {
     axios
       .get('https://myFlixDB2.herokuapp.com/users/', {
@@ -100,6 +103,7 @@ export class MainView extends React.Component {
       });
   }
 
+  //not in exercise
   updateUser(data) {
     this.setState({
       userInfo: data
@@ -108,8 +112,10 @@ export class MainView extends React.Component {
   }
 
   render() {
-    //wnat are reasons for having movies as state vs. prop, and vice versa? Need to add favorite to props here, and take out favorites from state in profile view and movie view?
-    const { movies, user, userInfo, token } = this.state;
+    // const { movies, user, userInfo, token } = this.state; // not in exercise
+
+    let { movies } = this.props;
+    let { user } = this.state;
 
     //Show loading message
     if (!movies) return <div className="loader">Loading movies...</div>;
@@ -135,13 +141,10 @@ export class MainView extends React.Component {
             </Navbar>
 
           <Row>
-            {/*<Col key={movies._id} xs={12} sm={6} md={4}>*/} {/*movies._id does not work */}
-              <Route exact path="/" render={() => {
-              if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-              return movies.map(m => <MovieCard key={m._id} movie={m}/>)
-              }
-              }/>
-            {/*</Col>*/}
+            <Route exact path="/" render={() => {
+               if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+               return <MoviesList movies={movies}/>;
+             }} />
           </Row>
           <Route path="/register" render={() => <RegistrationView />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
@@ -162,3 +165,12 @@ export class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return {
+    movies: state.movies,
+    // user: state.user //not in exercise. Already state in exercise.
+  };
+};
+
+export default connect(mapStateToProps, { setMovies } )(MainView); //not in EL
