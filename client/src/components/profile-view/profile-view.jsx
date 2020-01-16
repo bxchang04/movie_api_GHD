@@ -106,8 +106,9 @@ export class ProfileView extends React.Component {
             <Card.Body>
               <span className="d-flex align-items-center mb-4">
               <Link to={`/`}>
-                <Button variant="link" className="sign-up-link btn-lg" type="submit">Back</Button>
+                <Button variant="outline-primary" className="sign-up-link btn-lg" type="submit">{'<'}</Button>
               </Link>
+              &nbsp;&nbsp;&nbsp;
               <h1 className="display-4">Profile</h1>
               </span>
               <Card.Text className="mb-4 lead">
@@ -131,12 +132,15 @@ export class ProfileView extends React.Component {
               <ul className="ml-0 pl-0">
                   {favoriteMovies.map(favoriteMovie =>
                     (<li key={favoriteMovie}>
-                      <Link to={`/movies/${favoriteMovie}`}>
-                        <p className="movie-link link">{JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}</p>
-                      </Link>
-                      <Button variant="secondary" size="sm" onClick={(event) => this.deleteFavorite(event, favoriteMovie)}>
+                      <span className="d-flex align-items-center mb-4">
+                        <Link to={`/movies/${favoriteMovie}`}>
+                          {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
+                        </Link>
+                        &nbsp;&nbsp;&nbsp;
+                        <Button variant="outline-danger" size="sm" onClick={(event) => this.deleteFavorite(event, favoriteMovie)}>
                         Delete
-                      </Button>
+                        </Button>
+                      </span>
                     </li>)
                   )}
               </ul>

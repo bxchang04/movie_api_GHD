@@ -40955,10 +40955,10 @@ function (_React$Component) {
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
-        variant: "link",
+        variant: "outline-primary",
         className: "sign-up-link btn-lg",
         type: "submit"
-      }, "Back")), _react.default.createElement("h1", {
+      }, '<')), "\xA0\xA0\xA0", _react.default.createElement("h1", {
         className: "display-4"
       }, "Profile")), _react.default.createElement(_Card.default.Text, {
         className: "mb-4 lead"
@@ -40986,19 +40986,19 @@ function (_React$Component) {
       }, favoriteMovies.map(function (favoriteMovie) {
         return _react.default.createElement("li", {
           key: favoriteMovie
+        }, _react.default.createElement("span", {
+          className: "d-flex align-items-center mb-4"
         }, _react.default.createElement(_reactRouterDom.Link, {
           to: "/movies/".concat(favoriteMovie)
-        }, _react.default.createElement("p", {
-          className: "movie-link link"
         }, JSON.parse(localStorage.getItem('movies')).find(function (movie) {
           return movie._id === favoriteMovie;
-        }).Title)), _react.default.createElement(_Button.default, {
-          variant: "secondary",
+        }).Title), "\xA0\xA0\xA0", _react.default.createElement(_Button.default, {
+          variant: "outline-danger",
           size: "sm",
           onClick: function onClick(event) {
             return _this4.deleteFavorite(event, favoriteMovie);
           }
-        }, "Delete"));
+        }, "Delete")));
       })))));
     }
   }]);
@@ -42991,7 +42991,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54569" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54947" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
