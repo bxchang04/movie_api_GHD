@@ -39444,11 +39444,16 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function MovieView(props) {
   var movie = props.movie;
-  var favorited = [];
   if (!movie) return null;
 
   function handleSubmit(event) {
-    favorited.push = movie;
+    //Send error on backend if movie is already in favorites list -- something's not sure for this conditional so I commented it out
+
+    /*
+        if((localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)){
+          alert('Movie has already been added to Favorites List!');
+        } else {
+        */
     event.preventDefault();
 
     _axios.default.post("https://myFlixDB2.herokuapp.com/users/".concat(localStorage.getItem('user'), "/movies/").concat(movie._id), {
@@ -39464,6 +39469,8 @@ function MovieView(props) {
       console.log('error adding movie to list');
       alert('Ooooops... Something went wrong!');
     });
+    /*}*/
+
   }
 
   ;
