@@ -16,11 +16,19 @@ export function MovieView(props) {
 
   function handleSubmit(event) {
 
-    //Send error on backend if movie is already in favorites list -- something's not sure for this conditional so I commented it out
+    //Send error on backend if movie is already in favorites list -- something's not sure for this conditional so I commented it out.
+    //ALso, introducing another "FavoriteMovies" prop can confuse things since its a state on profile-view. Better is to set it as a prop on mainview and have profile view and movie view access it?
 /*
-    if((localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)){
+#1a look in local storage - doesnt work
+    if(JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)){
       alert('Movie has already been added to Favorites List!');
     } else {
+
+#1b local storage solution
+JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
+
+#2 Use axios GET
+
     */
 
     event.preventDefault();
@@ -50,18 +58,17 @@ export function MovieView(props) {
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <h1>{movie.Title}</h1>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        {/* favorited.filter(movie._id) === this.movie._id*/}
-        {/* or */}
-        {/* favorited.find(m => m._id === this.movie_id)*/}
-        {/*? "" : */}
+        {(JSON.parse(localStorage.getItem('movies')).find(m => m._id === movie))
+        ? ""
+        :
         <Button variant="outline-secondary" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
-        {/*}*/}
+        }
 
       </Media>
       <Media className="d-flex flex-column flex-md-row align-items-center">
         <Media.Body>
           <br />
-            {/*add All movies button*/}
+            {/*add 'back to all movies' button*/}
           <h6>Genre:
             <Link to={`/genres/${movie.Genre.Name}`}>
             <Button variant="link">{movie.Genre.Name}</Button>

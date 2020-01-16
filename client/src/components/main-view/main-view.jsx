@@ -108,7 +108,7 @@ export class MainView extends React.Component {
   }
 
   render() {
-    //wnat are reasons for having movies as state vs. prop, and vice versa?
+    //wnat are reasons for having movies as state vs. prop, and vice versa? Need to add favorite to props here, and take out favorites from state in profile view and movie view?
     const { movies, user, userInfo, token } = this.state;
 
     //Show loading message

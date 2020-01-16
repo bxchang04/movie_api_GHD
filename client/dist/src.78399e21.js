@@ -39447,12 +39447,20 @@ function MovieView(props) {
   if (!movie) return null;
 
   function handleSubmit(event) {
-    //Send error on backend if movie is already in favorites list -- something's not sure for this conditional so I commented it out
+    //Send error on backend if movie is already in favorites list -- something's not sure for this conditional so I commented it out.
+    //ALso, introducing another "FavoriteMovies" prop can confuse things since its a state on profile-view. Better is to set it as a prop on mainview and have profile view and movie view access it?
 
     /*
-        if((localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)){
+    #1a look in local storage - doesnt work
+        if(JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)){
           alert('Movie has already been added to Favorites List!');
         } else {
+    
+    #1b local storage solution
+    JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
+    
+    #2 Use axios GET
+    
         */
     event.preventDefault();
 
@@ -39484,7 +39492,9 @@ function MovieView(props) {
     variant: "link",
     className: "sign-up-link btn-lg",
     type: "submit"
-  }, "Back")), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("h1", null, movie.Title), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement(_Button.default, {
+  }, "Back")), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), _react.default.createElement("h1", null, movie.Title), _react.default.createElement("span", null, "\xA0\xA0\xA0\xA0"), JSON.parse(localStorage.getItem('movies')).find(function (m) {
+    return m._id === movie;
+  }) ? "" : _react.default.createElement(_Button.default, {
     variant: "outline-secondary",
     onClick: function onClick(event) {
       return handleSubmit(event);
@@ -40840,7 +40850,8 @@ function (_React$Component) {
       email: null,
       birthday: null,
       userData: null,
-      favoriteMovies: []
+      favoriteMovies: [] //change to props?
+
     };
     return _this;
   }
@@ -40975,11 +40986,13 @@ function (_React$Component) {
       }, favoriteMovies.map(function (favoriteMovie) {
         return _react.default.createElement("li", {
           key: favoriteMovie
+        }, _react.default.createElement(_reactRouterDom.Link, {
+          to: "/movies/".concat(favoriteMovie)
         }, _react.default.createElement("p", {
-          className: "favoriteMovies"
+          className: "movie-link link"
         }, JSON.parse(localStorage.getItem('movies')).find(function (movie) {
           return movie._id === favoriteMovie;
-        }).Title), _react.default.createElement(_Button.default, {
+        }).Title)), _react.default.createElement(_Button.default, {
           variant: "secondary",
           size: "sm",
           onClick: function onClick(event) {
@@ -42758,7 +42771,7 @@ function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      //wnat are reasons for having movies as state vs. prop, and vice versa?
+      //wnat are reasons for having movies as state vs. prop, and vice versa? Need to add favorite to props here, and take out favorites from state in profile view and movie view?
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user,
@@ -42978,7 +42991,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57018" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51862" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

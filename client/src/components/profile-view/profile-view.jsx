@@ -19,7 +19,7 @@ export class ProfileView extends React.Component {
       email: null,
       birthday: null,
       userData: null,
-      favoriteMovies: []
+      favoriteMovies: [] //change to props?
     };
   }
 
@@ -129,25 +129,11 @@ export class ProfileView extends React.Component {
               <div>You have no favorite movies</div>}
             {favoriteMovies.length > 0 &&
               <ul className="ml-0 pl-0">
-                {/*{favoriteMovies.map(movie =>
-                  (
-                    <li key={movie._id} className="mb-2 ">
-                      <span className="d-flex align-items-center">
-                        <Button variant="primary" size="sm" className="delete-movie mr-2" onClick={e => this.deleteFavorite(event, movie._id)}>
-                          <i className="material-icons bin">delete</i>
-                        </Button>
-                        <Link to={`/movies/${movie._id}`}>
-                          <h5 className="movie-link link">{movie.Title}</h5>
-                        </Link>
-
-                      </span>
-                    </li>
-                  ))}*/}
                   {favoriteMovies.map(favoriteMovie =>
                     (<li key={favoriteMovie}>
-                      <p className="favoriteMovies">
-                        {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
-                      </p>
+                      <Link to={`/movies/${favoriteMovie}`}>
+                        <p className="movie-link link">{JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}</p>
+                      </Link>
                       <Button variant="secondary" size="sm" onClick={(event) => this.deleteFavorite(event, favoriteMovie)}>
                         Delete
                       </Button>
