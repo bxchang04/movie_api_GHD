@@ -43463,6 +43463,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 // import updateLogo from '/images/update_icon.svg';
 function ProfileUpdate(props) {
+  console.log(props);
   var _props$userInfo = props.userInfo,
       oldUsername = _props$userInfo.Username,
       oldPassword = _props$userInfo.Password,
@@ -45110,8 +45111,8 @@ function (_React$Component) {
 
     _this.state = {
       movies: [],
-      user: null // userInfo: {} //not needed?
-
+      user: null,
+      userInfo: {}
     };
     return _this;
   }
@@ -45122,6 +45123,7 @@ function (_React$Component) {
       var accessToken = localStorage.getItem('token');
 
       if (accessToken !== null) {
+        this.getUser(accessToken);
         this.setState({
           user: localStorage.getItem('user')
         });
@@ -45178,7 +45180,9 @@ function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        _this3.props.setLoggedUser(response.data);
+        // this.props.setLoggedUser(response.data);
+        _this3.updateUser(response.data); //refers to main-view. 109. function. Has a lot of use cases. E.g. Angular cheats .this a lot. Rule of thumb -- if you are inside a function in a class, want to communicate with another function of the class, need .this. Example getMovies. Other case - line 100 updateLog, can call it without .this.
+
       }).catch(function (error) {
         console.log(error);
       });
@@ -45201,7 +45205,8 @@ function (_React$Component) {
       var movies = this.props.movies;
       var _this$state = this.state,
           user = _this$state.user,
-          userInfo = _this$state.userInfo; //Show loading message
+          userInfo = _this$state.userInfo,
+          token = _this$state.token; //Show loading message
 
       if (!movies) return _react.default.createElement("div", {
         className: "loader"
@@ -45309,7 +45314,6 @@ function (_React$Component) {
           return _react.default.createElement(_profileUpdate.ProfileUpdate, {
             userInfo: userInfo,
             user: user,
-            token: token,
             updateUser: function updateUser(data) {
               return _this4.updateUser(data);
             }
@@ -45480,7 +45484,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59301" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61824" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

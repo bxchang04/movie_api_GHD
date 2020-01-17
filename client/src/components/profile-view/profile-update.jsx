@@ -7,6 +7,7 @@ import './profile-view.scss'
 // import updateLogo from '/images/update_icon.svg';
 
 export function ProfileUpdate(props) {
+  console.log(props);
   const {
     Username: oldUsername,
     Password: oldPassword,

@@ -39,13 +39,14 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
-      // userInfo: {} //not needed?
+      userInfo: {}
     };
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
+      this.getUser(accessToken);
       this.setState({
         user: localStorage.getItem('user')
       });
@@ -96,7 +97,8 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(response => {
-        this.props.setLoggedUser(response.data);
+        // this.props.setLoggedUser(response.data);
+        this.updateUser(response.data); //refers to main-view. 109. function. Has a lot of use cases. E.g. Angular cheats .this a lot. Rule of thumb -- if you are inside a function in a class, want to communicate with another function of the class, need .this. Example getMovies. Other case - line 100 updateLog, can call it without .this.
       })
       .catch(error => {
         console.log(error);
@@ -115,7 +117,7 @@ export class MainView extends React.Component {
     // const { movies, user, userInfo, token } = this.state; // not in exercise
 
     let { movies } = this.props;
-    let { user, userInfo } = this.state;
+    let { user, userInfo, token } = this.state;
 
     //Show loading message
     if (!movies) return <div className="loader">Loading movies...</div>;
@@ -157,7 +159,7 @@ export class MainView extends React.Component {
               return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre}/>}
             } />
             <Route path="/users/:Username" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
-            <Route path="/update/:Username" render={() => <ProfileUpdate userInfo={userInfo} user={user} token={token} updateUser={data => this.updateUser(data)} />}
+            <Route path="/update/:Username" render={() => <ProfileUpdate userInfo={userInfo} user={user} updateUser={data => this.updateUser(data)} />}
             />
           </Container>
         </div>

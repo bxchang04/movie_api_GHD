@@ -125,7 +125,13 @@ app.get('/users', passport.authenticate('jwt', { session: false }), function(req
 
   Users.find()
   .then(function(users) {
-    res.status(201).json(users)
+    res.status(201).json(users.map((user) => ({
+      _id: user._id,
+      Username: user.Username,
+      Email: user.Email,
+      Birthday: user.Birthday,
+      FavoriteMovies: user.FavoriteMovies
+    }))) //({}) returns an object. 1 line arrow functinos don't need curly objects. This syntax doesn't confuse node.JS.
   })
   .catch(function(err) {
     console.error(err);
