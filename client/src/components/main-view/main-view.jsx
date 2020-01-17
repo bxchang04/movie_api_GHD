@@ -75,7 +75,7 @@ export class MainView extends React.Component {
 
     });
     // window.open('/client', '_self');
-    window.open('/client', '_self'); //broken, works locally though
+    window.open('/client', '_self'); //locally works fine, but on heroku opens extra window
   }
 
   getMovies(token) {
