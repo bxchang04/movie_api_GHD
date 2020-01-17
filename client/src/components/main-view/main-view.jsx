@@ -12,7 +12,7 @@ import { RouterLink } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, setLoggedInUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import { MovieCard } from '../movie-card/movie-card';
@@ -145,7 +145,7 @@ export class MainView extends React.Component {
           <Row>
             <Route exact path="/" render={() => {
                if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-               return <MoviesList movies={movies}/>;
+               return <MoviesList />;
              }} />
           </Row>
           <Route path="/register" render={() => <RegistrationView />} />
