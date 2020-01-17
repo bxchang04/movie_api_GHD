@@ -45175,7 +45175,9 @@ function (_React$Component) {
     value: function getUser(token) {
       var _this3 = this;
 
-      _axios.default.get('https://myFlixDB2.herokuapp.com/users/', {
+      var username = localStorage.getItem('user');
+
+      _axios.default.get("https://myFlixDB2.herokuapp.com/users/".concat(username), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -45484,7 +45486,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61824" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62285" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
