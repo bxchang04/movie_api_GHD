@@ -21,7 +21,7 @@ export function ProfileUpdate(props) {
 
   useEffect(() => {
     setUsername(oldUsername);
-    // setPassword(oldPassword); //prvent pw from being hashed again
+    // setPassword(oldPassword); //prevent pw from being hashed again
     setEmail(oldEmail);
     setBirthday(oldBirthday);
   }, [oldUsername, oldPassword, oldEmail, oldBirthday]);
@@ -73,7 +73,7 @@ export function ProfileUpdate(props) {
       });
   }
 
-  //add validation
+  //add validation -- match bday
   return (
     <Form className="update-form">
       <div className="text-center">

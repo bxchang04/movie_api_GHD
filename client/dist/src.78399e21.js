@@ -43491,7 +43491,7 @@ function ProfileUpdate(props) {
       setBirthday = _useState8[1];
 
   (0, _react.useEffect)(function () {
-    setUsername(oldUsername); // setPassword(oldPassword); //prvent pw from being hashed again
+    setUsername(oldUsername); // setPassword(oldPassword); //prevent pw from being hashed again
 
     setEmail(oldEmail);
     setBirthday(oldBirthday);
@@ -43540,7 +43540,7 @@ function ProfileUpdate(props) {
     }).catch(function (e) {
       alert('Error deleting the account');
     });
-  }; //add validation
+  }; //add validation -- match bday
 
 
   return _react.default.createElement(_Form.default, {
@@ -45140,6 +45140,7 @@ function (_React$Component) {
       });
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
+      this.getUser(authData.token);
       this.getMovies(authData.token);
     } //not in exercise
 
@@ -45204,7 +45205,6 @@ function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      // const { movies, user, userInfo, token } = this.state; // not in exercise
       var movies = this.props.movies;
       var _this$state = this.state,
           user = _this$state.user,

@@ -59,9 +59,9 @@ export class MainView extends React.Component {
     this.setState({
       user: authData.user.Username
     });
-
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
+    this.getUser(authData.token);
     this.getMovies(authData.token);
   }
 
@@ -115,8 +115,6 @@ export class MainView extends React.Component {
   }
 
   render() {
-    // const { movies, user, userInfo, token } = this.state; // not in exercise
-
     let { movies } = this.props;
     let { user, userInfo, token } = this.state;
 
