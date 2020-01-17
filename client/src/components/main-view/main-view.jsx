@@ -74,7 +74,7 @@ export class MainView extends React.Component {
       user: null
 
     });
-    window.open('/', '_self');
+    window.open('/client', '_self');
   }
 
   getMovies(token) {
@@ -134,7 +134,7 @@ export class MainView extends React.Component {
               </Button>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-              <Link component={RouterLink} to={`/users/${user}`} >
+              <Link component={RouterLink} to={`client/users/${user}`} >
                 <Button variant="light mr-1" size="lg" className="profile-button">{user}'s Profile</Button>
               </Link>
               <Button variant="primary ml-1" size="lg" className="logout-button" onClick={() => this.handleLogout()}>Log out</Button>
