@@ -130,11 +130,9 @@ export class MainView extends React.Component {
         <div className="main-view">
         <Container className="container-fluid">
           <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
-                <Button>
-                <Link component={RouterLink} to={`/`} >
-                  <Button variant="light mr-1" size="lg" className="profile-button">&nbsp;&nbsp;myFlix</Button>
-                </Link>
-                </Button>
+              <Link component={RouterLink} to={`/`} >
+                <Button variant="primary ml-1" size="lg" className="logo"> &nbsp;&nbsp;myFlix</Button>
+              </Link>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
               <Link component={RouterLink} to={`/users/${user}`} >
