@@ -21,7 +21,7 @@ export function ProfileUpdate(props) {
 
   useEffect(() => {
     setUsername(oldUsername);
-    setPassword(oldPassword);
+    // setPassword(oldPassword); //prvent pw from being hashed again
     setEmail(oldEmail);
     setBirthday(oldBirthday);
   }, [oldUsername, oldPassword, oldEmail, oldBirthday]);
@@ -73,6 +73,7 @@ export function ProfileUpdate(props) {
       });
   }
 
+  //add validation
   return (
     <Form className="update-form">
       <div className="text-center">
@@ -80,22 +81,22 @@ export function ProfileUpdate(props) {
         <p className="update-title">Please update your information below:</p>
       </div>
       <Form.Group controlId="formNewUsername">
-        <Form.Label>Username</Form.Label>
+        <Form.Label>Username*</Form.Label>
         <Form.Control type="text" placeholder="Your username" value={username} onChange={e => setUsername(e.target.value)} />
       </Form.Group>
       <Form.Group controlId="formPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>Password-optional</Form.Label>
         <Form.Control type="password" placeholder="Your Password" value={password} onChange={e => setPassword(e.target.value)} />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>Email address*</Form.Label>
         <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
           </Form.Text>
       </Form.Group>
       <Form.Group controlId='formBirthday'>
-        <Form.Label>Birthday</Form.Label>
+        <Form.Label>Birthday*</Form.Label>
         <Form.Control type="date" placeholder="MM/DD/YYYY" value={birthday} onChange={e => setBirthday(e.target.value)} />
       </Form.Group>
       <div className="text-center">

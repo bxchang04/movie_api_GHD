@@ -155,12 +155,19 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), fu
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), function(req, res) {
   var hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username : req.params.Username }, { $set :
-  {
+  req.body.Password
+  ?{
     Username : req.body.Username,
     Password : hashedPassword,
     Email : req.body.Email,
     Birthday : req.body.Birthday
-  }},
+  }
+  :{
+    Username : req.body.Username,
+    Email : req.body.Email,
+    Birthday : req.body.Birthday
+  }
+  },
   { new : true }, // This line makes sure that the updated document is returned
   function(err, updatedUser) {
     if(err) {

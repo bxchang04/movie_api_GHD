@@ -43491,8 +43491,8 @@ function ProfileUpdate(props) {
       setBirthday = _useState8[1];
 
   (0, _react.useEffect)(function () {
-    setUsername(oldUsername);
-    setPassword(oldPassword);
+    setUsername(oldUsername); // setPassword(oldPassword); //prvent pw from being hashed again
+
     setEmail(oldEmail);
     setBirthday(oldBirthday);
   }, [oldUsername, oldPassword, oldEmail, oldBirthday]);
@@ -43540,7 +43540,8 @@ function ProfileUpdate(props) {
     }).catch(function (e) {
       alert('Error deleting the account');
     });
-  };
+  }; //add validation
+
 
   return _react.default.createElement(_Form.default, {
     className: "update-form"
@@ -43550,7 +43551,7 @@ function ProfileUpdate(props) {
     className: "update-title"
   }, "Please update your information below:")), _react.default.createElement(_Form.default.Group, {
     controlId: "formNewUsername"
-  }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Username*"), _react.default.createElement(_Form.default.Control, {
     type: "text",
     placeholder: "Your username",
     value: username,
@@ -43559,7 +43560,7 @@ function ProfileUpdate(props) {
     }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formPassword"
-  }, _react.default.createElement(_Form.default.Label, null, "Password"), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Password-optional"), _react.default.createElement(_Form.default.Control, {
     type: "password",
     placeholder: "Your Password",
     value: password,
@@ -43568,7 +43569,7 @@ function ProfileUpdate(props) {
     }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicEmail"
-  }, _react.default.createElement(_Form.default.Label, null, "Email address"), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Email address*"), _react.default.createElement(_Form.default.Control, {
     type: "email",
     placeholder: "Enter email",
     value: email,
@@ -43579,7 +43580,7 @@ function ProfileUpdate(props) {
     className: "text-muted"
   }, "We'll never share your email with anyone else.")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBirthday"
-  }, _react.default.createElement(_Form.default.Label, null, "Birthday"), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Birthday*"), _react.default.createElement(_Form.default.Control, {
     type: "date",
     placeholder: "MM/DD/YYYY",
     value: birthday,
@@ -45486,7 +45487,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62285" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62786" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
