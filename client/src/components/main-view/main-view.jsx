@@ -128,7 +128,7 @@ export class MainView extends React.Component {
     return (
       <Router basename="/client">
         <div className="main-view">
-        <Container className="container-fluid">
+        <Container-fluid className="container-fluid" xs={12} sm={6} md={4}>
           <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
               <Link component={RouterLink} to={`/`} >
                 <Button variant="primary ml-1" size="lg" className="logo"> &nbsp;&nbsp;myFlix</Button>
@@ -161,7 +161,7 @@ export class MainView extends React.Component {
             <Route path="/users/:Username" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
             <Route path="/update/:Username" render={() => <ProfileUpdate userInfo={userInfo} user={user} updateUser={data => this.updateUser(data)} />}
             />
-          </Container>
+          </Container-fluid>
         </div>
       </Router>
     );
