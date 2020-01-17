@@ -87,7 +87,7 @@ export class ProfileView extends React.Component {
           user: null
 
         });
-        window.open('/', '_self');
+        window.open('/client', '_self');
       })
       .catch(e => {
         alert('Account could not be deleted ' + e)
