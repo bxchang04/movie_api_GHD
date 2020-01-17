@@ -25,9 +25,9 @@ const auth = require("./auth")(app);
 
 app.use(morgan("common"));
 app.use(express.static("public"));
-app.use('/client', express.static(path.join(__dirname, 'client/dist')));
+app.use("/client", express.static(path.join(__dirname, "public/client")));
 app.get("/client/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "client", "index.html"));
 });
 app.use((err, req, res, next) => {
   console.log(err.stack);
