@@ -90,7 +90,8 @@ export class MainView extends React.Component {
     });
 }
 
-getUser(token) {
+//not in exercise
+  getUser(token) {
     let username = localStorage.getItem('user');
     axios
       .get(`https://myFlixDB2.herokuapp.com/users/${username}`, {
@@ -105,6 +106,7 @@ getUser(token) {
       });
   }
 
+  //not in exercise
   updateUser(data) {
     this.setState({
       userInfo: data
