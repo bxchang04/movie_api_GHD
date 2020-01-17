@@ -45151,8 +45151,9 @@ function (_React$Component) {
       localStorage.removeItem('user');
       this.setState({
         user: null
-      });
-      window.open('/', '_self');
+      }); // window.open('/client', '_self');
+
+      window.open('/client', '_self'); //broken, works locally though
     }
   }, {
     key: "getMovies",
@@ -45227,10 +45228,14 @@ function (_React$Component) {
         bg: "light",
         expand: "lg",
         className: "mb-3 shadow-sm p-3 mb-5"
-      }, _react.default.createElement(_Button.default, null, " ", _react.default.createElement(_Navbar.default.Brand, {
-        href: "http://localhost:1234/",
-        className: "navbar-brand"
-      }, "\xA0\xA0\xA0myFlix")), _react.default.createElement(_Navbar.default.Toggle, {
+      }, _react.default.createElement(_Button.default, null, _react.default.createElement(_reactRouterDom.Link, {
+        component: _reactRouterDom.RouterLink,
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        variant: "light mr-1",
+        size: "lg",
+        className: "profile-button"
+      }, "\xA0\xA0myFlix"))), _react.default.createElement(_Navbar.default.Toggle, {
         "aria-controls": "basic-navbar-nav"
       }), _react.default.createElement(_Navbar.default.Collapse, {
         className: "justify-content-end",
@@ -45487,7 +45492,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50364" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51703" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

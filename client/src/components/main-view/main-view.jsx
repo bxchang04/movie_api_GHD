@@ -75,7 +75,7 @@ export class MainView extends React.Component {
 
     });
     // window.open('/client', '_self');
-    window.open('/client');
+    window.open('/client', '_self'); //broken, works locally though
   }
 
   getMovies(token) {
