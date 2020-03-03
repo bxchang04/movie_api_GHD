@@ -99,8 +99,7 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(response => {
-        // this.props.setLoggedUser(response.data);
-        this.updateUser(response.data); //refers to main-view. 109. function. Has a lot of use cases. E.g. Angular cheats .this a lot. Rule of thumb -- if you are inside a function in a class, want to communicate with another function of the class, need .this. Example getMovies. Other case - line 100 updateLog, can call it without .this.
+        this.updateUser(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -121,9 +120,6 @@ export class MainView extends React.Component {
 
     //Show loading message
     if (!movies) return <div className="loader">Loading movies...</div>;
-
-    //Return list of movies
-    // if (!movies) return <div className="main-view"/>;
 
     return (
       <Router basename="/client">

@@ -36,26 +36,31 @@ export function LoginView(props) {
 //limit width of username and password fields
 
   return (
-    <Form className="d-flex flex-column flex-md-row align-items-center">
-      <Media className="d-flex flex-column flex-md-row align-items-center">
-        <Form.Group controlId="formBasicUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
-        </Form.Group>
+    <div className="login-view">
+      <Row className="container login-container border border-light shadow p-3 mb-5 rounded py-3 px-3 align-items-center">
+        <Col>
+          <Container>
+            <Form>
+              <Form.Group controlId="formBasicUsername">
+                <Form.Label>Username:</Form.Label>
+                <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+              </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
-          <br/><br/>First time user?!@!@#<br/>
-          {/* study this */}
-          <Link to={`/register`}>
-            <Button variant="link" className="sign-up-link btn-lg" type="submit">Register</Button>
-          </Link>
-        </Media>
-      </Form>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+              </Form.Group>
+              <Button variant="primary" type="submit" onClick={handleSubmit}>
+                Submit
+              </Button>
+                <br/><br/>First time user?<br/>
+                <Link to={`/register`}>
+                  <Button variant="link" className="sign-up-link btn-lg" type="submit">Register</Button>
+                </Link>
+              </Form>
+            </Container>
+        </Col>
+      </Row>
+    </div>
   )
 }

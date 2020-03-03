@@ -41341,11 +41341,11 @@ function LoginView(props) {
   }; //limit width of username and password fields
 
 
-  return _react.default.createElement(_Form.default, {
-    className: "d-flex flex-column flex-md-row align-items-center"
-  }, _react.default.createElement(_Media.default, {
-    className: "d-flex flex-column flex-md-row align-items-center"
-  }, _react.default.createElement(_Form.default.Group, {
+  return _react.default.createElement("div", {
+    className: "login-view"
+  }, _react.default.createElement(_Row.default, {
+    className: "container login-container border border-light shadow p-3 mb-5 rounded py-3 px-3 align-items-center"
+  }, _react.default.createElement(_Col.default, null, _react.default.createElement(_Container.default, null, _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicUsername"
   }, _react.default.createElement(_Form.default.Label, null, "Username:"), _react.default.createElement(_Form.default.Control, {
     type: "username",
@@ -41367,13 +41367,13 @@ function LoginView(props) {
     variant: "primary",
     type: "submit",
     onClick: handleSubmit
-  }, "Submit"), _react.default.createElement("br", null), _react.default.createElement("br", null), "First time user?!@!@#", _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+  }, "Submit"), _react.default.createElement("br", null), _react.default.createElement("br", null), "First time user?", _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
     to: "/register"
   }, _react.default.createElement(_Button.default, {
     variant: "link",
     className: "sign-up-link btn-lg",
     type: "submit"
-  }, "Register"))));
+  }, "Register")))))));
 }
 },{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Media":"../node_modules/react-bootstrap/esm/Media.js","./login-view.scss":"components/login-view/login-view.scss"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
 "use strict";
@@ -45309,9 +45309,7 @@ function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        // this.props.setLoggedUser(response.data);
-        _this3.updateUser(response.data); //refers to main-view. 109. function. Has a lot of use cases. E.g. Angular cheats .this a lot. Rule of thumb -- if you are inside a function in a class, want to communicate with another function of the class, need .this. Example getMovies. Other case - line 100 updateLog, can call it without .this.
-
+        _this3.updateUser(response.data);
       }).catch(function (error) {
         console.log(error);
       });
@@ -45338,9 +45336,7 @@ function (_React$Component) {
 
       if (!movies) return _react.default.createElement("div", {
         className: "loader"
-      }, "Loading movies..."); //Return list of movies
-      // if (!movies) return <div className="main-view"/>;
-
+      }, "Loading movies...");
       return _react.default.createElement(_reactRouterDom.BrowserRouter, {
         basename: "/client"
       }, _react.default.createElement("div", {
@@ -45617,7 +45613,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53455" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53597" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
