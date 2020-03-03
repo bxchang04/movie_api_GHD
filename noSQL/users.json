@@ -1,3 +1,0 @@
-{"_id":{"$oid":"5dd4d9ea577ca7ab586663cf"},"UserID":"anne1","Password":"a","Email":"a@a.com","Birthday":{"$date":"1970-01-01T00:00:02.009Z"},"Favorite_Movies":[{"$oid":"5dd4d849577ca7ab586663ce"}]}
-{"_id":{"$oid":"5dd4d9ea577ca7ab586663d0"},"UserID":"bob2","Password":"b","Email":"b@b.com","Birthday":{"$date":"1970-01-01T00:00:02.008Z"}}
-{"_id":{"$oid":"5dd4dc8b577ca7ab586663d5"},"UserID":"charles3","Password":"c","Email":"c@c.com","Birthday":{"$date":"1970-01-01T00:00:02.007Z"}}
