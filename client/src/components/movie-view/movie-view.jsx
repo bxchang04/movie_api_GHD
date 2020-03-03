@@ -16,21 +16,6 @@ export function MovieView(props) {
 
   function handleSubmit(event) {
 
-    //Send error on backend if movie is already in favorites list -- something's not sure for this conditional so I commented it out.
-    //ALso, introducing another "FavoriteMovies" prop can confuse things since its a state on profile-view. Better is to set it as a prop on mainview and have profile view and movie view access it?
-/*
-#1a look in local storage - doesnt work
-    if(JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)){
-      alert('Movie has already been added to Favorites List!');
-    } else {
-
-#1b local storage solution
-JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
-
-#2 Use axios GET
-
-    */
-
     event.preventDefault();
     axios.post(`https://myFlixDB2.herokuapp.com/users/${localStorage.getItem('user')}/movies/${movie._id}`, {
       Username: localStorage.getItem('user')

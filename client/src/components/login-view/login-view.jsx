@@ -36,8 +36,8 @@ export function LoginView(props) {
 //limit width of username and password fields
 
   return (
-    <Media className="d-flex flex-column flex-md-row align-items-center">
-      <Form>
+    <Form>
+      <Media className="d-flex flex-column flex-md-row align-items-center">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
@@ -55,13 +55,7 @@ export function LoginView(props) {
           <Link to={`/register`}>
             <Button variant="link" className="sign-up-link btn-lg" type="submit">Register</Button>
           </Link>
+        </Media>
       </Form>
-    </Media>
   )
 }
-
-//doesn't matter about rendering or calling -- these requirements just send an error message if they are violated.
-// LoginView.propTypes = {
-//   onLoggedIn: PropTypes.func.isRequired,
-//   onClick: PropTypes.func.isRequired //is this required??
-// };
