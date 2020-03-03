@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Media from 'react-bootstrap/Media';
 import './login-view.scss';
 
 export function LoginView(props) {
@@ -35,25 +36,27 @@ export function LoginView(props) {
 //limit width of username and password fields
 
   return (
-    <Form>
-      <Form.Group controlId="formBasicUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
-      </Form.Group>
+    <Media className="d-flex flex-column flex-md-row align-items-center">
+      <Form>
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+        </Form.Group>
 
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={handleSubmit}>
-        Submit
-      </Button>
-        <br/><br/>First time user?<br/>
-        {/* study this */}
-        <Link to={`/register`}>
-          <Button variant="link" className="sign-up-link btn-lg" type="submit">Register</Button>
-        </Link>
-    </Form>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+          <br/><br/>First time user?<br/>
+          {/* study this */}
+          <Link to={`/register`}>
+            <Button variant="link" className="sign-up-link btn-lg" type="submit">Register</Button>
+          </Link>
+      </Form>
+    </Media>
   )
 }
 
