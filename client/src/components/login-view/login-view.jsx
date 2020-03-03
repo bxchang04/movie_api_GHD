@@ -36,7 +36,7 @@ export function LoginView(props) {
 //limit width of username and password fields
 
   return (
-    <Form>
+    <Form className="d-flex flex-column flex-md-row align-items-center">
       <Media className="d-flex flex-column flex-md-row align-items-center">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username:</Form.Label>
