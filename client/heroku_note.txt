@@ -1,0 +1,1 @@
+To update for Heroku, copy what's in the client/dist to public/client, then git push heroku master.
