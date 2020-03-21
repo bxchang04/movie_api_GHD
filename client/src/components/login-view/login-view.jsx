@@ -33,11 +33,9 @@ export function LoginView(props) {
     });
   };
 
-//limit width of username and password fields
-
   return (
     <div className="login-view">
-      <Row className="container login-container border border-light shadow p-3 mb-5 rounded py-3 px-3 align-items-center">
+      <Row className="container login-container border border-light shadow p-3 mb-5 rounded py-3 px-3 align-items-center" style={{display: 'flex', justifyContent: 'center'}}>
         <Col>
           <Container>
             <Form>
