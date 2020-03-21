@@ -138,7 +138,7 @@ export class MainView extends React.Component {
               </Navbar.Collapse>
             </Navbar>
 
-          <Row>
+          <Row style={{display: 'flex', justifyContent: 'center'}}>
             <Route exact path="/" render={() => {
                if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
                return <MoviesList />;

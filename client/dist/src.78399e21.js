@@ -41338,8 +41338,7 @@ function LoginView(props) {
     }).catch(function (e) {
       console.log('no such user');
     });
-  }; //limit width of username and password fields
-
+  };
 
   return _react.default.createElement("div", {
     className: "login-view"
@@ -45377,7 +45376,12 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this4.handleLogout();
         }
-      }, "Log out"))), _react.default.createElement(_Row.default, null, _react.default.createElement(_reactRouterDom.Route, {
+      }, "Log out"))), _react.default.createElement(_Row.default, {
+        style: {
+          display: 'flex',
+          justifyContent: 'center'
+        }
+      }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
@@ -45613,7 +45617,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53597" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62236" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
